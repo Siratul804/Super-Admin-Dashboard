@@ -54,6 +54,7 @@ const LoginForm = () => {
                       className="input input-bordered input-sm w-[300px] sm:w-[400px] h-10 text-[black] bg-white"
                       name="password"
                       placeholder="Enter password"
+                      autoComplete="on"
                       required
                     />
                   </label>
