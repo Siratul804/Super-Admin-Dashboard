@@ -1,0 +1,84 @@
+import { IoMdNotifications } from "react-icons/io";
+import { BiMenuAltLeft } from "react-icons/bi";
+import Link from "next/link";
+import { signOut } from "@/app/auth";
+
+const Navbar = ({ data }) => {
+  return (
+    <>
+      <div className="navbar bg-white pr-5 pl-5 pt-5 sm:pr-10 sm:pl-10 drop-shadow-sm sticky top-0 ">
+        <label
+          htmlFor="my-drawer-2"
+          className=" drawer-button lg:hidden pr-4 text-black "
+        >
+          <BiMenuAltLeft size={25} />
+        </label>
+        <div className="flex-1  ">
+          <a className=" bg-slate-100 rounded-lg p-1.5 normal-case text-sm font-mono font-bold text-black ">
+            ⌘K
+          </a>
+        </div>
+        <div className="flex-none">
+          <div className="dropdown dropdown-end pr-2 ">
+            <label tabIndex={0} className="btn btn-ghost btn-circle">
+              <div className="indicator text-black ">
+                <IoMdNotifications size={20} />
+                <span className="badge badge-sm bg-white indicator-item text-black ">
+                  1
+                </span>
+              </div>
+            </label>
+            <div
+              tabIndex={0}
+              className="mt-3 z-[1] card card-compact dropdown-content w-52 shadow bg-white "
+            >
+              <div className="card-body">
+                <span className="text-info"> Grit Login Success</span>
+              </div>
+            </div>
+          </div>
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                  alt=""
+                />
+              </div>
+            </label>
+            <ul className="menu-sm dropdown-content mt-3  p-2 shadow bg-white rounded-box w-52">
+              <li className=" pt-1 pb-1 ">
+                <span className="font-bold text-lg text-black ">
+                  {data.name}
+                </span>
+              </li>
+              <li className="py-2 bg-white ">
+                <Link
+                  className="justify-between  hover:text-[#8b7979] cursor-pointer rounded-lg text-black "
+                  href="/"
+                >
+                  Profile
+                </Link>
+              </li>
+
+              <li className="bg-white">
+                <form
+                  action={async () => {
+                    "use server";
+                    await signOut();
+                  }}
+                >
+                  <button className="text-black hover:text-red-600 ">
+                    logout
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Navbar;
