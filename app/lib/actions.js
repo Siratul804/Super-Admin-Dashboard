@@ -31,7 +31,7 @@ export const addUser = async (prevState, formData) => {
     return "Faile to Singup";
   }
   if (newUser) {
-    redirect("/");
+    redirect("/dashboard/grit/edit");
   }
 };
 export const authenticate = async (prevState, formData) => {

@@ -5,7 +5,7 @@ const SignUp = () => {
   const [state, formAction] = useFormState(addUser, undefined);
   return (
     <>
-      <section className="flex justify-center items-center h-screen">
+      <section className="flex justify-center items-center mt-5 sm:mt-20 ">
         <form action={formAction}>
           <div className="flex justify-evenly sm:flex-row flex-col  ">
             <main className="pr-1">

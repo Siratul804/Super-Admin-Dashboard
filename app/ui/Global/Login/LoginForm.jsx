@@ -68,19 +68,23 @@ const LoginForm = () => {
                     Sign In
                   </button>
                 </div>
-                {state === "CredentialsSignin" ? (
-                  <>
-                    <b className="text-red-500"> Wrong Crendentials </b>
-                  </>
-                ) : (
-                  <></>
-                )}
                 <p className="py-2 text-black text-sm">
                   Copyright © 2023 Grit Gym. All rights reserved
                 </p>
               </form>
             </div>
           </div>
+          {state === "CredentialsSignin" ? (
+            <>
+              <div className="toast">
+                <div className="alert alert-error">
+                  <span className="text-white">Wrong Credentials !</span>
+                </div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </section>
       </main>
     </>

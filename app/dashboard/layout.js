@@ -1,5 +1,5 @@
-import Navbar from "../ui/Navbar/Navbar";
-import SideBar from "../ui/Sidebar/SideBar";
+import Navbar from "../ui/Global/Navbar/Navbar";
+import SideBar from "../ui/Global/Sidebar/SideBar";
 import { auth } from "@/app/auth";
 
 const layout = async ({ children }) => {

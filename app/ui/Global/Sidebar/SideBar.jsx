@@ -14,7 +14,7 @@ const SideBar = ({ data }) => {
               </li>
             </Link>
             <div className="py-[20px]"></div>
-            <Link href="/">
+            <Link href="/dashboard/grit/profile">
               <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
                 <span className="font-bold text-md text-[black] flex">
                   <span className="pl-1 text-slate-500 text-sm ">

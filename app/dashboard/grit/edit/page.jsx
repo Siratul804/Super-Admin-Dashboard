@@ -1,4 +1,4 @@
-import EditUser from "@/app/ui/Edit/EditUser";
+import EditUser from "@/app/ui/Grit/Edit/EditUser";
 
 const Edit = () => {
   return (

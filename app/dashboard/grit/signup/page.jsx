@@ -1,4 +1,4 @@
-import SignUp from "@/app/ui/SignUp/SignUp";
+import SignUp from "@/app/ui/Grit/SignUp/SignUp";
 
 const Signup = () => {
   return (
