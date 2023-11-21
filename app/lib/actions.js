@@ -3,6 +3,8 @@ import { query } from "./db";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { signIn } from "@/app/auth";
+import path from "path";
+import { writeFile } from "fs/promises";
 
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
@@ -19,7 +21,7 @@ export const addUser = async (prevState, formData) => {
 
   const hasedPassword = await bcrypt.hash(password, 10);
 
-  const image = "img.jpg";
+  const image = "img.png";
 
   const newUser = await query({
     query:
@@ -34,6 +36,39 @@ export const addUser = async (prevState, formData) => {
     redirect("/dashboard/grit/edit");
   }
 };
+export const updateUser = async (formData) => {
+  const { id, name, email, number, role, status } =
+    Object.fromEntries(formData);
+
+  const newUser = await query({
+    query:
+      "UPDATE users SET  name = ?, email = ?, number = ?, role = ?, status = ? WHERE id = ?",
+    values: [name, email, number, role, status, id],
+  });
+
+  if (!newUser) {
+    return "Faile to update user";
+  }
+  if (newUser) {
+    console.log("user updated");
+    redirect("/dashboard/grit/edit");
+  }
+};
+
+export const deleteUser = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  const deleteMember = await query({
+    query: "DELETE FROM users WHERE id = (?)",
+    values: [id],
+  });
+
+  if (deleteMember) {
+    console.log("user deleted");
+    redirect("/dashboard/grit/edit");
+  }
+};
+
 export const authenticate = async (prevState, formData) => {
   const { email, password } = Object.fromEntries(formData);
   try {
@@ -43,5 +78,33 @@ export const authenticate = async (prevState, formData) => {
       return "CredentialsSignin";
     }
     throw error;
+  }
+};
+
+export const addImg = async (prevState, formData) => {
+  const { id, file } = Object.fromEntries(formData);
+
+  console.log(file, id);
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = Date.now() + file.name.replaceAll(" ", "_");
+  console.log(filename);
+
+  await writeFile(
+    path.join(process.cwd(), "public/uploads/" + filename),
+    buffer
+  );
+
+  const newImg = await query({
+    query: "UPDATE users SET img = ? WHERE id = ?",
+    values: [filename, id],
+  });
+
+  if (newImg) {
+    console.log("Image Added");
+    return "Image Added ! ";
+  }
+  if (!newImg) {
+    return "Image Added Failed ";
   }
 };

@@ -15,14 +15,14 @@ const ProfileGrit = async () => {
           <div className="mb-5">
             <div className="flex justify-center ">
               <img
-                src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
-                alt="Preview"
+                src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${user.img}`}
+                alt={user.img}
                 className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
               />
             </div>
           </div>
 
-          <ImageUploader />
+          <ImageUploader id={user.id} />
 
           <p className="py-2">
             Name: <b>{user.name}</b>
@@ -35,6 +35,9 @@ const ProfileGrit = async () => {
           </p>
           <p className="py-2">
             Role: <b>{user.role}</b>
+          </p>
+          <p className="py-2">
+            id: <b>{user.id}</b>
           </p>
         </h1>
       </div>

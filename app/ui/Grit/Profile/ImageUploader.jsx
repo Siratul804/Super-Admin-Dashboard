@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { addImg } from "@/app/lib/actions";
+import { useFormState } from "react-dom";
 
-const ImageUploader = () => {
+const ImageUploader = ({ id }) => {
   const [previewImage, setPreviewImage] = useState(null);
+  const [state, formAction] = useFormState(addImg, undefined);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -52,7 +55,7 @@ const ImageUploader = () => {
                   </div>
                 </div>
               )}
-              <form action="">
+              <form action={formAction}>
                 <label className="flex flex-col items-center w-full p-10 bg-gray-100 border border-dashed rounded-lg cursor-pointer ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,12 +71,15 @@ const ImageUploader = () => {
                       d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
                     />
                   </svg>
+                  <input type="hidden" name="id" value={id} />
                   <span className="text-sm text-gray-600">Select a file</span>
                   <input
                     type="file"
                     className="hidden"
                     accept="image/*"
+                    name="file"
                     onChange={handleImageChange}
+                    required
                   />
                 </label>
                 <div className="pt-3"></div>
@@ -81,6 +87,13 @@ const ImageUploader = () => {
                   Upload
                 </button>
               </form>
+            </div>
+          </div>
+          <div className="toast">
+            <div className="chat chat-end">
+              <span className="text-red-400 font-bold font-mono ">
+                {state && state}
+              </span>
             </div>
           </div>
         </dialog>

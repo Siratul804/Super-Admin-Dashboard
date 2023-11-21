@@ -41,7 +41,7 @@ const Navbar = ({ data }) => {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <img
-                  src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${data.img}`}
                   alt=""
                 />
               </div>

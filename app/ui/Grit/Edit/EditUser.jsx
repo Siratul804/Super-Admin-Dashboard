@@ -1,5 +1,8 @@
+import { deleteUser } from "@/app/lib/actions";
 import { GetUserData } from "@/app/lib/data";
 import Link from "next/link";
+import { GrFormPrevious } from "react-icons/gr";
+import { GrFormNext } from "react-icons/gr";
 
 const EditUser = async () => {
   const data = await GetUserData();
@@ -44,7 +47,7 @@ const EditUser = async () => {
                                 <div className="mask mask-squircle w-12 h-12">
                                   <>
                                     <img
-                                      src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                                      src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
                                       alt="No Img"
                                     />
                                   </>
@@ -89,14 +92,16 @@ const EditUser = async () => {
                           </td>
                           <td>{preview.number}</td>
                           <td>
-                            <Link href="/">
+                            <Link
+                              href={`http://localhost:3000/dashboard/grit/update/${preview.id}`}
+                            >
                               <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
                                 Edit
                               </button>
                             </Link>
                           </td>
                           <td>
-                            <form action="">
+                            <form action={deleteUser}>
                               <input
                                 type="hidden"
                                 name="id"
@@ -124,6 +129,14 @@ const EditUser = async () => {
                     </tr>
                   </tfoot>
                 </table>
+              </div>
+              <div className="flex justify-between pt-3 ">
+                <button className="btn-ghost">
+                  <GrFormPrevious size={20} />
+                </button>
+                <button className="btn-ghost">
+                  <GrFormNext size={20} />
+                </button>
               </div>
             </>
           </div>

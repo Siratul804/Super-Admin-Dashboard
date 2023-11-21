@@ -49,6 +49,8 @@ export const { signIn, signOut, auth } = NextAuth({
         token.username = user.username;
         token.role = user.role;
         token.number = user.number;
+        token.id = user.id;
+        token.img = user.img;
       }
       return token;
     },
@@ -57,6 +59,8 @@ export const { signIn, signOut, auth } = NextAuth({
         session.user.username = token.username;
         session.user.role = token.role;
         session.user.number = token.number;
+        session.user.id = token.id;
+        session.user.img = token.img;
       }
       return session;
     },
