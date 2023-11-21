@@ -57,12 +57,12 @@ const UpdateUser = async ({ id }) => {
             </main>
             <main className="pb-1">
               <label className="label">
-                <span className="text-[black]">Change Password</span>
+                <span className="text-[black]"> Password</span>
               </label>
               <input
                 type="password"
+                disabled
                 placeholder="**********"
-                value={user.password}
                 className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
               />
             </main>
@@ -111,7 +111,7 @@ const UpdateUser = async ({ id }) => {
         </form>
       </section>
 
-      <UpdatePass />
+      <UpdatePass id={id} />
     </>
   );
 };

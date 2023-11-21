@@ -50,7 +50,7 @@ const ImageUploader = ({ id }) => {
                     <img
                       src={previewImage}
                       alt="Preview"
-                      className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
+                      className="w-[150px] h-[150px] object-cover rounded-full shadow-md"
                     />
                   </div>
                 </div>
@@ -90,11 +90,7 @@ const ImageUploader = ({ id }) => {
             </div>
           </div>
           <div className="toast">
-            <div className="chat chat-end">
-              <span className="text-red-400 font-bold font-mono ">
-                {state && state}
-              </span>
-            </div>
+            <span className="text-red-500 text-[30px] ">{state && state}</span>
           </div>
         </dialog>
       </div>

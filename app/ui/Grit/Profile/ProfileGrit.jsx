@@ -1,7 +1,9 @@
 import { auth } from "@/app/auth";
 import ImageUploader from "./ImageUploader";
+import { GetUserData } from "@/app/lib/data";
 const ProfileGrit = async () => {
   const { user } = await auth();
+  const data = await GetUserData();
 
   return (
     <>
@@ -14,11 +16,22 @@ const ProfileGrit = async () => {
         <h1 className="text-black">
           <div className="mb-5">
             <div className="flex justify-center ">
-              <img
-                src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${user.img}`}
-                alt={user.img}
-                className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
-              />
+              {data.map((val) => (
+                <>
+                  {val.id === user.id ? (
+                    <>
+                      <img
+                        src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                        alt={val.img}
+                        key={val.id}
+                        className="w-[150px] h-[150px] object-cover rounded-full shadow-md"
+                      />
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </>
+              ))}
             </div>
           </div>
 
@@ -35,9 +48,6 @@ const ProfileGrit = async () => {
           </p>
           <p className="py-2">
             Role: <b>{user.role}</b>
-          </p>
-          <p className="py-2">
-            id: <b>{user.id}</b>
           </p>
         </h1>
       </div>

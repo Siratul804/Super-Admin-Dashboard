@@ -2,8 +2,10 @@ import { IoMdNotifications } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Link from "next/link";
 import { signOut } from "@/app/auth";
+import { GetUserData } from "@/app/lib/data";
 
-const Navbar = ({ data }) => {
+const Navbar = async ({ data }) => {
+  const ImgNav = await GetUserData();
   return (
     <>
       <div className="navbar bg-white pr-5 pl-5 pt-5 sm:pr-10 sm:pl-10 drop-shadow-sm sticky top-0 ">
@@ -40,10 +42,22 @@ const Navbar = ({ data }) => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img
-                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${data.img}`}
-                  alt=""
-                />
+                {ImgNav.map((val) => (
+                  <>
+                    {val.id === data.id ? (
+                      <>
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                          alt={val.img}
+                          key={val.id}
+                          className="w-[200px] h-[200px] object-cover rounded-full shadow-md"
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ))}
               </div>
             </label>
             <ul className="menu-sm dropdown-content mt-3  p-2 shadow bg-white rounded-box w-52">

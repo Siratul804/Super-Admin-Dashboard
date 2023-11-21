@@ -30,7 +30,7 @@ export const addUser = async (prevState, formData) => {
   });
 
   if (!newUser) {
-    return "Faile to Singup";
+    throw new Error("Faile to Singup");
   }
   if (newUser) {
     redirect("/dashboard/grit/edit");
@@ -47,10 +47,35 @@ export const updateUser = async (formData) => {
   });
 
   if (!newUser) {
-    return "Faile to update user";
+    throw new Error("Faile to update user");
   }
   if (newUser) {
     console.log("user updated");
+    redirect("/dashboard/grit/edit");
+  }
+};
+
+export const changePass = async (prevState, formData) => {
+  const { id, password, previous } = Object.fromEntries(formData);
+
+  console.log(previous);
+
+  if (previous !== password) {
+    return "Password Did't Match";
+  }
+
+  const hasedPassword = await bcrypt.hash(password, 10);
+
+  const newPass = await query({
+    query: "UPDATE users SET password = ? WHERE id = ?",
+    values: [hasedPassword, id],
+  });
+
+  if (!newPass) {
+    return "Faile to Change Password";
+  }
+  if (newPass) {
+    console.log("Password Changed");
     redirect("/dashboard/grit/edit");
   }
 };
@@ -102,7 +127,7 @@ export const addImg = async (prevState, formData) => {
 
   if (newImg) {
     console.log("Image Added");
-    return "Image Added ! ";
+    redirect("/dashboard/grit/edit");
   }
   if (!newImg) {
     return "Image Added Failed ";
