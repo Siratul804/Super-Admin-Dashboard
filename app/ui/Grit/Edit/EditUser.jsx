@@ -1,26 +1,14 @@
 import { deleteUser } from "@/app/lib/actions";
-import { GetUserData } from "@/app/lib/data";
 import Link from "next/link";
 import { GrFormPrevious } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
-
-const EditUser = async () => {
-  const data = await GetUserData();
+import SearchBox from "./SearchBox";
+const EditUser = async ({ data }) => {
   return (
     <>
       <div className="pt-5 sm:pt-10 ">
         <section className="p-0 flex flex-col items-center justify-center">
-          <div className="searchbar py-4 ">
-            <div className="chat chat-start">
-              <div className="chat-bubble bg-slate-100 shadow-md w-[400px] sm:w-[600px] ">
-                <input
-                  type="text"
-                  placeholder="Search For Accounts By Their Name "
-                  className="input border-transparent focus:border-transparent input-sm w-[300px] sm:w-[500px] text-[black] bg-white"
-                />
-              </div>
-            </div>
-          </div>
+          <SearchBox data={data} />
           <div className="overflow-x-auto">
             <>
               <div className="overflow-x-auto">
@@ -37,85 +25,80 @@ const EditUser = async () => {
                       <th>Delete</th>
                     </tr>
                   </thead>
-                  {data.map((preview) => (
+                  {data.map((val) => (
                     <tbody>
-                      <>
-                        <tr>
-                          <td>
-                            <div className=" flex items-center space-x-3">
-                              <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                  <>
-                                    <img
-                                      src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
-                                      alt="No Img"
-                                    />
-                                  </>
-                                </div>
-                              </div>
-                              <div>
-                                <div className="font-bold">{preview.name}</div>
+                      <tr>
+                        <td key={val.id}>
+                          <div className=" flex items-center space-x-3">
+                            <div className="avatar">
+                              <div className="mask mask-squircle w-12 h-12">
+                                <>
+                                  <img
+                                    src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                                    alt="No Img"
+                                  />
+                                </>
                               </div>
                             </div>
-                          </td>
-                          <td>{preview.email}</td>
+                            <div>
+                              <div className="font-bold">{val.name}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{val.email}</td>
 
-                          <td className="">
-                            {preview.role === "gym" ? (
-                              <>
-                                <div className="badge badge-accent text-white ">
-                                  Gym
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="badge badge-secondary text-white ">
-                                  Grit
-                                </div>
-                              </>
-                            )}
-                          </td>
-                          <td>
-                            {preview.status === "Active" ? (
-                              <>
-                                <div className="badge badge-success gap-2 text-white ">
-                                  active
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="badge badge-error gap-2 text-white ">
-                                  disable
-                                </div>
-                              </>
-                            )}
-                          </td>
-                          <td>{preview.number}</td>
-                          <td>
-                            <Link
-                              href={`http://localhost:3000/dashboard/grit/update/${preview.id}`}
-                            >
-                              <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
-                                Edit
-                              </button>
-                            </Link>
-                          </td>
-                          <td>
-                            <form action={deleteUser}>
-                              <input
-                                type="hidden"
-                                name="id"
-                                value={preview.id}
-                              />
-                              <button className="btn btn-sm hover:bg-red-500 hover:text-white bg-white  text-red-500 btn-error ">
-                                Delete
-                              </button>
-                            </form>
-                          </td>
-                        </tr>
-                      </>
+                        <td className="">
+                          {val.role === "gym" ? (
+                            <>
+                              <div className="badge badge-accent text-white ">
+                                Gym
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="badge badge-secondary text-white ">
+                                Grit
+                              </div>
+                            </>
+                          )}
+                        </td>
+                        <td>
+                          {val.status === "Active" ? (
+                            <>
+                              <div className="badge badge-success gap-2 text-white ">
+                                active
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="badge badge-error gap-2 text-white ">
+                                disable
+                              </div>
+                            </>
+                          )}
+                        </td>
+                        <td>{val.number}</td>
+                        <td>
+                          <Link
+                            href={`http://localhost:3000/dashboard/grit/update/${val.id}`}
+                          >
+                            <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
+                              Edit
+                            </button>
+                          </Link>
+                        </td>
+                        <td>
+                          <form action={deleteUser}>
+                            <input type="hidden" name="id" value={val.id} />
+                            <button className="btn btn-sm hover:bg-red-500 hover:text-white bg-white  text-red-500 btn-error ">
+                              Delete
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
                     </tbody>
                   ))}
+
                   {/* foot */}
                   <tfoot>
                     <tr>
