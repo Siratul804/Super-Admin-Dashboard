@@ -104,7 +104,7 @@ const UpdateUser = async ({ id }) => {
                 className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
                 type="submit"
               >
-                Create Account
+                Update Account
               </button>
             </label>
           </div>
