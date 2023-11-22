@@ -6,7 +6,7 @@ import SearchBox from "./SearchBox";
 const EditUser = async ({ data }) => {
   return (
     <>
-      <div className="pt-5 sm:pt-10 ">
+      <div className="pt-5 sm:pt-5 ">
         <section className="p-0 flex flex-col items-center justify-center">
           <SearchBox data={data} />
           <div className="overflow-x-auto">

@@ -2,12 +2,11 @@
 import { deleteUser } from "@/app/lib/actions";
 import { useState } from "react";
 import Link from "next/link";
-
 const SearchBox = ({ data }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-8 mb-4 ">
+      <div className="flex flex-col items-center justify-center mt-4 mb-4 ">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
         <div className="searchbar py-4 ">
           <div className="chat chat-start">
