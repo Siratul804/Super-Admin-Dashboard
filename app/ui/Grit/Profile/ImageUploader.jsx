@@ -41,6 +41,9 @@ const ImageUploader = ({ id }) => {
               </button>
             </form>
             <h3 className="font-bold text-lg">Upload Your Image</h3>
+            <b className="font-bold text-sm text-primary ">
+              ( select .png & less than 1MB file )
+            </b>
             <div className="py-4">
               {/* //inside content// */}
               {previewImage && (
@@ -86,11 +89,13 @@ const ImageUploader = ({ id }) => {
                 <button className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  ">
                   Upload
                 </button>
+                <div className="toast">
+                  <span className="text-red-500 text-[13px] sm:text-[15px] pr-2 sm:pr-16 ">
+                    {state && state}
+                  </span>
+                </div>
               </form>
             </div>
-          </div>
-          <div className="toast">
-            <span className="text-red-500 text-[30px] ">{state && state}</span>
           </div>
         </dialog>
       </div>

@@ -3,7 +3,7 @@ const layout = async ({ children }) => {
   const { user } = await auth();
   return (
     <>
-      {user.role === "gym" ? (
+      {user.role === "gym" && user.status === "Active" ? (
         <>
           <main>{children}</main>
         </>

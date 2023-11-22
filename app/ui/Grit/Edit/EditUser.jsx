@@ -80,7 +80,7 @@ const EditUser = async ({ data }) => {
                         <td>{val.number}</td>
                         <td>
                           <Link
-                            href={`http://localhost:3000/dashboard/grit/update/${val.id}`}
+                            href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
                           >
                             <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
                               Edit

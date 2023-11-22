@@ -3,14 +3,14 @@ const layout = async ({ children }) => {
   const { user } = await auth();
   return (
     <>
-      {user.role === "grit" ? (
+      {user.role === "grit" && user.status === "Active" ? (
         <>
           <main>{children}</main>
         </>
       ) : (
         <>
           <div className="flex justify-center items-center h-screen">
-            <h1 className="text-red-500 text-[150px] "> 404 Error </h1>
+            <h1 className="text-red-500 text-[150px] ">404 Error</h1>
           </div>
         </>
       )}

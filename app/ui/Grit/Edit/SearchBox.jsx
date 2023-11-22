@@ -107,7 +107,7 @@ const SearchBox = ({ data }) => {
 
                           <td>
                             <Link
-                              href={`http://localhost:3000/dashboard/grit/update/${preview.id}`}
+                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${preview.id}`}
                             >
                               <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
                                 Edit
