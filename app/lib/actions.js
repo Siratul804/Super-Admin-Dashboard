@@ -6,6 +6,7 @@ import { signIn } from "@/app/auth";
 import path from "path";
 import { writeFile } from "fs/promises";
 
+//grit
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
     Object.fromEntries(formData);
@@ -94,6 +95,7 @@ export const deleteUser = async (formData) => {
   }
 };
 
+//global
 export const authenticate = async (prevState, formData) => {
   const { email, password } = Object.fromEntries(formData);
   try {
@@ -106,6 +108,7 @@ export const authenticate = async (prevState, formData) => {
   }
 };
 
+// img
 export const addImg = async (prevState, formData) => {
   const { id, file } = Object.fromEntries(formData);
 
@@ -133,9 +136,103 @@ export const addImg = async (prevState, formData) => {
 
   if (newImg) {
     console.log("Image Added");
-    redirect("/dashboard/grit/edit");
+    redirect("/dashboard");
   }
   if (!newImg) {
     return "Image Added Failed ";
+  }
+};
+
+// gym
+export const addMember = async (prevState, formData) => {
+  const { name, email, number, file, status, userID } =
+    Object.fromEntries(formData);
+
+  console.log(file);
+
+  const user = await query({
+    query: "SELECT email FROM members WHERE email = (?)",
+    values: [email],
+  });
+
+  if (user[0]) {
+    return "Member Already Exits";
+  }
+
+  const FILE_SIZE = 1000000; // 1MB
+
+  if (file.size > FILE_SIZE) {
+    return "File size is large! (image has to be less then 1MB) ";
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = Date.now() + file.name.replaceAll(" ", "_");
+  console.log(filename);
+
+  await writeFile(
+    path.join(process.cwd(), "public/uploads/" + filename),
+    buffer
+  );
+
+  const newMember = await query({
+    query:
+      "INSERT INTO members (name, email, number, img, status, userID) VALUES (?, ?, ?, ?, ?, ?)",
+    values: [name, email, number, filename, status, userID],
+  });
+
+  if (newMember) {
+    console.log("Member Added");
+    redirect("/dashboard/gym/edit");
+  }
+  if (!newMember) {
+    return "Member Added Failed";
+  }
+};
+
+export const updateMember = async (formData) => {
+  const { id, name, email, number, file, status } =
+    Object.fromEntries(formData);
+
+  const FILE_SIZE = 1000000; // 1MB
+
+  if (file.size > FILE_SIZE) {
+    return "File size is large! (image has to be less then 1MB) ";
+  }
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = Date.now() + file.name.replaceAll(" ", "_");
+  console.log(filename);
+
+  await writeFile(
+    path.join(process.cwd(), "public/uploads/" + filename),
+    buffer
+  );
+
+  const newMember = await query({
+    query:
+      "UPDATE members SET  name = ?, email = ?, number = ?, img = ?, status = ? WHERE id = ?",
+    values: [name, email, number, filename, status, id],
+  });
+
+  if (!newMember) {
+    throw new Error("Faile to update Member");
+  }
+  if (newMember) {
+    console.log("Member updated");
+    redirect("/dashboard/gym/edit");
+  }
+};
+
+export const deleteMember = async (formData) => {
+  const { id } = Object.fromEntries(formData);
+
+  const deleteMember = await query({
+    query: "DELETE FROM members WHERE id = (?)",
+    values: [id],
+  });
+
+  if (deleteMember) {
+    console.log("user deleted");
+    redirect("/dashboard/gym/edit");
   }
 };

@@ -43,7 +43,7 @@ const UpdatePass = ({ id }) => {
                 />
                 <div className="pt-3"></div>
                 <button className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  ">
-                  Upload
+                  Update Password
                 </button>
               </form>
               <div className="toast toast-center ">
