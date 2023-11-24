@@ -5,7 +5,8 @@ import bcrypt from "bcrypt";
 import { signIn } from "@/app/auth";
 import path from "path";
 import { writeFile } from "fs/promises";
-
+import nodemailer from "nodemailer";
+import jwt from "jsonwebtoken";
 //grit
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
@@ -252,5 +253,54 @@ export const updateImg = async (prevState, formData) => {
   }
   if (!newImg) {
     return "Image update Failed ";
+  }
+};
+
+// Forgot Pass
+export const forgotPass = async (prevState, formData) => {
+  const { email } = Object.fromEntries(formData);
+  try {
+    const user = await query({
+      query: "SELECT * FROM users WHERE email = ?",
+      values: [email],
+    });
+
+    console.log(user[0].email);
+
+    const tokenData = {
+      id: user[0].id,
+      email: email,
+    };
+
+    const token = jwt.sign({ id: user._id }, "jwt_secret_key", {
+      expiresIn: "1d",
+    });
+
+    console.log(token);
+
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "oddity661@gmail.com",
+        pass: "gbnk wpnz adeq wilk",
+      },
+    });
+
+    var mailOptions = {
+      from: user[0].email,
+      to: "islamsiratul@gmail.com",
+      subject: "Reset your password",
+      text: `${process.env.NEXT_PUBLIC_API_URL}/reset-password/${user[0].id}/${token}`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+  } catch (err) {
+    return "Invalid Email !";
   }
 };
