@@ -75,12 +75,21 @@ const SearchBox = ({ data, user }) => {
                               <div className=" flex items-center space-x-3">
                                 <div className="avatar">
                                   <div className="mask mask-squircle w-12 h-12">
-                                    <>
-                                      <img
-                                        src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
-                                        alt="No Img"
-                                      />
-                                    </>
+                                    {preview.img.includes("undefined") ? (
+                                      <>
+                                        <img
+                                          src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                                          alt="No Img"
+                                        />
+                                      </>
+                                    ) : (
+                                      <>
+                                        <img
+                                          src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
+                                          alt="No Img"
+                                        />
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                                 <div>

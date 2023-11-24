@@ -1,7 +1,5 @@
 import { deleteUser } from "@/app/lib/actions";
 import Link from "next/link";
-import { GrFormPrevious } from "react-icons/gr";
-import { GrFormNext } from "react-icons/gr";
 import SearchBox from "./SearchBox";
 const EditUser = async ({ data }) => {
   return (
@@ -112,14 +110,6 @@ const EditUser = async ({ data }) => {
                     </tr>
                   </tfoot>
                 </table>
-              </div>
-              <div className="flex justify-between pt-3 ">
-                <button className="btn-ghost">
-                  <GrFormPrevious size={20} />
-                </button>
-                <button className="btn-ghost">
-                  <GrFormNext size={20} />
-                </button>
               </div>
             </>
           </div>

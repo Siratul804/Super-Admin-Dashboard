@@ -190,28 +190,12 @@ export const addMember = async (prevState, formData) => {
 };
 
 export const updateMember = async (formData) => {
-  const { id, name, email, number, file, status } =
-    Object.fromEntries(formData);
-
-  const FILE_SIZE = 1000000; // 1MB
-
-  if (file.size > FILE_SIZE) {
-    return "File size is large! (image has to be less then 1MB) ";
-  }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = Date.now() + file.name.replaceAll(" ", "_");
-  console.log(filename);
-
-  await writeFile(
-    path.join(process.cwd(), "public/uploads/" + filename),
-    buffer
-  );
+  const { id, name, email, number, status } = Object.fromEntries(formData);
 
   const newMember = await query({
     query:
-      "UPDATE members SET  name = ?, email = ?, number = ?, img = ?, status = ? WHERE id = ?",
-    values: [name, email, number, filename, status, id],
+      "UPDATE members SET  name = ?, email = ?, number = ?, status = ? WHERE id = ?",
+    values: [name, email, number, status, id],
   });
 
   if (!newMember) {
@@ -234,5 +218,39 @@ export const deleteMember = async (formData) => {
   if (deleteMember) {
     console.log("user deleted");
     redirect("/dashboard/gym/edit");
+  }
+};
+
+export const updateImg = async (prevState, formData) => {
+  const { id, file } = Object.fromEntries(formData);
+
+  const FILE_SIZE = 1000000; // 1MB
+
+  if (file.size > FILE_SIZE) {
+    return "File size is large! (image has to be less then 1MB) ";
+  }
+
+  console.log(file, id);
+
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = Date.now() + file.name.replaceAll(" ", "_");
+  console.log(filename);
+
+  await writeFile(
+    path.join(process.cwd(), "public/uploads/" + filename),
+    buffer
+  );
+
+  const newImg = await query({
+    query: "UPDATE members SET img = ? WHERE id = ?",
+    values: [filename, id],
+  });
+
+  if (newImg) {
+    console.log("Image Update");
+    redirect("/dashboard/gym/edit");
+  }
+  if (!newImg) {
+    return "Image update Failed ";
   }
 };

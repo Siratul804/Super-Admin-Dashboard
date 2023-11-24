@@ -1,5 +1,6 @@
 import { updateMember } from "@/app/lib/actions";
 import { GetMemberByIdToUpdate } from "@/app/lib/data";
+import ImageUploader from "./ImageUploader";
 
 const UpdateMember = async ({ id }) => {
   const member = await GetMemberByIdToUpdate(id);
@@ -69,16 +70,7 @@ const UpdateMember = async ({ id }) => {
             </main>
           </div>
 
-          <div className="flex justify-center sm:flex-row flex-col py-5 ">
-            <input
-              type="file"
-              name="file"
-              accept="image/png"
-              className="file-input  file-input-bordered file-input-sm w-full bg-white "
-            />
-          </div>
-
-          <div className="flex justify-between ">
+          <div className="flex justify-between py-4 ">
             <label>
               <button
                 className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
@@ -90,6 +82,9 @@ const UpdateMember = async ({ id }) => {
           </div>
         </form>
       </section>
+      <div className="flex justify-center">
+        <ImageUploader id={member.id} />
+      </div>
     </>
   );
 };
