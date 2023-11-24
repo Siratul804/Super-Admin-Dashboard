@@ -8,7 +8,7 @@ const EditMember = async ({ data, user }) => {
     <>
       <div className="pt-5 sm:pt-5 ">
         <section className="p-0 flex flex-col items-center justify-center">
-          <SearchBox data={data} />
+          <SearchBox data={data} user={user} />
           <div className="overflow-x-auto">
             <>
               <div className="overflow-x-auto">
@@ -34,12 +34,21 @@ const EditMember = async ({ data, user }) => {
                               <div className=" flex items-center space-x-3">
                                 <div className="avatar">
                                   <div className="mask mask-squircle w-12 h-12">
-                                    <>
-                                      <img
-                                        src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
-                                        alt="No Img"
-                                      />
-                                    </>
+                                    {val.img.includes("undefined") ? (
+                                      <>
+                                        <img
+                                          src="https://cdn-icons-png.flaticon.com/512/5556/5556468.png"
+                                          alt="No Img"
+                                        />
+                                      </>
+                                    ) : (
+                                      <>
+                                        <img
+                                          src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                                          alt="No Img"
+                                        />
+                                      </>
+                                    )}
                                   </div>
                                 </div>
                                 <div>

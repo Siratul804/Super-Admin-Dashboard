@@ -65,13 +65,18 @@ const CreateMember = ({ user }) => {
               </select>
             </main>
           </div>
-          <div className="flex justify-center sm:flex-row flex-col py-5 ">
+          <div className="flex justify-center sm:flex-row flex-col pt-5 ">
             <input
               type="file"
               name="file"
               accept="image/png"
               className="file-input  file-input-bordered file-input-sm w-full bg-white "
             />
+          </div>
+          <div className="flex justify-end sm:flex-row flex-col pb-5 ">
+            <b className="font-bold text-sm text-primary ">
+              ( select .png & less than 1MB file )
+            </b>
           </div>
 
           <div className="flex justify-between ">

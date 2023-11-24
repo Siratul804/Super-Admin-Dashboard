@@ -2,7 +2,7 @@
 import { deleteMember } from "@/app/lib/actions";
 import { useState } from "react";
 import Link from "next/link";
-const SearchBox = ({ data }) => {
+const SearchBox = ({ data, user }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
@@ -69,49 +69,55 @@ const SearchBox = ({ data }) => {
                   .map((preview) => (
                     <>
                       <tbody>
-                        <tr>
-                          <td key={preview.id}>
-                            <div className=" flex items-center space-x-3">
-                              <div className="avatar">
-                                <div className="mask mask-squircle w-12 h-12">
-                                  <>
-                                    <img
-                                      src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
-                                      alt="No Img"
-                                    />
-                                  </>
+                        {user.id === preview.userID ? (
+                          <tr>
+                            <td key={preview.id}>
+                              <div className=" flex items-center space-x-3">
+                                <div className="avatar">
+                                  <div className="mask mask-squircle w-12 h-12">
+                                    <>
+                                      <img
+                                        src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${preview.img}`}
+                                        alt="No Img"
+                                      />
+                                    </>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="font-bold">
+                                    {preview.name}
+                                  </div>
                                 </div>
                               </div>
-                              <div>
-                                <div className="font-bold">{preview.name}</div>
-                              </div>
-                            </div>
-                          </td>
+                            </td>
 
-                          <td className="">{preview.number}</td>
+                            <td className="">{preview.number}</td>
 
-                          <td>
-                            <Link
-                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/gym/update/${preview.id}`}
-                            >
-                              <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
-                                Edit
-                              </button>
-                            </Link>
-                          </td>
-                          <td>
-                            <form action={deleteMember}>
-                              <input
-                                type="hidden"
-                                name="id"
-                                value={preview.id}
-                              />
-                              <button className="btn btn-sm hover:bg-red-500 hover:text-white bg-white  text-red-500 btn-error ">
-                                Delete
-                              </button>
-                            </form>
-                          </td>
-                        </tr>
+                            <td>
+                              <Link
+                                href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/gym/update/${preview.id}`}
+                              >
+                                <button className="btn btn-sm hover:bg-green-500 hover:text-white bg-white  text-green-500 btn-success ">
+                                  Edit
+                                </button>
+                              </Link>
+                            </td>
+                            <td>
+                              <form action={deleteMember}>
+                                <input
+                                  type="hidden"
+                                  name="id"
+                                  value={preview.id}
+                                />
+                                <button className="btn btn-sm hover:bg-red-500 hover:text-white bg-white  text-red-500 btn-error ">
+                                  Delete
+                                </button>
+                              </form>
+                            </td>
+                          </tr>
+                        ) : (
+                          <></>
+                        )}
                       </tbody>
                     </>
                   ))}
