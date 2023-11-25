@@ -267,11 +267,6 @@ export const forgotPass = async (prevState, formData) => {
 
     console.log(user[0].email);
 
-    const tokenData = {
-      id: user[0].id,
-      email: email,
-    };
-
     const token = jwt.sign({ id: user._id }, "jwt_secret_key", {
       expiresIn: "1d",
     });
@@ -300,7 +295,33 @@ export const forgotPass = async (prevState, formData) => {
         console.log("Email sent: " + info.response);
       }
     });
+    return "Url send to your mail !";
   } catch (err) {
     return "Invalid Email !";
+  }
+};
+// Reset Pass
+export const resettPass = async (prevState, formData) => {
+  const { id, token, password } = Object.fromEntries(formData);
+
+  console.log(id, token, password);
+
+  const jwtVerify = jwt.verify(token, "jwt_secret_key");
+
+  if (!jwtVerify) {
+    return "Invalid Token";
+  }
+  const hasedPassword = await bcrypt.hash(password, 10);
+  const updateNewPass = await query({
+    query: "UPDATE users SET password = ? WHERE id = ?",
+    values: [hasedPassword, id],
+  });
+
+  if (!updateNewPass) {
+    return "Password Chnaged Failed";
+  }
+
+  if (updateNewPass) {
+    return "Your password has been changed !";
   }
 };
