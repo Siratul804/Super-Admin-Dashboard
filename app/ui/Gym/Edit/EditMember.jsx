@@ -1,12 +1,26 @@
 import { deleteMember } from "@/app/lib/actions";
 import Link from "next/link";
-import SearchBox from "./SearchBox";
+import SearchBoxNumber from "./SearchBoxNumber";
+import SearchBoxName from "./SearchBoxName";
+import SearchBoxStatus from "./SearchBoxStatus";
+import { IoPersonAddSharp } from "react-icons/io5";
 const EditMember = async ({ data, user }) => {
   return (
     <>
-      <div className="pt-5 sm:pt-5 ">
+      <div className="mt-4">
+        <div className="flex justify-evenly flex-wrap  ">
+          <SearchBoxName data={data} user={user} />
+          <SearchBoxNumber data={data} user={user} />
+          <SearchBoxStatus data={data} user={user} />
+        </div>
+        <div className="flex justify-end flex-wrap mr-1 sm:mr-[130px] py-5 ">
+          <Link href="/dashboard/gym/create">
+            <button className="btn btn-sm rounded-full hover:bg-pink-500 hover:text-white bg-white  text-pink-500 btn-secondary ">
+              <IoPersonAddSharp size={17} /> Add Member
+            </button>
+          </Link>
+        </div>
         <section className="p-0 flex flex-col items-center justify-center">
-          <SearchBox data={data} user={user} />
           <div className="overflow-x-auto">
             <>
               <div className="overflow-x-auto">
@@ -71,7 +85,7 @@ const EditMember = async ({ data, user }) => {
                                 </>
                               )}
                             </td>
-                            <td>{val.number}</td>
+                            <td>0{val.number}</td>
                             <td>
                               <Link
                                 href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/gym/update/${val.id}`}

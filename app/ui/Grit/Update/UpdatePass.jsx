@@ -5,14 +5,19 @@ const UpdatePass = ({ id }) => {
   const [state, formAction] = useFormState(changePass, undefined);
   return (
     <>
-      <div className="flex justify-center pt-10 ">
+      <div className="flex justify-center pt-4 ">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
-        <span
-          className="bg-white text-green-500 cursor-pointer text-lg font-serif "
+
+        <button
           onClick={() => document.getElementById("my_modal_3").showModal()}
         >
-          Change The Password 👈🏻
-        </span>
+          <label
+            for="customFileInput"
+            class="inline-block bg-white rounded-md border border-gray-300 sm:px-[245px] px-[90px] py-1 cursor-pointer hover:border-gray-400"
+          >
+            <span class="ml-3 text-gray-600 text-sm ">Change The Password</span>
+          </label>
+        </button>
 
         <dialog id="my_modal_3" className="modal  ">
           <div className="modal-box bg-white ">

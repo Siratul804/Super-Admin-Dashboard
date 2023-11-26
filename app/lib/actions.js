@@ -228,7 +228,7 @@ export const updateImg = async (prevState, formData) => {
   const FILE_SIZE = 1000000; // 1MB
 
   if (file.size > FILE_SIZE) {
-    return "File size is large! (image has to be less then 1MB) ";
+    return "File size is large! (image has to be less then 1MB)";
   }
 
   console.log(file, id);

@@ -17,64 +17,66 @@ const LoginForm = () => {
         <section className="flex justify-center items-center h-screen">
           <div className="card rounded-lg w-[350px] sm:w-[450px] h-[360px] bg-white text-neutral-content drop-shadow-lg">
             <div className="card-body items-center text-center">
-              <form action={formAction}>
-                <div className="form-control">
-                  <h1
-                    className="text-[black] font-bold text-[22px] flex justify-start p-1"
-                    style={{ marginTop: "-10px" }}
-                  >
-                    Sign In
-                  </h1>
-                  <div></div>
-                  <label className="label">
-                    <span className="text-[black] text-sm">Email</span>
-                  </label>
-                  <label className="">
-                    <input
-                      className="input input-bordered input-sm w-[300px] sm:w-[400px] h-10 text-[black] bg-white"
-                      type="email"
-                      name="email"
-                      placeholder="Enter your email address"
-                      required
-                    />
-                  </label>
-                  <label className="label">
-                    <span className="text-[black] text-sm">Password</span>
-                    <span className="icon pl-1 " onClick={toggle}>
-                      {isVisible ? (
-                        <AiFillEye size={20} />
-                      ) : (
-                        <AiFillEyeInvisible size={20} />
-                      )}
-                    </span>
-                  </label>
-                  <label className="">
-                    <input
-                      type={!isVisible ? "password" : "text"}
-                      className="input input-bordered input-sm w-[300px] sm:w-[400px] h-10 text-[black] bg-white"
-                      name="password"
-                      placeholder="Enter password"
-                      autoComplete="on"
-                      required
-                    />
-                  </label>
-                  <div className="flex justify-end">
-                    <Link
-                      href="/forgot"
-                      className="text-[red] text-[12px]  pt-1"
+              <div className="card-body items-center text-center">
+                <form action={formAction}>
+                  <div className="form-control">
+                    <h1
+                      className="text-[black] font-bold text-[22px] flex justify-start p-1"
+                      style={{ marginTop: "-10px" }}
                     >
-                      Forgot Password?
-                    </Link>
+                      Sign In
+                    </h1>
+                    <div></div>
+                    <label className="label">
+                      <span className="text-[black] text-sm">Email</span>
+                    </label>
+                    <label className="">
+                      <input
+                        className="input input-bordered input-sm w-[300px] sm:w-[400px] h-10 text-[black] bg-white"
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email address"
+                        required
+                      />
+                    </label>
+                    <label className="label">
+                      <span className="text-[black] text-sm">Password</span>
+                      <span className="icon pl-1 " onClick={toggle}>
+                        {isVisible ? (
+                          <AiFillEye size={20} />
+                        ) : (
+                          <AiFillEyeInvisible size={20} />
+                        )}
+                      </span>
+                    </label>
+                    <label className="">
+                      <input
+                        type={!isVisible ? "password" : "text"}
+                        className="input input-bordered input-sm w-[300px] sm:w-[400px] h-10 text-[black] bg-white"
+                        name="password"
+                        placeholder="Enter password"
+                        autoComplete="on"
+                        required
+                      />
+                    </label>
+                    <div className="flex justify-end">
+                      <Link
+                        href="/forgot"
+                        className="text-[red] text-[12px]  pt-1"
+                      >
+                        Forgot Password?
+                      </Link>
+                    </div>
+                    <br />
+                    <button className="btn btn-sm btn-neutral" type="submit">
+                      Sign In
+                    </button>
                   </div>
-                  <br />
-                  <button className="btn btn-sm btn-neutral" type="submit">
-                    Sign In
-                  </button>
-                </div>
-                <p className="py-2 text-black text-sm">
-                  Copyright © 2023 Grit Gym. All rights reserved
-                </p>
-              </form>
+                  <p className="py-2 text-black text-sm">
+                    Copyright © 2023 Grit Gym. All rights reserved
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
           {state === "CredentialsSignin" ? (

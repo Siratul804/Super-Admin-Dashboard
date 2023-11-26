@@ -1,10 +1,12 @@
 "use client";
 import { addMember } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
+
 const CreateMember = ({ user }) => {
   const [state, formAction] = useFormState(addMember, undefined);
   return (
     <>
+      <div className="flex justify-evenly flex-wrap  "></div>
       <h1 className="flex mt-5 sm:mt-10 items-center justify-center text-[35px] font-bold font-mono ">
         ADD-MEMBER
       </h1>
@@ -58,7 +60,7 @@ const CreateMember = ({ user }) => {
               </label>
               <select
                 name="status"
-                className="select select-bordered w-[200px] max-w-xs bg-white text-black "
+                className="select select-bordered w-[350px] max-w-xs bg-white text-black "
               >
                 <option>Active</option>
                 <option>Disable</option>

@@ -2,30 +2,27 @@
 import { deleteMember } from "@/app/lib/actions";
 import { useState } from "react";
 import Link from "next/link";
-const SearchBox = ({ data, user }) => {
+const SearchBoxStatus = ({ data, user }) => {
   const [searchTerm, setSearchTerm] = useState("");
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-4 mb-4 ">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
-        <div className="searchbar py-4 ">
-          <div className="chat chat-start">
-            <div className="chat-bubble bg-slate-100 shadow-md w-[400px] sm:w-[600px] ">
-              <button
-                onClick={() =>
-                  document.getElementById("my_modal_3").showModal()
-                }
-              >
-                <input
-                  type="text"
-                  placeholder="Search For Accounts By Their Number "
-                  className="input border-transparent focus:border-transparent input-sm w-[300px] sm:w-[500px] text-[black] bg-white"
-                />
-              </button>
-            </div>
-          </div>
+        <div className="searchbar p-3 shadow-md rounded-xl bg-slate-100 ">
+          <span className="text-sm pl-1 text-black ">Status:</span>
+          <br />
+          <button
+            onClick={() => document.getElementById("my_modal_5").showModal()}
+          >
+            <input
+              type="text"
+              placeholder="Search with status "
+              className="input border-transparent focus:border-transparent input-sm w-full text-[black] bg-white"
+            />
+          </button>
         </div>
-        <dialog id="my_modal_3" className="modal  ">
+
+        <dialog id="my_modal_5" className="modal  ">
           <div className="modal-box bg-white w-full ">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
@@ -34,12 +31,16 @@ const SearchBox = ({ data, user }) => {
               </button>
             </form>
             <h3 className="font-bold text-lg py-6 ">
-              <input
-                type="text"
+              <select
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search For Accounts By Their Number "
-                className="input border-transparent focus:border-transparent input-sm w-full p-5 sm:w-full text-[black] bg-slate-100"
-              />
+                className="select w-full bg-slate-100 "
+              >
+                <option disabled selected>
+                  Select Status
+                </option>
+                <option>Active</option>
+                <option>Disable</option>
+              </select>
             </h3>
             <div className="py-2">
               {/* //inside content// */}
@@ -48,7 +49,7 @@ const SearchBox = ({ data, user }) => {
                 <thead>
                   <tr className=" text-sm-[5px] ">
                     <th>Name</th>
-                    <th>Number</th>
+                    <th>Status</th>
                     <th>Edit</th>
                     <th>Delete</th>
                   </tr>
@@ -58,7 +59,7 @@ const SearchBox = ({ data, user }) => {
                     if (searchTerm === "") {
                       return val;
                     } else if (
-                      val.number
+                      val.status
                         .toLowerCase()
                         .includes(searchTerm.toLocaleLowerCase())
                     ) {
@@ -100,7 +101,21 @@ const SearchBox = ({ data, user }) => {
                               </div>
                             </td>
 
-                            <td className="">{preview.number}</td>
+                            <td className="text-[11px]">
+                              {preview.status === "Active" ? (
+                                <>
+                                  <div className="badge badge-success gap-2 text-white ">
+                                    active
+                                  </div>
+                                </>
+                              ) : (
+                                <>
+                                  <div className="badge badge-error gap-2 text-white ">
+                                    disable
+                                  </div>
+                                </>
+                              )}
+                            </td>
 
                             <td>
                               <Link
@@ -140,4 +155,4 @@ const SearchBox = ({ data, user }) => {
   );
 };
 
-export default SearchBox;
+export default SearchBoxStatus;

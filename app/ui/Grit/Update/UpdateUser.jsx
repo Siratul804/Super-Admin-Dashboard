@@ -76,7 +76,7 @@ const UpdateUser = async ({ id }) => {
               <select
                 name="role"
                 defaultValue={user.role}
-                className="select select-bordered w-[200px] max-w-xs bg-white text-black "
+                className="select select-bordered w-[350px] max-w-xs bg-white text-black "
               >
                 <option value="grit">grit</option>
                 <option value="gym">gym</option>
@@ -90,7 +90,7 @@ const UpdateUser = async ({ id }) => {
               <select
                 name="status"
                 defaultValue={user.status}
-                className="select select-bordered w-[200px] max-w-xs bg-white text-black "
+                className="select select-bordered w-[350px] max-w-xs bg-white text-black "
               >
                 <option>Active</option>
                 <option>Disable</option>

@@ -14,6 +14,8 @@ const login = async (credentials) => {
 
     if (!user[0]) throw new Error("Wrong Credentials");
 
+    if (user[0].status === "Disable") throw new Error("Something Wrong");
+
     const isPasswordCorrect = await bcrypt.compare(
       credentials.password,
       user[0].password

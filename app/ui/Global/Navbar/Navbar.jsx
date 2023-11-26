@@ -39,7 +39,7 @@ const Navbar = async ({ data }) => {
               </div>
             </div>
           </div>
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end ">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 {ImgNav.map((val) => (
@@ -60,33 +60,27 @@ const Navbar = async ({ data }) => {
                 ))}
               </div>
             </label>
-            <ul className="menu-sm dropdown-content mt-3  p-2 shadow bg-white rounded-box w-52">
-              <li className=" pt-1 pb-1 ">
-                <span className="font-bold text-lg text-black ">
-                  {data.name}
-                </span>
-              </li>
-              <li className="py-2 bg-white ">
-                <Link
-                  className="justify-between  hover:text-[#8b7979] cursor-pointer rounded-lg text-black "
-                  href="/"
-                >
-                  Profile
-                </Link>
-              </li>
 
-              <li className="bg-white">
-                <form
-                  action={async () => {
-                    "use server";
-                    await signOut();
-                  }}
-                >
-                  <button className="text-black hover:text-red-600 ">
-                    logout
-                  </button>
-                </form>
-              </li>
+            <ul className="menu-sm dropdown-content z-[1] mt-3 p-2 shadow bg-white  rounded-box w-52 ">
+              <Link
+                className="justify-between   cursor-pointer rounded-lg text-black "
+                href="/dashboard"
+              >
+                <li className="p-2 text-sm rounded-md hover:bg-slate-100 ">
+                  Dashboard
+                </li>
+              </Link>
+
+              <form
+                action={async () => {
+                  "use server";
+                  await signOut();
+                }}
+              >
+                <button className="text-black hover:text-white p-2 text-sm hover:bg-red-500 rounded-lg  ">
+                  Logout
+                </button>
+              </form>
             </ul>
           </div>
         </div>

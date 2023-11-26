@@ -1,12 +1,27 @@
 import { deleteUser } from "@/app/lib/actions";
 import Link from "next/link";
-import SearchBox from "./SearchBox";
+import SearchBoxName from "./SearchBoxName";
+import SearchBoxStatus from "./SearchBoxStatus";
+import SearchBoxRole from "./SearchBoxRole";
+import { IoPersonAddSharp } from "react-icons/io5";
+
 const EditUser = async ({ data }) => {
   return (
     <>
-      <div className="pt-5 sm:pt-5 ">
+      <div className="pt-5 sm:pt-5  ">
+        <div className="flex justify-evenly flex-wrap">
+          <SearchBoxName data={data} />
+          <SearchBoxStatus data={data} />
+          <SearchBoxRole data={data} />
+        </div>
+        <div className="flex justify-end flex-wrap mr-1 sm:mr-[130px] py-5 ">
+          <Link href="/dashboard/grit/signup">
+            <button className="btn btn-sm rounded-full hover:bg-pink-500 hover:text-white bg-white  text-pink-500 btn-secondary ">
+              <IoPersonAddSharp size={17} /> Add Account
+            </button>
+          </Link>
+        </div>
         <section className="p-0 flex flex-col items-center justify-center">
-          <SearchBox data={data} />
           <div className="overflow-x-auto">
             <>
               <div className="overflow-x-auto">
@@ -75,7 +90,7 @@ const EditUser = async ({ data }) => {
                             </>
                           )}
                         </td>
-                        <td>{val.number}</td>
+                        <td>0{val.number}</td>
                         <td>
                           <Link
                             href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
