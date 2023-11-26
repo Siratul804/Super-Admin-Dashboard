@@ -84,7 +84,7 @@ const EditMember = async ({ data, user }) => {
                               </>
                             )}
                           </td>
-                          <td>0{val.number}</td>
+                          <td>{val.number}</td>
                           <td>
                             <Link
                               href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/gym/update/${val.id}`}

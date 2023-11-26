@@ -88,7 +88,7 @@ const EditUser = async ({ data }) => {
                         </>
                       )}
                     </td>
-                    <td>0{val.number}</td>
+                    <td>{val.number}</td>
                     <td>
                       <Link
                         href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}

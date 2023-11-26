@@ -31,7 +31,7 @@ const SearchBoxNumber = ({ data, user }) => {
             </form>
             <h3 className="font-bold text-lg py-6 ">
               <input
-                type="text"
+                type="number"
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search For Members By Their Number "
                 className="input border-transparent focus:border-transparent input-sm w-full p-5 sm:w-full text-[black] bg-slate-100"
