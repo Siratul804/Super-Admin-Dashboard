@@ -22,7 +22,7 @@ const LoginForm = () => {
                   <div className="form-control">
                     <h1
                       className="text-[black] font-bold text-[22px] flex justify-start p-1"
-                      style={{ marginTop: "-10px" }}
+                      style={{ marginTop: "-25px" }}
                     >
                       Sign In
                     </h1>
