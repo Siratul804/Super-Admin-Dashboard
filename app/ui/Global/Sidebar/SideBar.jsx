@@ -1,8 +1,14 @@
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { IoPersonAdd } from "react-icons/io5";
+import { IoPersonSharp } from "react-icons/io5";
+import { FaUserEdit } from "react-icons/fa";
+
 const SideBar = ({ data }) => {
+  const pathname = usePathname();
   return (
     <>
-      <div className="font-sans ">
+      <div className="font-sans">
         {data.role === "grit" ? (
           <>
             <Link href="/">
@@ -13,37 +19,40 @@ const SideBar = ({ data }) => {
                 />
               </li>
             </Link>
-            <div className="py-[20px]"></div>
-            <Link href="/dashboard/grit/profile">
-              <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
-                <span className="font-bold text-md text-[black] flex">
-                  <span className="pl-1 text-slate-500 text-sm ">
-                    Grit Profile
+            <div className="py-[10px]"></div>
+
+            <li className="pl-3 pr-3 pt-3">
+              <Link href="/dashboard/grit/signup">
+                <span
+                  className={
+                    pathname === "/dashboard/grit/signup"
+                      ? " font-bold p-3 bg-slate-100 text-md rounded-lg text-[black] flex"
+                      : " font-bold p-3 hover:bg-slate-100 text-md rounded-lg text-[black] flex"
+                  }
+                >
+                  <span className="pl-1 text-slate-500 text-sm flex ">
+                    <IoPersonAdd size={20} />
+                    <p className="px-2">Add Grit</p>
                   </span>
                 </span>
-              </li>
-            </Link>
-            <div className="py-1"></div>
-            <Link href="/dashboard/grit/signup">
-              <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
-                <span className="font-bold text-md text-[black] flex">
-                  <span className="pl-1 text-slate-500 text-sm ">
-                    Add Grit User
+              </Link>
+            </li>
+            <li className="pl-3 pr-3 pt-3">
+              <Link href="/dashboard/grit/edit">
+                <span
+                  className={
+                    pathname === "/dashboard/grit/edit"
+                      ? " font-bold p-3 bg-slate-100 text-md rounded-lg text-[black] flex"
+                      : " font-bold p-3 hover:bg-slate-100 text-md rounded-lg text-[black] flex"
+                  }
+                >
+                  <span className="pl-1 text-slate-500 text-sm flex ">
+                    <FaUserEdit size={20} />
+                    <p className="px-2">Edit Grit</p>
                   </span>
                 </span>
-              </li>
-            </Link>
-            <div className="py-1"></div>
-            <Link href="/dashboard/grit/edit">
-              <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
-                <span className="font-bold text-md text-[black] flex">
-                  <span className="pl-1 text-slate-500 text-sm ">
-                    {" "}
-                    Edit Grit User
-                  </span>
-                </span>
-              </li>
-            </Link>
+              </Link>
+            </li>
           </>
         ) : (
           <>

@@ -62,13 +62,12 @@ const Navbar = async ({ data }) => {
             </label>
 
             <ul className="menu-sm dropdown-content z-[1] mt-3 p-2 shadow bg-white  rounded-box w-52 ">
-              <Link
-                className="justify-between   cursor-pointer rounded-lg text-black "
-                href="/dashboard"
-              >
-                <li className="p-2 text-sm rounded-md hover:bg-slate-100 ">
-                  Dashboard
-                </li>
+              <Link href="/dashboard/grit/profile">
+                <span className=" font-bold p-2 hover:bg-slate-100 text-md rounded-lg text-[black] flex">
+                  <span className="pl-1 text-slate-500 text-sm flex ">
+                    <p className="px-2">Grit Profile</p>
+                  </span>
+                </span>
               </Link>
 
               <form
@@ -77,8 +76,12 @@ const Navbar = async ({ data }) => {
                   await signOut();
                 }}
               >
-                <button className="text-black hover:text-white p-2 text-sm hover:bg-red-500 rounded-lg  ">
-                  Logout
+                <button className="w-full">
+                  <span className=" font-bold p-2 hover:bg-slate-100 text-md rounded-lg text-[black] flex">
+                    <span className="pl-1 text-slate-500 text-sm flex ">
+                      <p className="px-2 text-red-600 ">Logout</p>
+                    </span>
+                  </span>
                 </button>
               </form>
             </ul>
