@@ -10,7 +10,7 @@ const Navbar = async ({ data }) => {
     <>
       <div className="navbar bg-white pr-5 pl-5 pt-5 sm:pr-10 sm:pl-10 drop-shadow-sm sticky top-0 ">
         <label
-          htmlFor="my-drawer-2"
+          htmlFor="my-drawer"
           className=" drawer-button lg:hidden pr-4 text-black "
         >
           <BiMenuAltLeft size={25} />

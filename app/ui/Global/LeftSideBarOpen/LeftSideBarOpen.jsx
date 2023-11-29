@@ -8,9 +8,9 @@ const LeftSideBarOpen = ({ data }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <>
-      <div className="">
+      <div className="sm:block hidden">
         <div
-          className=" border-r-1 "
+          className=" border-r-1"
           style={{ display: "flex", height: "100%", minHeight: "400px" }}
         >
           <Sidebar
@@ -44,6 +44,23 @@ const LeftSideBarOpen = ({ data }) => {
               </ul>
             </Menu>
           </Sidebar>
+        </div>
+      </div>
+      {/* ...................... */}
+      <div className="sm:hidden block">
+        <div className="drawer">
+          <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+
+          <div className="drawer-side">
+            <label
+              htmlFor="my-drawer"
+              aria-label="close sidebar"
+              className="drawer-overlay"
+            ></label>
+            <ul className=" p-4 w-80 min-h-full bg-white">
+              <SideBar data={data} />
+            </ul>
+          </div>
         </div>
       </div>
     </>

@@ -1,21 +1,21 @@
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IoPersonAdd } from "react-icons/io5";
-import { IoPersonSharp } from "react-icons/io5";
 import { FaUserEdit } from "react-icons/fa";
 
 const SideBar = ({ data }) => {
   const pathname = usePathname();
   return (
     <>
-      <div className="font-sans">
+      <div className="font-sans mt-[100px] sm:mt-[0px] ">
         {data.role === "grit" ? (
           <>
             <Link href="/">
               <li className="flex p-5 ">
                 <img
                   src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                  className="w-auto h-6"
+                  className="w-[100px] h-[100px] sm:h-6 sm:w-auto "
                 />
               </li>
             </Link>
