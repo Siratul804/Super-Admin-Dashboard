@@ -2,6 +2,8 @@ import { auth } from "@/app/auth";
 import ImageUploader from "./ImageUploader";
 import { GetUserData } from "@/app/lib/data";
 import Link from "next/link";
+import UpdatePass from "./UpdatePass";
+
 const ProfileGrit = async () => {
   const { user } = await auth();
   const data = await GetUserData();
@@ -52,7 +54,10 @@ const ProfileGrit = async () => {
                 {user.name}
               </h1>
             </div>
-            <ImageUploader id={user.id} />
+            <div className="flex justify-end p-4 flex-wrap pt-8 ">
+              <ImageUploader />
+              <UpdatePass />
+            </div>
           </div>
           <div className=" flex justify-center mt-2 p-5">
             <div className="bg-white shadow-xl p-5 rounded-xl h-[20vh] w-[50vh] ">

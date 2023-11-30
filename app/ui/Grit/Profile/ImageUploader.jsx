@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { addImg } from "@/app/lib/actions";
 import { useFormState } from "react-dom";
-import { RiImageEditFill } from "react-icons/ri";
+import { LuImagePlus } from "react-icons/lu";
 
 const ImageUploader = ({ id }) => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -25,14 +25,16 @@ const ImageUploader = ({ id }) => {
 
   return (
     <>
-      <div className="flex pl-5 pt-12 ">
+      <div className="flex">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
         <button
-          className="text-md border-b-2 hover:border-black border-white "
+          className="w-full"
           onClick={() => document.getElementById("my_modal_10").showModal()}
         >
-          <RiImageEditFill size={18} />
-          Change Image
+          <div className="hover:bg-slate-100 w-full p-1 rounded-md flex ">
+            <LuImagePlus size={22} />
+            <p className="pl-1 text-[15px] ">Change Image</p>
+          </div>
         </button>
         <dialog id="my_modal_10" className="modal  ">
           <div className="modal-box bg-white ">
