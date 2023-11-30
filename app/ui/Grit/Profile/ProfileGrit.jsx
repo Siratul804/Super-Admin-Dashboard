@@ -54,7 +54,7 @@ const ProfileGrit = async () => {
                 {user.name}
               </h1>
             </div>
-            <div className="flex justify-end p-4 flex-wrap pt-8 ">
+            <div className="flex justify-center sm:justify-end p-4 flex-wrap pt-16 sm:pt-8 ">
               <ImageUploader />
               <UpdatePass />
             </div>
