@@ -1,8 +1,21 @@
 "use client";
 import { changePass } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 const UpdatePass = ({ id }) => {
   const [state, formAction] = useFormState(changePass, undefined);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  "
+        disabled={pending}
+      >
+        {pending ? "Updating..." : "Update Password"}
+      </button>
+    );
+  }
   return (
     <>
       <div className="flex justify-center pt-4 ">
@@ -36,20 +49,18 @@ const UpdatePass = ({ id }) => {
                 <input
                   placeholder="New Password"
                   name="previous"
-                  className="input input-bordered w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
                 <input
                   placeholder="Confirm Password"
                   name="password"
-                  className="input input-bordered w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
-                <button className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  ">
-                  Update Password
-                </button>
+                <Submit />
               </form>
               <div className="toast toast-center ">
                 <span className="text-red-500 text-[12px] ">

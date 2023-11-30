@@ -35,7 +35,7 @@ const Navbar = async ({ data }) => {
               className="mt-3 z-[1] card card-compact dropdown-content w-52 shadow bg-white "
             >
               <div className="card-body">
-                <span className="text-info"> Grit Login Success</span>
+                <span className="text-info">Login Success</span>
               </div>
             </div>
           </div>
@@ -65,7 +65,7 @@ const Navbar = async ({ data }) => {
               <Link href="/dashboard/grit/profile">
                 <span className=" font-bold p-2 hover:bg-slate-100 text-md rounded-lg text-[black] flex">
                   <span className="pl-1 text-slate-500 text-sm flex ">
-                    <p className="px-2">Grit Profile</p>
+                    <p className="px-2">Profile</p>
                   </span>
                 </span>
               </Link>

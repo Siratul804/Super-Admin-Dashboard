@@ -1,13 +1,28 @@
+"use client";
 import { updateUser } from "@/app/lib/actions";
 import { GetUserByIdToUpdate } from "@/app/lib/data";
 import UpdatePass from "./UpdatePass";
+import { useFormStatus } from "react-dom";
 const UpdateUser = async ({ id }) => {
   const user = await GetUserByIdToUpdate(id);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+        disabled={pending}
+      >
+        {pending ? "Updating..." : "Update Grit"}
+      </button>
+    );
+  }
 
   return (
     <>
       <h1 className="flex mt-5 sm:mt-10 items-center justify-center text-[35px] font-bold font-mono ">
-        UPDATE-ACCOUNT
+        UPDATE-GRIT
       </h1>
       <section className="flex justify-center items-center mt-5 sm:mt-4 ">
         <form action={updateUser}>
@@ -23,7 +38,7 @@ const UpdateUser = async ({ id }) => {
                 name="name"
                 defaultValue={user.name}
                 required
-                className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
               />
             </main>
             <main className="pl-1">
@@ -36,7 +51,7 @@ const UpdateUser = async ({ id }) => {
                 name="email"
                 defaultValue={user.email}
                 required
-                className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
               />
             </main>
           </div>
@@ -52,7 +67,7 @@ const UpdateUser = async ({ id }) => {
                 name="number"
                 defaultValue={user.number}
                 required
-                className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
               />
             </main>
             <main className="pb-1">
@@ -63,7 +78,7 @@ const UpdateUser = async ({ id }) => {
                 type="password"
                 disabled
                 placeholder="**********"
-                className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
               />
             </main>
           </div>
@@ -76,10 +91,9 @@ const UpdateUser = async ({ id }) => {
               <select
                 name="role"
                 defaultValue={user.role}
-                className="select select-bordered w-[350px] max-w-xs bg-white text-black "
+                className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
               >
                 <option value="grit">grit</option>
-                <option value="gym">gym</option>
               </select>
             </main>
 
@@ -90,7 +104,7 @@ const UpdateUser = async ({ id }) => {
               <select
                 name="status"
                 defaultValue={user.status}
-                className="select select-bordered w-[350px] max-w-xs bg-white text-black "
+                className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
               >
                 <option>Active</option>
                 <option>Disable</option>
@@ -100,12 +114,7 @@ const UpdateUser = async ({ id }) => {
           <br />
           <div className="flex justify-between ">
             <label>
-              <button
-                className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
-                type="submit"
-              >
-                Update Account
-              </button>
+              <Submit />
             </label>
           </div>
         </form>

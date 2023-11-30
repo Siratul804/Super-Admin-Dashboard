@@ -37,6 +37,7 @@ export const addUser = async (prevState, formData) => {
   if (newUser) {
     redirect("/dashboard/grit/edit");
   }
+  return "Added Successfully";
 };
 export const updateUser = async (formData) => {
   const { id, name, email, number, role, status } =
@@ -99,6 +100,7 @@ export const deleteUser = async (formData) => {
 //global
 export const authenticate = async (prevState, formData) => {
   const { email, password } = Object.fromEntries(formData);
+
   try {
     await signIn("credentials", { email, password });
   } catch (error) {

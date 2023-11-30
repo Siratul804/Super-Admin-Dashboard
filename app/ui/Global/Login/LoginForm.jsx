@@ -3,14 +3,29 @@ import { useState } from "react";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import Link from "next/link";
 import { authenticate } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 const LoginForm = () => {
   const [isVisible, setVisible] = useState(false);
   const toggle = () => {
     setVisible(!isVisible);
   };
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn btn-sm btn-neutral"
+        disabled={pending}
+      >
+        {pending ? "Logining..." : "Login"}
+      </button>
+    );
+  }
+
   const [state, formAction] = useFormState(authenticate, undefined);
+
   return (
     <>
       <main className="login bg-slate-100 h-[100vh] sm:h-[100vh] md:h-[100vh] xl:h-[100vh]">
@@ -68,9 +83,8 @@ const LoginForm = () => {
                       </Link>
                     </div>
                     <br />
-                    <button className="btn btn-sm btn-neutral" type="submit">
-                      Sign In
-                    </button>
+
+                    <Submit />
                   </div>
                   <p className="py-2 text-black text-sm">
                     Copyright © 2023 Grit Gym. All rights reserved

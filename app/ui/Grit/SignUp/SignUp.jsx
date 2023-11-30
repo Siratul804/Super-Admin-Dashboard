@@ -1,13 +1,27 @@
 "use client";
 import { addUser } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 const SignUp = () => {
   const [state, formAction] = useFormState(addUser, undefined);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+        disabled={pending}
+      >
+        {pending ? "Adding..." : "Add Grit"}
+      </button>
+    );
+  }
+
   return (
     <>
-      <div className="pt-5 sm:pt-16  ">
+      <div className="pt-5   ">
         <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono ">
-          ADD-ACCOUNT
+          ADD GRIT
         </h1>
         <section className="flex justify-center items-center pt-5 sm:pt-4  py-10  ">
           <form action={formAction}>
@@ -21,7 +35,7 @@ const SignUp = () => {
                   placeholder="name"
                   name="name"
                   required
-                  className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                 />
               </main>
               <main className="pl-1">
@@ -33,7 +47,7 @@ const SignUp = () => {
                   placeholder="Enter Your Email"
                   name="email"
                   required
-                  className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                 />
               </main>
             </div>
@@ -48,7 +62,7 @@ const SignUp = () => {
                   placeholder="Enter Your Password"
                   name="password"
                   required
-                  className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                 />
               </main>
               <main className="pb-1">
@@ -60,7 +74,7 @@ const SignUp = () => {
                   placeholder="Enter Your Number"
                   name="number"
                   required
-                  className="input input-bordered w-[350px] max-w-xs text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                 />
               </main>
             </div>
@@ -72,10 +86,9 @@ const SignUp = () => {
                 </label>
                 <select
                   name="role"
-                  className="select select-bordered w-[350px] max-w-xs bg-white text-black "
+                  className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                 >
                   <option value="grit">grit</option>
-                  <option value="gym">gym</option>
                 </select>
               </main>
 
@@ -85,7 +98,7 @@ const SignUp = () => {
                 </label>
                 <select
                   name="status"
-                  className="select select-bordered w-[350px] max-w-xs bg-white text-black "
+                  className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                 >
                   <option>Active</option>
                   <option>Disable</option>
@@ -95,12 +108,7 @@ const SignUp = () => {
             <br />
             <div className="flex justify-between ">
               <label>
-                <button
-                  className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
-                  type="submit"
-                >
-                  Create Account
-                </button>
+                <Submit />
               </label>
             </div>
             <div className="flex justify-center py-2 text-red-700 ">
