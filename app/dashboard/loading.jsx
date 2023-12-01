@@ -1,25 +1,14 @@
 const loading = () => {
   return (
     <>
-      <div className="flex justify-center mt-10 bg-slate-50 ">
-        <div className="flex justify-between">
-          <div className="py-[100px]">
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
-
-            <div className="py-4"></div>
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
-
-            <div className="py-4"></div>
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
-
-            <div className="py-4"></div>
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
-
-            <div className="py-4"></div>
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
-
-            <div className="py-4"></div>
-            <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-300 w-[550px] mb-2.5"></div>
+      <div className="flex justify-center bg-slate-50 ">
+        <div className="py-[150px] ">
+          <div className="flex flex-col gap-6 w-52">
+            <div className="skeleton h-4 w-[300px]"></div>
+            <div className="skeleton h-4 w-[300px]"></div>
+            <div className="skeleton h-4 w-[300px]"></div>
+            <div className="skeleton h-4 w-[300px]"></div>
+            <div className="skeleton h-4 w-[300px]"></div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { MdModeEdit } from "react-icons/md";
 import Link from "next/link";
-const EditTable = ({ data }) => {
+const EditTable = async ({ data, filterData }) => {
   return (
     <>
       <div className="overflow-x-auto w-full h-[55vh] ">
@@ -25,60 +25,121 @@ const EditTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className="bg-white  ">
-            {data.map((val) => (
+            {filterData.length > 0 ? (
               <>
-                {val.role === "grit" ? (
+                {filterData.map((val) => (
                   <>
-                    <tr>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <div className="flex ">
-                          <div className="h-10 w-10">
-                            <img
-                              src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
-                              alt="No Img"
-                              className="rounded-full"
-                            />
-                          </div>
-                          <div className="px-2 py-2 ">{val.name}</div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        {val.number}
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        {val.role}
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        {val.status === "Active" ? (
-                          <>
-                            <div className="badge badge-accent badge-outline text-white ">
-                              Active
+                    {val.role === "grit" ? (
+                      <>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div className="flex ">
+                              <div className="h-10 w-10">
+                                <img
+                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                                  alt="No Img"
+                                  className="rounded-full"
+                                />
+                              </div>
+                              <div className="px-2 py-2 ">{val.name}</div>
                             </div>
-                          </>
-                        ) : (
-                          <>
-                            <div className="badge badge-secondary badge-outline text-white ">
-                              Disable
-                            </div>
-                          </>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                        <Link
-                          href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
-                        >
-                          <button className="p-2 hover:bg-slate-100 rounded-full ">
-                            <MdModeEdit size={20} />
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.number}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.role}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.status === "Active" ? (
+                              <>
+                                <div className="badge badge-accent badge-outline text-white ">
+                                  Active
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="badge badge-secondary badge-outline text-white ">
+                                  Disable
+                                </div>
+                              </>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
+                            <Link
+                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
+                            >
+                              <button className="p-2 hover:bg-slate-100 rounded-full ">
+                                <MdModeEdit size={20} />
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </>
-                ) : (
-                  <></>
-                )}
+                ))}
               </>
-            ))}
+            ) : (
+              <>
+                {data.map((val) => (
+                  <>
+                    {val.role === "grit" ? (
+                      <>
+                        <tr>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <div className="flex ">
+                              <div className="h-10 w-10">
+                                <img
+                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                                  alt="No Img"
+                                  className="rounded-full"
+                                />
+                              </div>
+                              <div className="px-2 py-2 ">{val.name}</div>
+                            </div>
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.number}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.role}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                            {val.status === "Active" ? (
+                              <>
+                                <div className="badge badge-accent badge-outline text-white ">
+                                  Active
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className="badge badge-secondary badge-outline text-white ">
+                                  Disable
+                                </div>
+                              </>
+                            )}
+                          </td>
+                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
+                            <Link
+                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
+                            >
+                              <button className="p-2 hover:bg-slate-100 rounded-full ">
+                                <MdModeEdit size={20} />
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </>
+                ))}
+              </>
+            )}
           </tbody>
         </table>
       </div>

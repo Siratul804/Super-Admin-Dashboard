@@ -50,7 +50,7 @@ export const updateUser = async (formData) => {
   });
 
   if (!newUser) {
-    throw new Error("Faile to update user");
+    return "Update Failed";
   }
   if (newUser) {
     console.log("user updated");

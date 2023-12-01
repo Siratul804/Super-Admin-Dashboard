@@ -40,3 +40,15 @@ export async function GetMemberByIdToUpdate(id) {
 
   return members[0];
 }
+
+//filter User/Grit Data
+
+export async function GetGritFilterData(name, number, status) {
+  const filterGrit = await query({
+    query:
+      "SELECT * FROM users WHERE `name` = ? OR `number` = ? OR `status` = ?",
+    values: [name, number, status],
+  });
+
+  return filterGrit;
+}
