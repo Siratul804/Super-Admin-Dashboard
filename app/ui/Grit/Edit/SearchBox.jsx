@@ -34,40 +34,49 @@ const SearchBox = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="bg-white shadow-sm p-5 rounded-xl sm:h-[18vh] h-[30vh] sm:w-[150vh] w-[100vh] flex justify-evenly flex-wrap">
+        <div className="bg-white w-full shadow-lg p-5 rounded-xl flex justify-between flex-wrap">
           <div>
-            <label>Name </label>
+            <label className="text-sm">Name </label>
             <br />
             <input
               type="text"
               placeholder="Enter Your Name "
               name="name"
               onChange={handleSearchName}
-              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[250px] "
+              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh] "
             />
           </div>
           <div>
-            <label>Number </label>
+            <label className="text-sm">Number </label>
             <br />
             <input
               type="number"
               placeholder="Enter Your Number "
               name="number"
               onChange={handleSearchNumber}
-              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[250px] "
+              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh] "
             />
           </div>
           <div>
-            <label>Status </label>
+            <label className="text-sm">Status </label>
             <br />
             <select
               name="status"
               onChange={handleSearchStatus}
-              className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[250px] "
+              className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh] "
             >
+              <option disabled selected>
+                Select
+              </option>
               <option>Active</option>
               <option>Disable</option>
             </select>
+          </div>
+          <div>
+            <br />
+            <button className="btn btn-neutral btn-sm text-white w-[35vh] ">
+              Search
+            </button>
           </div>
         </div>
       </div>

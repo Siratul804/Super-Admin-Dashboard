@@ -6,17 +6,17 @@ const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
   return (
     <div>
-      <div className="py-8 flex justify-end ">
+      <div className="flex justify-end ">
         <button
           className="btn btn-neutral btn-sm text-white "
           onClick={() => document.getElementById("add_modal").showModal()}
         >
-          <IoMdAdd size={17} /> Add Grit
+          <IoMdAdd size={17} /> Add User
         </button>
       </div>
       {/* .....add modal data....... */}
       <dialog id="add_modal" className="modal">
-        <div className="modal-box bg-white max-w-full ">
+        <div className="modal-box bg-white max-w-[120vh] ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2  text-black   ">
@@ -28,7 +28,7 @@ const AddGrit = () => {
             {/* //inside content// */}
             <div className="">
               <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono ">
-                ADD-ACCOUNT
+                ADD-USER
               </h1>
               <section className="flex justify-center">
                 <form action={formAction}>
@@ -127,6 +127,13 @@ const AddGrit = () => {
                     {state && state}
                   </div>
                 </form>
+                {/* <button
+                  className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+                  type="submit"
+                  onClick={() => document.getElementById("add_modal").close()}
+                >
+                  Delete
+                </button> */}
               </section>
             </div>
           </div>

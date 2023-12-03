@@ -46,7 +46,7 @@ const ImageUploader = ({ id }) => {
             </form>
             <h3 className="font-bold text-lg">Upload Your Image</h3>
             <b className="font-bold text-sm text-primary ">
-              ( select .png & less than 1MB file )
+              ( select png, jpg, jpeg, svg & less than 1MB file )
             </b>
             <div className="py-4">
               {/* //inside content// */}
@@ -83,8 +83,8 @@ const ImageUploader = ({ id }) => {
                   <input
                     type="file"
                     className="hidden"
-                    accept="image/png"
                     name="file"
+                    accept="image/*"
                     onChange={handleImageChange}
                     required
                   />

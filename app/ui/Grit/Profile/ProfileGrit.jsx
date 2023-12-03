@@ -15,14 +15,14 @@ const ProfileGrit = async () => {
         <div className=" pt-3 text-sm flex  ">
           <Link
             href="/"
-            className="border-b-2 text-black hover:border-black border-slate-50 "
+            className="border-b-2 text-black hover:border-black border-[#EEF2F6] "
           >
             Dashboard
           </Link>
           <div className="p-2 "></div>
           <Link
             href="/dashboard/grit/profile"
-            className="border-b-2 hover:border-black text-black border-slate-50 "
+            className="border-b-2 hover:border-black text-black border-[#EEF2F6] "
           >
             Profile
           </Link>
@@ -55,8 +55,8 @@ const ProfileGrit = async () => {
               </h1>
             </div>
             <div className="flex justify-center sm:justify-end p-4 flex-wrap pt-16 sm:pt-8 ">
-              <ImageUploader />
-              <UpdatePass />
+              <ImageUploader id={user.id} />
+              <UpdatePass id={user.id} />
             </div>
           </div>
           <div className=" flex justify-center mt-2 p-5">

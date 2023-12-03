@@ -37,7 +37,6 @@ export const addUser = async (prevState, formData) => {
   if (newUser) {
     redirect("/dashboard/grit/edit");
   }
-  return "Added Successfully";
 };
 export const updateUser = async (formData) => {
   const { id, name, email, number, role, status } =

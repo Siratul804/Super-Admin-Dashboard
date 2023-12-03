@@ -63,7 +63,7 @@ const Navbar = async ({ data }) => {
 
             <ul className="menu-sm dropdown-content z-[1] mt-3 p-2 shadow bg-white  rounded-box w-52 ">
               <Link href="/dashboard/grit/profile">
-                <span className=" font-bold p-2 hover:bg-slate-100 text-md rounded-lg text-[black] flex">
+                <span className=" font-bold p-2 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex">
                   <span className="pl-1 text-slate-500 text-sm flex ">
                     <p className="px-2">Profile</p>
                   </span>
@@ -77,7 +77,7 @@ const Navbar = async ({ data }) => {
                 }}
               >
                 <button className="w-full">
-                  <span className=" font-bold p-2 hover:bg-slate-100 text-md rounded-lg text-[black] flex">
+                  <span className=" font-bold p-2 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex">
                     <span className="pl-1 text-slate-500 text-sm flex ">
                       <p className="px-2 text-red-600 ">Logout</p>
                     </span>

@@ -8,17 +8,9 @@ const SideBar = ({ data }) => {
   const pathname = usePathname();
   return (
     <>
-      <div className="font-sans mt-[100px] sm:mt-[0px] ">
+      <div className="font-sans ">
         {data.role === "grit" ? (
           <>
-            <Link href="/">
-              <li className="flex p-5 ">
-                <img
-                  src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                  className="w-[100px] h-[100px] sm:h-6 sm:w-auto "
-                />
-              </li>
-            </Link>
             <div className="py-[10px]"></div>
 
             <li className="pl-3 pr-3 pt-3">
@@ -26,8 +18,8 @@ const SideBar = ({ data }) => {
                 <span
                   className={
                     pathname === "/dashboard/grit/signup"
-                      ? " font-bold p-3 bg-slate-100 text-md rounded-lg text-[black] flex"
-                      : " font-bold p-3 hover:bg-slate-100 text-md rounded-lg text-[black] flex"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
                   <span className="pl-1 text-slate-500 text-sm flex ">
@@ -42,8 +34,8 @@ const SideBar = ({ data }) => {
                 <span
                   className={
                     pathname === "/dashboard/grit/edit"
-                      ? " font-bold p-3 bg-slate-100 text-md rounded-lg text-[black] flex"
-                      : " font-bold p-3 hover:bg-slate-100 text-md rounded-lg text-[black] flex"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
                   <span className="pl-1 text-slate-500 text-sm flex ">

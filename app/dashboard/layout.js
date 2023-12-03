@@ -1,5 +1,4 @@
 import Navbar from "../ui/Global/Navbar/Navbar";
-import SideBar from "../ui/Global/Sidebar/SideBar";
 import { auth } from "@/app/auth";
 import { GetUserData } from "@/app/lib/data";
 import { signOut } from "@/app/auth";
@@ -25,7 +24,7 @@ const layout = async ({ children }) => {
                         <div className="w-full  ">
                           <Navbar data={user} />
                           <div className="p-3 ">
-                            <main className="bg-slate-50 p-5 rounded-2xl	 ">
+                            <main className="bg-[#EEF2F6] p-5 rounded-2xl	 ">
                               {children}
                             </main>
                           </div>
