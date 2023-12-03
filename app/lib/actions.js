@@ -12,31 +12,38 @@ export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
     Object.fromEntries(formData);
 
-  const user = await query({
-    query: "SELECT email FROM users WHERE email = (?)",
-    values: [email],
-  });
+  try {
+    const user = await query({
+      query: "SELECT email FROM users WHERE email = (?)",
+      values: [email],
+    });
 
-  if (user[0]) {
-    return "User Already Exits";
+    if (user[0]) {
+      return "User Already Exits";
+    }
+
+    const hasedPassword = await bcrypt.hash(password, 10);
+
+    const image = "img.png";
+
+    const newUser = await query({
+      query:
+        "INSERT INTO users (name, email, password, number, img, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      values: [name, email, hasedPassword, number, image, role, status],
+    });
+
+    if (!newUser) {
+      throw new Error("Faile to Singup");
+    }
+    if (newUser) {
+      return "User Added";
+    }
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to create user!");
   }
 
-  const hasedPassword = await bcrypt.hash(password, 10);
-
-  const image = "img.png";
-
-  const newUser = await query({
-    query:
-      "INSERT INTO users (name, email, password, number, img, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    values: [name, email, hasedPassword, number, image, role, status],
-  });
-
-  if (!newUser) {
-    throw new Error("Faile to Singup");
-  }
-  if (newUser) {
-    redirect("/dashboard/grit/edit");
-  }
+  // redirect("/dashboard/grit/edit");
 };
 export const updateUser = async (formData) => {
   const { id, name, email, number, role, status } =

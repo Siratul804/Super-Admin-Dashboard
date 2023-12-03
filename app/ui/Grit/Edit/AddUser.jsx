@@ -1,9 +1,27 @@
 "use client";
 import { addUser } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { IoMdAdd } from "react-icons/io";
 const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+        disabled={pending}
+      >
+        {pending ? "Adding..." : "Add Grit"}
+      </button>
+    );
+  }
+
+  if (state === "User Added") {
+    window.location.reload();
+  }
+
   return (
     <div>
       <div className="flex justify-end ">
@@ -115,16 +133,11 @@ const AddGrit = () => {
                   <br />
                   <div className="flex justify-between ">
                     <label>
-                      <button
-                        className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
-                        type="submit"
-                      >
-                        Create Account
-                      </button>
+                      <Submit />
                     </label>
                   </div>
-                  <div className="flex justify-center py-2 text-red-700 ">
-                    {state && state}
+                  <div className="flex justify-center text-red-600 pt-2 ">
+                    <h1 className="font-bold">{state}</h1>
                   </div>
                 </form>
                 {/* <button
