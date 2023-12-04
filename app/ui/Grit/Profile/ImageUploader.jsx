@@ -2,12 +2,25 @@
 
 import { useState } from "react";
 import { addImg } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 import { LuImagePlus } from "react-icons/lu";
 
 const ImageUploader = ({ id }) => {
   const [previewImage, setPreviewImage] = useState(null);
   const [state, formAction] = useFormState(addImg, undefined);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  "
+        disabled={pending}
+      >
+        {pending ? "Uploading..." : "Upload"}
+      </button>
+    );
+  }
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -90,9 +103,7 @@ const ImageUploader = ({ id }) => {
                   />
                 </label>
                 <div className="pt-3"></div>
-                <button className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  ">
-                  Upload
-                </button>
+                <Submit />
                 <div className="toast">
                   <span className="text-red-500 text-[13px] sm:text-[15px] pr-2 sm:pr-16 ">
                     {state && state}

@@ -1,9 +1,8 @@
-import { MdModeEdit } from "react-icons/md";
-import Link from "next/link";
+import UpdateUser from "../UpdateUser/UpdateUser";
 const EditTable = async ({ data, filterData }) => {
   return (
     <>
-      <div className="overflow-x-auto w-full h-[55vh] ">
+      <div className="overflow-x-auto w-full h-auto ">
         <table className="w-full border-collapse border border-slate-100">
           <thead>
             <tr>
@@ -66,13 +65,14 @@ const EditTable = async ({ data, filterData }) => {
                             )}
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                            <Link
-                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
-                            >
-                              <button className="p-2 hover:bg-slate-100 rounded-full ">
-                                <MdModeEdit size={20} />
-                              </button>
-                            </Link>
+                            <UpdateUser
+                              id={val.id}
+                              name={val.name}
+                              email={val.email}
+                              number={val.number}
+                              role={val.role}
+                              status={val.status}
+                            />
                           </td>
                         </tr>
                       </>
@@ -123,13 +123,14 @@ const EditTable = async ({ data, filterData }) => {
                             )}
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                            <Link
-                              href={`${process.env.NEXT_PUBLIC_API_URL}/dashboard/grit/update/${val.id}`}
-                            >
-                              <button className="p-2 hover:bg-slate-100 rounded-full ">
-                                <MdModeEdit size={20} />
-                              </button>
-                            </Link>
+                            <UpdateUser
+                              id={val.id}
+                              name={val.name}
+                              email={val.email}
+                              number={val.number}
+                              role={val.role}
+                              status={val.status}
+                            />
                           </td>
                         </tr>
                       </>

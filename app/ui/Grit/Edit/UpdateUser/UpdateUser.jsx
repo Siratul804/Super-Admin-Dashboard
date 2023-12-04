@@ -1,9 +1,10 @@
 "use client";
-import { addUser } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
-import { IoMdAdd } from "react-icons/io";
-const AddGrit = () => {
-  const [state, formAction] = useFormState(addUser, undefined);
+import { MdModeEdit } from "react-icons/md";
+import { updateUser } from "@/app/lib/actions";
+// import UpdatePass from "./UpdatePass";
+const UpdateUser = ({ id, name, email, number, role, status }) => {
+  const [state, formAction] = useFormState(updateUser, undefined);
 
   function Submit() {
     const { pending } = useFormStatus();
@@ -13,27 +14,27 @@ const AddGrit = () => {
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
         disabled={pending}
       >
-        {pending ? "Adding..." : "Add Grit"}
+        {pending ? "Updating..." : "Update Grit"}
       </button>
     );
   }
 
-  if (state === "User Added") {
+  if (state === "User Updated") {
     window.location.reload();
   }
 
   return (
     <div>
-      <div className="flex justify-end ">
+      <div className="flex justify-start ">
         <button
-          className="btn btn-neutral btn-sm text-white "
-          onClick={() => document.getElementById("add_modal").showModal()}
+          className="p-2 hover:bg-slate-100 rounded-full "
+          onClick={() => document.getElementById(id).showModal()}
         >
-          <IoMdAdd size={17} /> Add User
+          <MdModeEdit size={20} />
         </button>
       </div>
       {/* .....add modal data....... */}
-      <dialog id="add_modal" className="modal">
+      <dialog id={id} className="modal">
         <div className="modal-box bg-white max-w-[120vh] ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
@@ -45,12 +46,13 @@ const AddGrit = () => {
           <div className="py-2">
             {/* //inside content// */}
             <div className="">
-              <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono ">
-                ADD-USER
+              <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono text-black ">
+                UPDATE-USER
               </h1>
-              <section className="flex justify-center">
+              <section className="flex justify-center items-center mt-5 sm:mt-4 ">
                 <form action={formAction}>
                   <div className="flex justify-evenly sm:flex-row flex-col  ">
+                    <input type="hidden" name="id" value={id} />
                     <main className="pr-1">
                       <label className="label">
                         <span className="text-[black]"> Name </span>
@@ -59,8 +61,9 @@ const AddGrit = () => {
                         type="ext"
                         placeholder="name"
                         name="name"
+                        defaultValue={name}
                         required
-                        className="input border-black focus:outline-black focus:border-black  w-[350px] max-w-xs text-[black] bg-white "
+                        className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                       />
                     </main>
                     <main className="pl-1">
@@ -71,6 +74,7 @@ const AddGrit = () => {
                         type="email"
                         placeholder="Enter Your Email"
                         name="email"
+                        defaultValue={email}
                         required
                         className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                       />
@@ -78,18 +82,6 @@ const AddGrit = () => {
                   </div>
 
                   <div className="flex justify-evenly sm:flex-row flex-col  ">
-                    <main className="pr-1">
-                      <label className="label">
-                        <span className="text-[black] flex ">Password</span>
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Enter Your Password"
-                        name="password"
-                        required
-                        className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
-                      />
-                    </main>
                     <main className="pb-1">
                       <label className="label">
                         <span className="text-[black]">Mobaile Number </span>
@@ -98,8 +90,19 @@ const AddGrit = () => {
                         type="number"
                         placeholder="Enter Your Number"
                         name="number"
+                        defaultValue={number}
                         required
                         className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
+                      />
+                    </main>
+                    <main className="pb-1">
+                      <label className="label">
+                        <span className="text-[black]"> Password</span>
+                      </label>
+                      <input
+                        type="password"
+                        placeholder="**********"
+                        className="input cursor-not-allowed border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                       />
                     </main>
                   </div>
@@ -111,7 +114,8 @@ const AddGrit = () => {
                       </label>
                       <select
                         name="role"
-                        className="select border-black focus:outline-black focus:border-black  w-[350px] max-w-xs bg-white text-black "
+                        defaultValue={role}
+                        className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                       >
                         <option value="grit">grit</option>
                       </select>
@@ -123,6 +127,7 @@ const AddGrit = () => {
                       </label>
                       <select
                         name="status"
+                        defaultValue={status}
                         className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                       >
                         <option>Active</option>
@@ -140,14 +145,8 @@ const AddGrit = () => {
                     <h1 className="font-bold">{state}</h1>
                   </div>
                 </form>
-                {/* <button
-                  className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
-                  type="submit"
-                  onClick={() => document.getElementById("add_modal").close()}
-                >
-                  Delete
-                </button> */}
               </section>
+              {/* <UpdatePass id={id} /> */}
             </div>
           </div>
         </div>
@@ -156,4 +155,4 @@ const AddGrit = () => {
   );
 };
 
-export default AddGrit;
+export default UpdateUser;

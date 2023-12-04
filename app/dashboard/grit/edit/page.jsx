@@ -1,4 +1,4 @@
-import EditUser from "@/app/ui/Grit/Edit/EditUser";
+import EditUser from "@/app/ui/Grit/Edit/EditUser/EditUser";
 import { GetUserData } from "@/app/lib/data";
 import { GetGritFilterData } from "@/app/lib/data";
 const Edit = async ({ searchParams }) => {

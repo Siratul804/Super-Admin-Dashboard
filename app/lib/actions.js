@@ -45,7 +45,7 @@ export const addUser = async (prevState, formData) => {
 
   // redirect("/dashboard/grit/edit");
 };
-export const updateUser = async (formData) => {
+export const updateUser = async (prevState, formData) => {
   const { id, name, email, number, role, status } =
     Object.fromEntries(formData);
 
@@ -59,8 +59,7 @@ export const updateUser = async (formData) => {
     return "Update Failed";
   }
   if (newUser) {
-    console.log("user updated");
-    redirect("/dashboard/grit/edit");
+    return "User Updated";
   }
 };
 
@@ -85,7 +84,7 @@ export const changePass = async (prevState, formData) => {
   }
   if (newPass) {
     console.log("Password Changed");
-    redirect("/dashboard/grit/edit");
+    return "Password Changed";
   }
 };
 

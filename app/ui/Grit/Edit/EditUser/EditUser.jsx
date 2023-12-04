@@ -1,6 +1,6 @@
-import AddUser from "./AddUser";
+import AddUser from "../AddUser/AddUser";
 import EditTable from "./EditTable";
-import SearchBox from "./SearchBox";
+import SearchBox from "../SearchUser/SearchBox";
 
 const EditUser = async ({ data, filterData }) => {
   return (
