@@ -3,28 +3,33 @@ import { addUser } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoMdAdd } from "react-icons/io";
 import toast, { Toaster } from "react-hot-toast";
+
 const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
 
+  if (state === "Added") {
+    toast.success("Successfully Created!");
+    window.location.reload();
+  }
+  if (state === "Exits") {
+    toast.error("User Already Exits");
+  }
+
+  console.log(state);
+
   function Submit() {
     const { pending } = useFormStatus();
+
     return (
       <button
         type="submit"
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
         disabled={pending}
-        onClick={notify}
       >
         {pending ? "Creating..." : "Create User"}
       </button>
     );
   }
-
-  if (state === "User Added") {
-    window.location.reload();
-  }
-
-  const notify = () => toast.success("Successfully Created!");
 
   return (
     <div>
@@ -143,9 +148,7 @@ const AddGrit = () => {
                       <Submit />
                     </label>
                   </div>
-                  <div className="flex justify-center text-red-600 pt-2 ">
-                    <Toaster position="top-center" reverseOrder={false} />
-                  </div>
+                  <Toaster position="top-center" reverseOrder={false} />
                 </form>
               </section>
             </div>

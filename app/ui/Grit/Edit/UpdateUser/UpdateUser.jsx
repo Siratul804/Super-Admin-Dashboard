@@ -9,6 +9,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
 
   function Submit() {
     const { pending } = useFormStatus();
+    const notify = () => toast.success("Successfully Updated!");
+
     return (
       <button
         type="submit"
@@ -24,9 +26,6 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
   if (state === "User Updated") {
     window.location.reload();
   }
-
-  // console.log(state);
-  const notify = () => toast.success("Successfully Updated!");
 
   return (
     <div>
