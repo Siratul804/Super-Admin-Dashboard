@@ -2,6 +2,7 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { MdModeEdit } from "react-icons/md";
 import { updateUser } from "@/app/lib/actions";
+import toast, { Toaster } from "react-hot-toast";
 // import UpdatePass from "./UpdatePass";
 const UpdateUser = ({ id, name, email, number, role, status }) => {
   const [state, formAction] = useFormState(updateUser, undefined);
@@ -12,6 +13,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
       <button
         type="submit"
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+        onClick={notify}
         disabled={pending}
       >
         {pending ? "Updating..." : "Update User"}
@@ -24,6 +26,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
   }
 
   // console.log(state);
+  const notify = () => toast.success("Successfully Updated!");
 
   return (
     <div>
@@ -135,9 +138,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       <Submit />
                     </label>
                   </div>
-                  <div className="flex justify-center text-red-600 pt-2 ">
-                    <h1 className="font-bold">{state}</h1>
-                  </div>
+                  <Toaster position="top-center" reverseOrder={false} />
                 </form>
               </section>
               {/* <UpdatePass id={id} /> */}

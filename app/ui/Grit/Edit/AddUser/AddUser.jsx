@@ -2,6 +2,7 @@
 import { addUser } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoMdAdd } from "react-icons/io";
+import toast, { Toaster } from "react-hot-toast";
 const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
 
@@ -12,6 +13,7 @@ const AddGrit = () => {
         type="submit"
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
         disabled={pending}
+        onClick={notify}
       >
         {pending ? "Creating..." : "Create User"}
       </button>
@@ -21,6 +23,8 @@ const AddGrit = () => {
   if (state === "User Added") {
     window.location.reload();
   }
+
+  const notify = () => toast.success("Successfully Created!");
 
   return (
     <div>
@@ -140,7 +144,7 @@ const AddGrit = () => {
                     </label>
                   </div>
                   <div className="flex justify-center text-red-600 pt-2 ">
-                    <h1 className="font-bold">{state}</h1>
+                    <Toaster position="top-center" reverseOrder={false} />
                   </div>
                 </form>
               </section>
