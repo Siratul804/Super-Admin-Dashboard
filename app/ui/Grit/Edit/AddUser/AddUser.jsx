@@ -13,7 +13,7 @@ const AddGrit = () => {
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
         disabled={pending}
       >
-        {pending ? "Adding..." : "Add Grit"}
+        {pending ? "Creating..." : "Create User"}
       </button>
     );
   }
@@ -34,7 +34,7 @@ const AddGrit = () => {
       </div>
       {/* .....add modal data....... */}
       <dialog id="add_modal" className="modal">
-        <div className="modal-box bg-white max-w-[120vh] ">
+        <div className="modal-box bg-white max-w-[110vh] ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2  text-black   ">
@@ -45,9 +45,12 @@ const AddGrit = () => {
           <div className="py-2">
             {/* //inside content// */}
             <div className="">
-              <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono text-black ">
-                ADD-USER
+              <h1 className="flex  items-center justify-start text-[34px]  text-black ">
+                Add Advance User
               </h1>
+              <div className="py-3">
+                <hr />
+              </div>
               <section className="flex justify-center">
                 <form action={formAction}>
                   <div className="flex justify-evenly sm:flex-row flex-col  ">
@@ -63,7 +66,7 @@ const AddGrit = () => {
                         className="input border-black focus:outline-black focus:border-black  w-[350px] max-w-xs text-[black] bg-white "
                       />
                     </main>
-                    <main className="pl-1">
+                    <main className="pl-0 sm:pl-1 ">
                       <label className="label">
                         <span className="text-[black]"> Email </span>
                       </label>
@@ -83,7 +86,7 @@ const AddGrit = () => {
                         <span className="text-[black] flex ">Password</span>
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         placeholder="Enter Your Password"
                         name="password"
                         required
@@ -104,8 +107,8 @@ const AddGrit = () => {
                     </main>
                   </div>
 
-                  <div className="flex justify-between sm:flex-row flex-col  ">
-                    <main>
+                  <div className="flex justify-center sm:flex-row flex-col  ">
+                    <main className="hidden">
                       <label className="label">
                         <span className="text-[black]">Type</span>
                       </label>

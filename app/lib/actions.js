@@ -59,6 +59,7 @@ export const updateUser = async (prevState, formData) => {
     return "Update Failed";
   }
   if (newUser) {
+    // redirect("/dashboard/grit/edit");
     return "User Updated";
   }
 };

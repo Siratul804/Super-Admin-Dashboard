@@ -34,7 +34,7 @@ const SearchBox = () => {
   return (
     <>
       <div className="flex justify-center">
-        <div className="bg-white w-full shadow-lg p-5 rounded-xl flex justify-between flex-wrap">
+        <div className="bg-white w-full shadow-lg p-4 rounded-xl flex justify-between flex-wrap">
           <div>
             <label className="text-sm">Name </label>
             <br />
@@ -43,7 +43,7 @@ const SearchBox = () => {
               placeholder="Enter Your Name "
               name="name"
               onChange={handleSearchName}
-              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh] "
+              className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[34vh]  "
             />
           </div>
           <div>
@@ -54,7 +54,7 @@ const SearchBox = () => {
               placeholder="Enter Your Number "
               name="number"
               onChange={handleSearchNumber}
-              className="input py input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh] "
+              className="input input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[34vh]  "
             />
           </div>
           <div>
@@ -63,7 +63,7 @@ const SearchBox = () => {
             <select
               name="status"
               onChange={handleSearchStatus}
-              className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh] "
+              className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[34vh]  "
             >
               <option disabled selected>
                 Select
@@ -74,7 +74,7 @@ const SearchBox = () => {
           </div>
           <div>
             <br />
-            <button className="btn btn-neutral btn-sm text-white w-[35vh] ">
+            <button className="btn btn-neutral btn-sm text-white w-[34vh]  ">
               Search
             </button>
           </div>

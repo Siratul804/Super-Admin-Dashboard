@@ -14,7 +14,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
         className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
         disabled={pending}
       >
-        {pending ? "Updating..." : "Update Grit"}
+        {pending ? "Updating..." : "Update User"}
       </button>
     );
   }
@@ -22,6 +22,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
   if (state === "User Updated") {
     window.location.reload();
   }
+
+  // console.log(state);
 
   return (
     <div>
@@ -35,7 +37,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
       </div>
       {/* .....add modal data....... */}
       <dialog id={id} className="modal">
-        <div className="modal-box bg-white max-w-[120vh] ">
+        <div className="modal-box bg-white max-w-[110vh] ">
           <form method="dialog">
             {/* if there is a button in form, it will close the modal */}
             <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2  text-black   ">
@@ -46,10 +48,13 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
           <div className="py-2">
             {/* //inside content// */}
             <div className="">
-              <h1 className="flex  items-center justify-center text-[35px] font-bold font-mono text-black ">
-                UPDATE-USER
+              <h1 className="flex  items-center justify-start text-[34px]  text-black ">
+                Update User
               </h1>
-              <section className="flex justify-center items-center mt-5 sm:mt-4 ">
+              <div className="py-3">
+                <hr />
+              </div>
+              <section className="flex justify-center items-center mt-5 sm:mt-1 ">
                 <form action={formAction}>
                   <div className="flex justify-evenly sm:flex-row flex-col  ">
                     <input type="hidden" name="id" value={id} />
@@ -66,7 +71,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                       />
                     </main>
-                    <main className="pl-1">
+                    <main className="pl-0 sm:pl-1">
                       <label className="label">
                         <span className="text-[black]"> Email </span>
                       </label>
@@ -95,32 +100,6 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
                       />
                     </main>
-                    <main className="pb-1">
-                      <label className="label">
-                        <span className="text-[black]"> Password</span>
-                      </label>
-                      <input
-                        type="password"
-                        placeholder="**********"
-                        className="input cursor-not-allowed border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
-                      />
-                    </main>
-                  </div>
-
-                  <div className="flex justify-between sm:flex-row flex-col  ">
-                    <main>
-                      <label className="label">
-                        <span className="text-[black]">Type</span>
-                      </label>
-                      <select
-                        name="role"
-                        defaultValue={role}
-                        className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
-                      >
-                        <option value="grit">grit</option>
-                      </select>
-                    </main>
-
                     <main>
                       <label className="label">
                         <span className="text-[black]">Status </span>
@@ -132,6 +111,21 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       >
                         <option>Active</option>
                         <option>Disable</option>
+                      </select>
+                    </main>
+                  </div>
+
+                  <div className="flex justify-center sm:flex-row flex-col   ">
+                    <main className="hidden">
+                      <label className="label">
+                        <span className="text-[black]">Type</span>
+                      </label>
+                      <select
+                        name="role"
+                        defaultValue={role}
+                        className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
+                      >
+                        <option value="grit">grit</option>
                       </select>
                     </main>
                   </div>

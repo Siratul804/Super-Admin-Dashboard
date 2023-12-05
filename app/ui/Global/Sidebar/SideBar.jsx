@@ -18,13 +18,13 @@ const SideBar = ({ data }) => {
                 <span
                   className={
                     pathname === "/dashboard/grit/signup"
-                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
-                  <span className="pl-1 text-slate-500 text-sm flex ">
+                  <span className="pl-1  text-sm flex ">
                     <IoPersonAdd size={20} />
-                    <p className="px-2">Add Grit</p>
+                    <p className="px-3">Add Grit</p>
                   </span>
                 </span>
               </Link>
@@ -34,13 +34,13 @@ const SideBar = ({ data }) => {
                 <span
                   className={
                     pathname === "/dashboard/grit/edit"
-                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
-                  <span className="pl-1 text-slate-500 text-sm flex ">
+                  <span className="pl-1  text-sm flex ">
                     <FaUserEdit size={20} />
-                    <p className="px-2">Edit Grit</p>
+                    <p className="px-3">Edit Grit</p>
                   </span>
                 </span>
               </Link>
