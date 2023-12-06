@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { IoPersonAdd } from "react-icons/io5";
 import { FaUserEdit } from "react-icons/fa";
 
 const SideBar = ({ data }) => {
@@ -12,23 +11,6 @@ const SideBar = ({ data }) => {
         {data.role === "grit" ? (
           <>
             <div className="py-[10px]"></div>
-
-            <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/grit/signup">
-                <span
-                  className={
-                    pathname === "/dashboard/grit/signup"
-                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
-                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
-                  }
-                >
-                  <span className="pl-1  text-sm flex ">
-                    <IoPersonAdd size={20} />
-                    <p className="px-3">Add Grit</p>
-                  </span>
-                </span>
-              </Link>
-            </li>
             <li className="pl-3 pr-3 pt-3">
               <Link href="/dashboard/grit/edit">
                 <span

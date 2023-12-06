@@ -7,6 +7,7 @@ import path from "path";
 import { writeFile } from "fs/promises";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+import { revalidatePath } from "next/cache";
 //grit
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
@@ -35,10 +36,9 @@ export const addUser = async (prevState, formData) => {
     throw new Error("Faile to Singup");
   }
   if (newUser) {
+    revalidatePath("/dashboard/grit/edit");
     return "Added";
   }
-
-  // redirect("/dashboard/grit/edit");
 };
 export const updateUser = async (prevState, formData) => {
   const { id, name, email, number, role, status } =
@@ -55,7 +55,8 @@ export const updateUser = async (prevState, formData) => {
   }
   if (newUser) {
     // redirect("/dashboard/grit/edit");
-    return "User Updated";
+    revalidatePath("/dashboard/grit/edit");
+    return "Updated";
   }
 };
 

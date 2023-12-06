@@ -13,7 +13,7 @@ const EditTable = async ({ data, filterData }) => {
                 Number
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
-                Role
+                Email
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                 Status
@@ -40,14 +40,16 @@ const EditTable = async ({ data, filterData }) => {
                                   className="rounded-full"
                                 />
                               </div>
-                              <div className="px-2 py-2 ">{val.name}</div>
+                              <div className="px-2 py-2 text-black ">
+                                {val.name}
+                              </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
                             {val.number}
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {val.role}
+                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                            {val.email}
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {val.status === "Active" ? (
@@ -98,14 +100,16 @@ const EditTable = async ({ data, filterData }) => {
                                   className="rounded-full"
                                 />
                               </div>
-                              <div className="px-2 py-2 ">{val.name}</div>
+                              <div className="px-2 py-2 text-black ">
+                                {val.name}
+                              </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
                             {val.number}
                           </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {val.role}
+                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                            {val.email}
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {val.status === "Active" ? (

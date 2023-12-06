@@ -2,14 +2,15 @@
 import { addUser } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { IoMdAdd } from "react-icons/io";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
 
   if (state === "Added") {
     toast.success("Successfully Created!");
-    window.location.reload();
+    // window.location.reload();
+    document.getElementById("add_modal").close();
   }
   if (state === "Exits") {
     toast.error("User Already Exits");
@@ -23,7 +24,7 @@ const AddGrit = () => {
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white w-[340px] sm:w-[650px]"
+        className="btn btn-sm btn-neutral text-white w-[35vh]"
         disabled={pending}
       >
         {pending ? "Creating..." : "Create User"}
@@ -43,112 +44,129 @@ const AddGrit = () => {
       </div>
       {/* .....add modal data....... */}
       <dialog id="add_modal" className="modal">
-        <div className="modal-box bg-white max-w-[110vh] ">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2  text-black   ">
-              ✕
-            </button>
-          </form>
-
-          <div className="py-2">
+        <div className="modal-box bg-white max-w-[80vh] ">
+          <div className="">
             {/* //inside content// */}
             <div className="">
-              <h1 className="flex  items-center justify-start text-[34px]  text-black ">
-                Add Advance User
-              </h1>
+              <div className="flex justify-between ">
+                <h1 className="text-xl  text-black ">Add Advance User</h1>
+                <div>
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-4  text-black   ">
+                      ✕
+                    </button>
+                  </form>
+                </div>
+              </div>
               <div className="py-3">
                 <hr />
               </div>
               <section className="flex justify-center">
                 <form action={formAction}>
-                  <div className="flex justify-evenly sm:flex-row flex-col  ">
+                  <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
-                        <span className="text-[black]"> Name </span>
+                        <span className="text-[black] text-sm"> Name </span>
                       </label>
                       <input
-                        type="ext"
+                        type="text"
                         placeholder="name"
                         name="name"
                         required
-                        className="input border-black focus:outline-black focus:border-black  w-[350px] max-w-xs text-[black] bg-white "
+                        autocomplete="off"
+                        className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       />
                     </main>
                     <main className="pl-0 sm:pl-1 ">
                       <label className="label">
-                        <span className="text-[black]"> Email </span>
+                        <span className="text-[black] text-sm "> Email </span>
                       </label>
                       <input
                         type="email"
                         placeholder="Enter Your Email"
                         name="email"
                         required
-                        className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
+                        autocomplete="off"
+                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       />
                     </main>
                   </div>
 
-                  <div className="flex justify-evenly sm:flex-row flex-col  ">
+                  <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
-                        <span className="text-[black] flex ">Password</span>
+                        <span className="text-[black] text-sm ">Password</span>
                       </label>
                       <input
                         type="password"
                         placeholder="Enter Your Password"
                         name="password"
                         required
-                        className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
+                        autocomplete="off"
+                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       />
                     </main>
                     <main className="pb-1">
                       <label className="label">
-                        <span className="text-[black]">Mobaile Number </span>
+                        <span className="text-[black] text-sm">
+                          Mobaile Number{" "}
+                        </span>
                       </label>
                       <input
                         type="number"
                         placeholder="Enter Your Number"
                         name="number"
                         required
-                        className="input border-black focus:outline-black focus:border-black w-[350px] max-w-xs text-[black] bg-white "
+                        autocomplete="off"
+                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       />
                     </main>
                   </div>
-
-                  <div className="flex justify-center sm:flex-row flex-col  ">
-                    <main className="hidden">
-                      <label className="label">
-                        <span className="text-[black]">Type</span>
-                      </label>
-                      <select
-                        name="role"
-                        className="select border-black focus:outline-black focus:border-black  w-[350px] max-w-xs bg-white text-black "
-                      >
-                        <option value="grit">grit</option>
-                      </select>
-                    </main>
-
+                  <div className="flex justify-between sm:flex-row flex-col pt-4 ">
                     <main>
-                      <label className="label">
-                        <span className="text-[black]">Status </span>
-                      </label>
                       <select
                         name="status"
-                        className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
+                        className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       >
+                        <option disabled selected>
+                          Select Status
+                        </option>
                         <option>Active</option>
                         <option>Disable</option>
                       </select>
                     </main>
-                  </div>
-                  <br />
-                  <div className="flex justify-between ">
-                    <label>
+                    <main className="pt-4 sm:pt-0">
                       <Submit />
-                    </label>
+                    </main>
                   </div>
-                  <Toaster position="top-center" reverseOrder={false} />
+
+                  <div>
+                    {state === "Exits" ? (
+                      <>
+                        <h1 className="flex justify-end text-red-500 py-1 pt-5 ">
+                          User Already Exits !
+                        </h1>
+                      </>
+                    ) : (
+                      <>
+                        <div className="py-1"></div>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-center sm:flex-row flex-col  ">
+                    <main className="hidden">
+                      <label className="label">
+                        <span className="text-[black] text-sm ">Type</span>
+                      </label>
+                      <select
+                        name="role"
+                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                      >
+                        <option value="grit">grit</option>
+                      </select>
+                    </main>
+                  </div>
                 </form>
               </section>
             </div>
