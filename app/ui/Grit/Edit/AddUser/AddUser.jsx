@@ -8,11 +8,13 @@ const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
 
   if (state === "Added") {
+    toast.dismiss();
     toast.success("Successfully Created!");
     // window.location.reload();
     document.getElementById("add_modal").close();
   }
   if (state === "Exits") {
+    toast.dismiss();
     toast.error("User Already Exits");
   }
 
@@ -24,7 +26,7 @@ const AddGrit = () => {
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white w-[35vh]"
+        className="btn btn-sm btn-neutral text-white w-[35vh] rounded-md "
         disabled={pending}
       >
         {pending ? "Creating..." : "Create User"}
@@ -75,7 +77,8 @@ const AddGrit = () => {
                         name="name"
                         required
                         autocomplete="off"
-                        className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        // className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                     <main className="pl-0 sm:pl-1 ">
@@ -88,7 +91,7 @@ const AddGrit = () => {
                         name="email"
                         required
                         autocomplete="off"
-                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                   </div>
@@ -104,7 +107,7 @@ const AddGrit = () => {
                         name="password"
                         required
                         autocomplete="off"
-                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                     <main className="pb-1">
@@ -119,7 +122,7 @@ const AddGrit = () => {
                         name="number"
                         required
                         autocomplete="off"
-                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                   </div>
@@ -127,7 +130,7 @@ const AddGrit = () => {
                     <main>
                       <select
                         name="status"
-                        className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" select select-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
                         <option disabled selected>
                           Select Status

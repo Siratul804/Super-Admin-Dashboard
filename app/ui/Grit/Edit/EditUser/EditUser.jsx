@@ -11,7 +11,7 @@ const EditUser = async ({ data, filterData }) => {
         <div className="py-5"></div>
         <section className="bg-white w-full shadow-lg p-3 rounded-lg">
           <div className="pt-2 pb-4  flex justify-between  ">
-            <h1 className="text-lg font-bold">Advance User List</h1>
+            <h1 className="text-lg font-bold text-black ">Advance User List</h1>
             <AddUser />
           </div>
           <EditTable data={data} filterData={filterData} />

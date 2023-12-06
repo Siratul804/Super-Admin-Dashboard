@@ -10,6 +10,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
   function Submit() {
     const { pending } = useFormStatus();
     if (state === "Updated") {
+      toast.dismiss();
       toast("Successfully Updated!", {
         icon: "👏",
       });
@@ -20,7 +21,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white w-[35vh]"
+        className="btn btn-sm btn-neutral text-white w-[35vh] rounded-md "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update User"}
@@ -56,7 +57,9 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                     </form>
                   </div>
                 </div>
-                <hr />
+                <div className="py-3">
+                  <hr />
+                </div>
               </div>
               <section className="flex justify-center">
                 <form action={formAction}>
@@ -73,7 +76,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         defaultValue={name}
                         required
                         autocomplete="off"
-                        className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        // className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                     <main className="pl-0 sm:pl-1">
@@ -87,7 +91,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         defaultValue={email}
                         required
                         autocomplete="off"
-                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                   </div>
@@ -105,7 +109,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         name="number"
                         defaultValue={number}
                         autocomplete="off"
-                        className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
                     </main>
                     <main>
@@ -115,7 +119,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       <select
                         name="status"
                         defaultValue={status}
-                        className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        // className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
+                        className=" select select-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
                         <option>Active</option>
                         <option>Disable</option>
@@ -131,7 +136,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       <select
                         name="role"
                         defaultValue={role}
-                        className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
+                        // className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
+                        className=" select select-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
                         <option value="grit">grit</option>
                       </select>

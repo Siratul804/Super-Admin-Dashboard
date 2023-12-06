@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Sidebar, Menu } from "react-pro-sidebar";
 import SideBar from "@/app/ui/Global/Sidebar/SideBar";
 import Link from "next/link";
+import CollapsedSidebar from "../Sidebar/CollapsedSidebar";
 const LeftSideBarOpen = ({ data }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
@@ -18,24 +19,30 @@ const LeftSideBarOpen = ({ data }) => {
             collapsed={collapsed}
             backgroundColor="#FFFFFF"
             width="250px"
-            collapsedWidth="155px"
+            collapsedWidth="70px"
           >
             <Menu>
               <div className="flex justify-between  pt-8">
                 <div className="pl-5">
-                  <Link href="/">
-                    <li className="flex">
-                      <img
-                        src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                        className="sm:h-6 sm:w-auto "
-                      />
-                    </li>
-                  </Link>
+                  {collapsed ? (
+                    <></>
+                  ) : (
+                    <>
+                      <Link href="/">
+                        <li className="flex">
+                          <img
+                            src="https://grit.com.bd/assets/img/grit_logo-black.svg"
+                            className="sm:h-6 sm:w-auto "
+                          />
+                        </li>
+                      </Link>
+                    </>
+                  )}
                 </div>
                 <div className="">
                   {collapsed ? (
                     <>
-                      <div className="pr-2">
+                      <div className="pr-5">
                         <button
                           className="sb-button  bg-white border-dotted border-slate-200 border-2 hover:bg-slate-100 p-0.5 rounded-full "
                           onClick={() => setCollapsed(!collapsed)}
@@ -56,9 +63,19 @@ const LeftSideBarOpen = ({ data }) => {
                   )}
                 </div>
               </div>
-              <ul className="">
-                <SideBar data={data} />
-              </ul>
+              {collapsed ? (
+                <>
+                  <ul className="">
+                    <CollapsedSidebar data={data} />
+                  </ul>
+                </>
+              ) : (
+                <>
+                  <ul className="">
+                    <SideBar data={data} />
+                  </ul>
+                </>
+              )}
             </Menu>
           </Sidebar>
         </div>

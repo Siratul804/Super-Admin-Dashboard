@@ -36,34 +36,39 @@ const SearchBox = () => {
       <div className="flex justify-center">
         <div className="bg-white w-full shadow-lg p-3 rounded-lg flex justify-center sm:justify-between flex-wrap">
           <div>
-            <label className="text-sm">Name </label>
+            <label className="text-sm text-black ">Name </label>
             <br />
             <input
               type="text"
               placeholder="Enter Your Name "
               name="name"
               onChange={handleSearchName}
-              className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
+              autocomplete="off"
+              // className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
+              className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
-            <label className="text-sm">Number </label>
+            <label className="text-sm text-black ">Number </label>
             <br />
             <input
               type="number"
               placeholder="Enter Your Number "
               name="number"
               onChange={handleSearchNumber}
-              className="input input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
+              autocomplete="off"
+              // className="input input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
+              className=" input  input-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
-            <label className="text-sm">Status </label>
+            <label className="text-sm text-black ">Status </label>
             <br />
             <select
               name="status"
               onChange={handleSearchStatus}
-              className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh]  "
+              // className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh]  "
+              className=" select select-sm bg-[#FFFFFF] appearance-none border-2 border-black rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             >
               <option disabled selected>
                 Select
