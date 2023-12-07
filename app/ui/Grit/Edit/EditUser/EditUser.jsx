@@ -6,7 +6,8 @@ import { Toaster } from "react-hot-toast";
 const EditUser = async ({ data, filterData }) => {
   return (
     <>
-      <div className="pt-2 sm:pt-0  ">
+      <div className="">
+        <div className="py-2"></div>
         <SearchBox />
         <div className="py-5"></div>
         <section className="bg-white w-full shadow-lg p-3 rounded-lg">

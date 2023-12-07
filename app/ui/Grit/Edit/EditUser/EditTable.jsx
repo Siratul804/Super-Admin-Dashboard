@@ -54,14 +54,18 @@ const EditTable = async ({ data, filterData }) => {
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {val.status === "Active" ? (
                               <>
-                                <div className="badge badge-accent badge-outline text-white ">
-                                  Active
+                                <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                                  <p className="text-[#118d57] text-sm font-bold ">
+                                    Active
+                                  </p>
                                 </div>
                               </>
                             ) : (
                               <>
-                                <div className="badge badge-secondary badge-outline text-white ">
-                                  Disable
+                                <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                                  <p className="text-[#b71d18] text-sm font-bold ">
+                                    Disable
+                                  </p>
                                 </div>
                               </>
                             )}
