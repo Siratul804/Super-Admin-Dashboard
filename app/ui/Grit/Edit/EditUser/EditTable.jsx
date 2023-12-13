@@ -1,4 +1,5 @@
 import UpdateUser from "../UpdateUser/UpdateUser";
+
 const EditTable = async ({ data, filterData }) => {
   return (
     <>

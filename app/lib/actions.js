@@ -19,7 +19,7 @@ export const addUser = async (prevState, formData) => {
   });
 
   if (user[0]) {
-    return "Exits";
+    return "User Exits";
   }
 
   const hasedPassword = await bcrypt.hash(password, 10);
@@ -37,7 +37,7 @@ export const addUser = async (prevState, formData) => {
   }
   if (newUser) {
     revalidatePath("/dashboard/grit/edit");
-    return "Added";
+    return "User Added";
   }
 };
 export const updateUser = async (prevState, formData) => {
@@ -51,12 +51,12 @@ export const updateUser = async (prevState, formData) => {
   });
 
   if (!newUser) {
-    return "Update Failed";
+    return "User Update Failed";
   }
   if (newUser) {
     // redirect("/dashboard/grit/edit");
     revalidatePath("/dashboard/grit/edit");
-    return "Updated";
+    return "User Update Successfully";
   }
 };
 

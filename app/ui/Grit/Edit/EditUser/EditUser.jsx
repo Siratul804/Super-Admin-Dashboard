@@ -1,9 +1,9 @@
 import AddUser from "../AddUser/AddUser";
 import EditTable from "./EditTable";
 import SearchBox from "../SearchUser/SearchBox";
-import { Toaster } from "react-hot-toast";
+import Pagination from "../Pagination/Pagination";
 
-const EditUser = async ({ data, filterData }) => {
+const EditUser = async ({ data, filterData, PaginationData }) => {
   return (
     <>
       <div className="">
@@ -16,15 +16,9 @@ const EditUser = async ({ data, filterData }) => {
             <AddUser />
           </div>
           <EditTable data={data} filterData={filterData} />
+          <Pagination PaginationData={PaginationData} />
         </section>
       </div>
-
-      {/* <Toaster  position="bottom-right" reverseOrder={false} /> */}
-      <Toaster
-        toastOptions={{ duration: 5000 }}
-        position="bottom-right"
-        reverseOrder={false}
-      />
     </>
   );
 };

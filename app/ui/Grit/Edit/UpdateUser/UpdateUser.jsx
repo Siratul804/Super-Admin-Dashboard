@@ -3,24 +3,29 @@ import { useFormState, useFormStatus } from "react-dom";
 import { MdModeEdit } from "react-icons/md";
 import { updateUser } from "@/app/lib/actions";
 import toast from "react-hot-toast";
-// import UpdatePass from "./UpdatePass";
 const UpdateUser = ({ id, name, email, number, role, status }) => {
   const [state, formAction] = useFormState(updateUser, undefined);
 
   function Submit() {
     const { pending } = useFormStatus();
-    if (state === "Updated") {
-      toast("Successfully Updated!", {
-        icon: "👏",
+
+    const notify = () => {
+      toast.success("Successfully Updated!", {
+        style: {
+          background: "#228B22",
+          color: "#fff",
+        },
       });
+
       document.getElementById(id).close();
-    }
+    };
 
     return (
       <button
         type="submit"
         className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md "
         disabled={pending}
+        onClick={notify}
       >
         {pending ? "Updating..." : "Update User"}
       </button>
@@ -149,7 +154,6 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                   </div>
                 </form>
               </section>
-              {/* <UpdatePass id={id} /> */}
             </div>
           </div>
         </div>

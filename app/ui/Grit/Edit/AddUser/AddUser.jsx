@@ -7,17 +7,16 @@ import toast from "react-hot-toast";
 const AddGrit = () => {
   const [state, formAction] = useFormState(addUser, undefined);
 
-  if (state === "Added") {
-    toast.success("User Successfully Created!");
-    // window.location.reload();
-    document.getElementById("add_modal").close();
-  }
-  if (state === "Exits") {
-    // toast.dismiss();
-    toast.error("User Already Exits");
-  }
+  const notify = () => {
+    toast.success("Successfully Created!", {
+      style: {
+        background: "#228B22",
+        color: "#fff",
+      },
+    });
 
-  console.log(state);
+    document.getElementById("add_modal").close();
+  };
 
   function Submit() {
     const { pending } = useFormStatus();
@@ -27,6 +26,7 @@ const AddGrit = () => {
         type="submit"
         className="btn btn-sm btn-neutral h-[6vh] text-white w-[35vh] rounded-md "
         disabled={pending}
+        onClick={notify}
       >
         {pending ? "Creating..." : "Create User"}
       </button>
@@ -143,7 +143,7 @@ const AddGrit = () => {
                     </main>
                   </div>
 
-                  <div>
+                  {/* <div>
                     {state === "Exits" ? (
                       <>
                         <h1 className="flex justify-end text-red-500 py-1 pt-5 ">
@@ -155,7 +155,7 @@ const AddGrit = () => {
                         <div className="py-1"></div>
                       </>
                     )}
-                  </div>
+                  </div> */}
                   <div className="flex justify-center sm:flex-row flex-col  ">
                     <main className="hidden">
                       <label className="label">
