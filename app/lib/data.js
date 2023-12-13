@@ -55,7 +55,7 @@ export async function GetGritFilterData(name, number, status) {
 
 //Paginaion User/Grit Data
 export async function GetGritPaginationData(page) {
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 3;
   const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
 
   const offset = (page - 1) * ITEM_PER_PAGE;
@@ -65,7 +65,7 @@ export async function GetGritPaginationData(page) {
   console.log(page);
 
   const paginationGrit = await query({
-    query: "SELECT * FROM users LIMIT ?, ?",
+    query: "SELECT * FROM users WHERE role = 'Grit' LIMIT ?, ?",
     values: [OFF_SET_PAGE, ITEM_PER_PAGE_STRING],
   });
   const paginationCount = await query({
@@ -75,7 +75,7 @@ export async function GetGritPaginationData(page) {
 
   const countNumber = paginationCount[0]["COUNT(*)"];
 
-  console.log(paginationGrit);
-  console.log(countNumber);
+  // console.log(paginationGrit);
+  // console.log(countNumber);
   return { paginationGrit, countNumber };
 }

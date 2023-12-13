@@ -3,7 +3,12 @@ import EditTable from "./EditTable";
 import SearchBox from "../SearchUser/SearchBox";
 import Pagination from "../Pagination/Pagination";
 
-const EditUser = async ({ data, filterData, PaginationData }) => {
+const EditUser = async ({
+  data,
+  filterData,
+  PaginationData,
+  PaginationCount,
+}) => {
   return (
     <>
       <div className="">
@@ -15,8 +20,12 @@ const EditUser = async ({ data, filterData, PaginationData }) => {
             <h1 className="text-lg font-bold text-black ">Advance User List</h1>
             <AddUser />
           </div>
-          <EditTable data={data} filterData={filterData} />
-          <Pagination PaginationData={PaginationData} />
+          <EditTable
+            data={data}
+            filterData={filterData}
+            PaginationData={PaginationData}
+          />
+          <Pagination PaginationCount={PaginationCount} />
         </section>
       </div>
     </>

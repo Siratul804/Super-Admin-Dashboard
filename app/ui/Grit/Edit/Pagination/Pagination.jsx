@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
+import { FaChevronLeft } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-const Pagination = ({ PaginationData, PaginationCount }) => {
+const Pagination = ({ PaginationCount }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -11,10 +13,11 @@ const Pagination = ({ PaginationData, PaginationCount }) => {
   const page = searchParams.get("page") || 1;
 
   const params = new URLSearchParams(searchParams);
-  const ITEM_PER_PAGE = 2;
+  const ITEM_PER_PAGE = 3;
 
   const hasPrev = ITEM_PER_PAGE * (parseInt(page) - 1) > 0;
-  const hasNext = ITEM_PER_PAGE * (parseInt(page) - 1) + ITEM_PER_PAGE < 4;
+  const hasNext =
+    ITEM_PER_PAGE * (parseInt(page) - 1) + ITEM_PER_PAGE < PaginationCount;
 
   const handleChangePage = (type) => {
     type === "prev"
@@ -26,26 +29,30 @@ const Pagination = ({ PaginationData, PaginationCount }) => {
   return (
     <>
       <div className="flex justify-end py-1 ">
-        <div className="join">
-          {PaginationData.map((val) => (
-            <h1>{val.name}</h1>
-          ))}
-
+        <div className="text-black pt-2 text-sm">
+          Total Users : {PaginationCount}
+        </div>
+        <div className="px-2"></div>
+        <div className="text-black pt-2 text-sm">
+          Row Per Page : {ITEM_PER_PAGE}
+        </div>
+        <div className="px-2"></div>
+        <div className="flex">
           {/* ............. */}
-
           <button
-            className="join-item btn btn-sm btn-outline"
+            className=" bg-white rounded-full border-none px-2 hover:bg-slate-100 btn btn-sm"
             disabled={!hasPrev}
             onClick={() => handleChangePage("prev")}
           >
-            Previous page
+            <FaChevronLeft size={15} />
           </button>
+          <div className="px-1"></div>
           <button
-            className="join-item btn btn-sm btn-outline"
+            className=" bg-white rounded-full border-none px-2 hover:bg-slate-100 btn btn-sm"
             disabled={!hasNext}
             onClick={() => handleChangePage("next")}
           >
-            Next
+            <FaChevronRight size={15} />
           </button>
           {/* ............. */}
         </div>
