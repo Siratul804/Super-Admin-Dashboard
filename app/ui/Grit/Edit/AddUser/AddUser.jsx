@@ -3,10 +3,6 @@ import { addUser } from "@/app/lib/actions";
 import { IoMdAdd } from "react-icons/io";
 
 const AddGrit = () => {
-  const handleSubmit = async () => {
-    await addUser();
-  };
-
   function Submit() {
     return (
       <button
@@ -49,7 +45,7 @@ const AddGrit = () => {
                 <hr />
               </div>
               <section className="flex justify-center">
-                <form action={handleSubmit}>
+                <form action={addUser}>
                   <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
