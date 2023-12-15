@@ -79,3 +79,30 @@ export async function GetGritPaginationData(page) {
   // console.log(countNumber);
   return { paginationGrit, countNumber };
 }
+
+//Fill Pagi Data
+
+export async function GetGritFillPagiData(name, number, status, page) {
+  const ITEM_PER_PAGE = 3;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page);
+
+  const FillPagiGrit = await query({
+    query:
+      "SELECT * FROM users WHERE role = 'Grit' AND (`name` = ? OR `number` = ? OR `status` = ?) LIMIT ?, ?",
+    values: [name, number, status, OFF_SET_PAGE, ITEM_PER_PAGE_STRING],
+  });
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM users WHERE role = 'Grit'",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { FillPagiGrit, countNumber };
+}

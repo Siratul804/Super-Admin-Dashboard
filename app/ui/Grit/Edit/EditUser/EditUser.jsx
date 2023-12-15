@@ -3,12 +3,7 @@ import EditTable from "./EditTable";
 import SearchBox from "../SearchUser/SearchBox";
 import Pagination from "../Pagination/Pagination";
 
-const EditUser = async ({
-  data,
-  filterData,
-  PaginationData,
-  PaginationCount,
-}) => {
+const EditUser = async ({ FilPageData, PaginationCount, PaginationData }) => {
   return (
     <>
       <div className="">
@@ -21,8 +16,7 @@ const EditUser = async ({
             <AddUser />
           </div>
           <EditTable
-            data={data}
-            filterData={filterData}
+            FilPageData={FilPageData}
             PaginationData={PaginationData}
           />
           <Pagination PaginationCount={PaginationCount} />

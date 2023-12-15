@@ -9,36 +9,46 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 //grit
-export const addUser = async (prevState, formData) => {
+export const addUser = async (formData) => {
   const { name, email, password, number, role, status } =
     Object.fromEntries(formData);
 
-  const user = await query({
-    query: "SELECT email FROM users WHERE email = (?)",
-    values: [email],
-  });
+  try {
+    const user = await query({
+      query: "SELECT email FROM users WHERE email = (?)",
+      values: [email],
+    });
 
-  if (user[0]) {
-    return "User Exits";
+    if (user[0]) {
+      throw new Error("User Already Exits");
+    }
+    if (!name || !email || !password || !number || !role || !status) {
+      throw new Error("Fill out the form!");
+    }
+
+    const hasedPassword = await bcrypt.hash(password, 10);
+
+    const image = "img.png";
+
+    const newUser = await query({
+      query:
+        "INSERT INTO users (name, email, password, number, img, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      values: [name, email, hasedPassword, number, image, role, status],
+    });
+
+    if (!newUser) {
+      throw new Error("Faile to add user!");
+    }
+    // if (newUser) {
+    //   return "User Added";
+    // }
+    console.log(newUser);
+  } catch (err) {
+    console.log(err);
+    throw new Error("Failed to create user!");
   }
 
-  const hasedPassword = await bcrypt.hash(password, 10);
-
-  const image = "img.png";
-
-  const newUser = await query({
-    query:
-      "INSERT INTO users (name, email, password, number, img, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
-    values: [name, email, hasedPassword, number, image, role, status],
-  });
-
-  if (!newUser) {
-    throw new Error("Faile to Singup");
-  }
-  if (newUser) {
-    revalidatePath("/dashboard/grit/edit");
-    return "User Added";
-  }
+  revalidatePath("/dashboard/grit/edit");
 };
 export const updateUser = async (prevState, formData) => {
   const { id, name, email, number, role, status } =

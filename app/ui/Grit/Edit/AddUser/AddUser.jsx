@@ -1,34 +1,19 @@
 "use client";
 import { addUser } from "@/app/lib/actions";
-import { useFormState, useFormStatus } from "react-dom";
 import { IoMdAdd } from "react-icons/io";
-import toast from "react-hot-toast";
 
 const AddGrit = () => {
-  const [state, formAction] = useFormState(addUser, undefined);
-
-  const notify = () => {
-    toast.success("Successfully Created!", {
-      style: {
-        background: "#228B22",
-        color: "#fff",
-      },
-    });
-
-    document.getElementById("add_modal").close();
+  const handleSubmit = async () => {
+    await addUser();
   };
 
   function Submit() {
-    const { pending } = useFormStatus();
-
     return (
       <button
         type="submit"
         className="btn btn-sm btn-neutral h-[6vh] text-white w-[35vh] rounded-md "
-        disabled={pending}
-        onClick={notify}
       >
-        {pending ? "Creating..." : "Create User"}
+        Create User
       </button>
     );
   }
@@ -64,7 +49,7 @@ const AddGrit = () => {
                 <hr />
               </div>
               <section className="flex justify-center">
-                <form action={formAction}>
+                <form action={handleSubmit}>
                   <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
@@ -143,19 +128,7 @@ const AddGrit = () => {
                     </main>
                   </div>
 
-                  {/* <div>
-                    {state === "Exits" ? (
-                      <>
-                        <h1 className="flex justify-end text-red-500 py-1 pt-5 ">
-                          User Already Exits !
-                        </h1>
-                      </>
-                    ) : (
-                      <>
-                        <div className="py-1"></div>
-                      </>
-                    )}
-                  </div> */}
+                  <div></div>
                   <div className="flex justify-center sm:flex-row flex-col  ">
                     <main className="hidden">
                       <label className="label">
