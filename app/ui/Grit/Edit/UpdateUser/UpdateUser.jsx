@@ -154,6 +154,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                     <label>
                       <Submit />
                     </label>
+                  </div>
+                  <div className="flex justify-end ">
                     {state?.message === "Failed" ? (
                       <>
                         <p className="text-red-500"> Failed To Update! </p>
