@@ -9,23 +9,10 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 //grit
-export const addUser = async (formData) => {
+export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
     Object.fromEntries(formData);
-
   try {
-    const user = await query({
-      query: "SELECT email FROM users WHERE email = (?)",
-      values: [email],
-    });
-
-    if (user[0]) {
-      throw new Error("User Already Exits");
-    }
-    if (!name || !email || !password || !number || !role || !status) {
-      throw new Error("Fill out the form!");
-    }
-
     const hasedPassword = await bcrypt.hash(password, 10);
 
     const image = "img.png";
@@ -36,38 +23,44 @@ export const addUser = async (formData) => {
       values: [name, email, hasedPassword, number, image, role, status],
     });
 
-    if (!newUser) {
-      throw new Error("Faile to add user!");
-    }
-    // if (newUser) {
-    //   return "User Added";
-    // }
     console.log(newUser);
   } catch (err) {
-    console.log(err);
-    throw new Error("Failed to create user!");
+    if (err) {
+      console.log(err);
+      return {
+        message: "Already Exits",
+      };
+    }
   }
 
   revalidatePath("/dashboard/grit/edit");
+  return {
+    message: "User Added",
+  };
 };
 export const updateUser = async (prevState, formData) => {
   const { id, name, email, number, role, status } =
     Object.fromEntries(formData);
 
-  const newUser = await query({
-    query:
-      "UPDATE users SET  name = ?, email = ?, number = ?, role = ?, status = ? WHERE id = ?",
-    values: [name, email, number, role, status, id],
-  });
+  try {
+    const newUser = await query({
+      query:
+        "UPDATE users SET  name = ?, email = ?, number = ?, role = ?, status = ? WHERE id = ?",
+      values: [name, email, number, role, status, id],
+    });
 
-  if (!newUser) {
-    return "User Update Failed";
+    console.log(newUser);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
   }
-  if (newUser) {
-    // redirect("/dashboard/grit/edit");
-    revalidatePath("/dashboard/grit/edit");
-    return "User Update Successfully";
-  }
+
+  revalidatePath("/dashboard/grit/edit");
+  return {
+    message: "Updated",
+  };
 };
 
 export const changePass = async (prevState, formData) => {

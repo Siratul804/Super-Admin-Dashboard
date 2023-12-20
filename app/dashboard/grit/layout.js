@@ -1,4 +1,5 @@
 import { auth } from "@/app/auth";
+import { Toaster } from "react-hot-toast";
 const layout = async ({ children }) => {
   const { user } = await auth();
   return (
@@ -14,6 +15,7 @@ const layout = async ({ children }) => {
           </div>
         </>
       )}
+      <Toaster position="bottom-right" />
     </>
   );
 };

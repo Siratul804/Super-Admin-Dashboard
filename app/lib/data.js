@@ -1,5 +1,4 @@
 "use server";
-
 //users
 import { query } from "./db";
 export async function GetUserData(request) {
@@ -103,6 +102,5 @@ export async function GetGritFillPagiData(name, number, status, page) {
   });
 
   const countNumber = paginationCount[0]["COUNT(*)"];
-
   return { FillPagiGrit, countNumber };
 }

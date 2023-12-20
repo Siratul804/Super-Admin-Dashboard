@@ -1,18 +1,48 @@
 "use client";
 import { addUser } from "@/app/lib/actions";
 import { IoMdAdd } from "react-icons/io";
+import { useFormState, useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const AddGrit = () => {
   function Submit() {
+    const { pending } = useFormStatus();
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral h-[6vh] text-white w-[35vh] rounded-md "
+        className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md "
+        disabled={pending}
       >
-        Create User
+        {pending ? "Creating..." : "Create User"}
       </button>
     );
   }
+
+  const initialState = {
+    message: "",
+  };
+
+  const [state, formAction] = useFormState(addUser, initialState);
+
+  useEffect(() => {
+    if (state?.message === "User Added") {
+      document.getElementById("add_modal").close();
+      toast.success("User Added Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Already Exits") {
+      toast.error("User Already Exits !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
 
   return (
     <div>
@@ -45,7 +75,7 @@ const AddGrit = () => {
                 <hr />
               </div>
               <section className="flex justify-center">
-                <form action={addUser}>
+                <form action={formAction}>
                   <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
@@ -123,8 +153,15 @@ const AddGrit = () => {
                       <Submit />
                     </main>
                   </div>
-
-                  <div></div>
+                  <div className="flex justify-end pt-1 ">
+                    {state?.message === "Already Exits" ? (
+                      <>
+                        <p className="text-red-500"> User Already Exits ! </p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                   <div className="flex justify-center sm:flex-row flex-col  ">
                     <main className="hidden">
                       <label className="label">

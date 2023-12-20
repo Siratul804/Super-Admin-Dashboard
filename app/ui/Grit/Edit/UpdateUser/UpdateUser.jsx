@@ -2,17 +2,25 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { MdModeEdit } from "react-icons/md";
 import { updateUser } from "@/app/lib/actions";
+import toast from "react-hot-toast";
 
 const UpdateUser = ({ id, name, email, number, role, status }) => {
-  const [state, formAction] = useFormState(updateUser, undefined);
+  const initialState = {
+    message: "",
+  };
+  const [state, formAction] = useFormState(updateUser, initialState);
 
   function Submit() {
     const { pending } = useFormStatus();
 
-    const closeModal = () => {
-      if (state === "User Update Successfully") {
-        document.getElementById(id).close();
-      }
+    const notify = () => {
+      toast.success("User Update Successfully!", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+      document.getElementById(id).close();
     };
 
     return (
@@ -20,7 +28,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
         type="submit"
         className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md "
         disabled={pending}
-        onClick={closeModal}
+        onClick={notify}
       >
         {pending ? "Updating..." : "Update User"}
       </button>
@@ -146,6 +154,13 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                     <label>
                       <Submit />
                     </label>
+                    {state?.message === "Failed" ? (
+                      <>
+                        <p className="text-red-500"> Failed To Update! </p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </form>
               </section>
