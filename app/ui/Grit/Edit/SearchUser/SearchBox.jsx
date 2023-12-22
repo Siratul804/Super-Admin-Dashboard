@@ -85,7 +85,7 @@ const SearchBox = () => {
           </div>
           <div>
             <br />
-            <button className="btn btn-neutral btn-sm text-white w-[35vh]  ">
+            <button className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]  ">
               Search
             </button>
           </div>

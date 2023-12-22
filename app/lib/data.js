@@ -54,7 +54,7 @@ export async function GetGritFilterData(name, number, status) {
 
 //Paginaion User/Grit Data
 export async function GetGritPaginationData(page) {
-  const ITEM_PER_PAGE = 3;
+  const ITEM_PER_PAGE = 10;
   const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
 
   const offset = (page - 1) * ITEM_PER_PAGE;
@@ -82,7 +82,7 @@ export async function GetGritPaginationData(page) {
 //Fill Pagi Data
 
 export async function GetGritFillPagiData(name, number, status, page) {
-  const ITEM_PER_PAGE = 3;
+  const ITEM_PER_PAGE = 10;
   const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
 
   const offset = (page - 1) * ITEM_PER_PAGE;

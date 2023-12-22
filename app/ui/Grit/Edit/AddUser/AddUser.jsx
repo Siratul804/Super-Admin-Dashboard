@@ -3,7 +3,7 @@ import { addUser } from "@/app/lib/actions";
 import { IoMdAdd } from "react-icons/io";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 const AddGrit = () => {
   function Submit() {
@@ -25,9 +25,12 @@ const AddGrit = () => {
 
   const [state, formAction] = useFormState(addUser, initialState);
 
+  const formRef = useRef();
+
   useEffect(() => {
     if (state?.message === "User Added") {
       document.getElementById("add_modal").close();
+      formRef.current.reset();
       toast.success("User Added Successfully !", {
         style: {
           background: "#008000",
@@ -75,7 +78,7 @@ const AddGrit = () => {
                 <hr />
               </div>
               <section className="flex justify-center">
-                <form action={formAction}>
+                <form action={formAction} ref={formRef}>
                   <div className="flex justify-between sm:flex-row flex-col  ">
                     <main className="pr-1">
                       <label className="label">
