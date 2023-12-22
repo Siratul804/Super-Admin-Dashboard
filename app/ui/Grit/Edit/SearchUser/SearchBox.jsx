@@ -11,6 +11,8 @@ const SearchBox = () => {
   const handleSearchName = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
 
+    params.set("page", 1);
+
     params.set("name", e.target.value);
 
     replace(`${pathname}?${params}`);
@@ -19,6 +21,8 @@ const SearchBox = () => {
   const handleSearchNumber = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
 
+    params.set("page", 1);
+
     params.set("number", e.target.value);
 
     replace(`${pathname}?${params}`);
@@ -26,6 +30,8 @@ const SearchBox = () => {
 
   const handleSearchStatus = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
+
+    params.set("page", 1);
 
     params.set("status", e.target.value);
 
@@ -45,7 +51,7 @@ const SearchBox = () => {
               onChange={handleSearchName}
               autocomplete="off"
               // className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
-              className=" input  input-sm bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
@@ -58,7 +64,7 @@ const SearchBox = () => {
               onChange={handleSearchNumber}
               autocomplete="off"
               // className="input input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
-              className=" input  input-sm bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
@@ -68,7 +74,7 @@ const SearchBox = () => {
               name="status"
               onChange={handleSearchStatus}
               // className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh]  "
-              className=" input  input-sm bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             >
               <option disabled selected>
                 Select
