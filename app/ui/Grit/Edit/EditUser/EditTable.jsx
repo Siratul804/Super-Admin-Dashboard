@@ -7,7 +7,7 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
         <table className="w-full border-collapse border border-slate-100">
           <thead>
             <tr>
-              <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-1 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
                 Name
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
@@ -32,7 +32,7 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
                     <>
                       <>
                         <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="flex ">
                               <div className="h-10 w-10">
                                 <img
@@ -92,7 +92,7 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
                     <>
                       <>
                         <tr>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="flex ">
                               <div className="h-10 w-10">
                                 <img
