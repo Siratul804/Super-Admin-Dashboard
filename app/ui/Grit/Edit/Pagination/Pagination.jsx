@@ -28,7 +28,7 @@ const Pagination = ({ PaginationCount }) => {
 
   return (
     <>
-      <div className="flex justify-between py-1">
+      <div className="flex justify-between py-1 p-3 ">
         <div className="text-black pt-3 pl-1 text-[12px] sm:text-sm ">
           Page {page}
         </div>
