@@ -68,39 +68,47 @@ export const changePass = async (prevState, formData) => {
 
   console.log(previous);
 
-  if (previous !== password) {
-    return "Password Did't Match";
+  try {
+    if (previous !== password) {
+      return {
+        message: "Did't Match",
+      };
+    }
+
+    const hasedPassword = await bcrypt.hash(password, 10);
+
+    const newPass = await query({
+      query: "UPDATE users SET password = ? WHERE id = ?",
+      values: [hasedPassword, id],
+    });
+
+    console.log(newPass);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
   }
 
-  const hasedPassword = await bcrypt.hash(password, 10);
-
-  const newPass = await query({
-    query: "UPDATE users SET password = ? WHERE id = ?",
-    values: [hasedPassword, id],
-  });
-
-  if (!newPass) {
-    return "Faile to Change Password";
-  }
-  if (newPass) {
-    console.log("Password Changed");
-    return "Password Changed";
-  }
+  revalidatePath("/dashboard/grit/profile");
+  return {
+    message: "Updated",
+  };
 };
 
-export const deleteUser = async (formData) => {
-  const { id } = Object.fromEntries(formData);
+// export const deleteUser = async (formData) => {
+//   const { id } = Object.fromEntries(formData);
 
-  const deleteMember = await query({
-    query: "DELETE FROM users WHERE id = (?)",
-    values: [id],
-  });
+//   const deleteMember = await query({
+//     query: "DELETE FROM users WHERE id = (?)",
+//     values: [id],
+//   });
 
-  if (deleteMember) {
-    console.log("user deleted");
-    redirect("/dashboard/grit/edit");
-  }
-};
+//   if (deleteMember) {
+//     console.log("user deleted");
+//     redirect("/dashboard/grit/edit");
+//   }
+// };
 
 //global
 export const authenticate = async (prevState, formData) => {
@@ -120,35 +128,44 @@ export const authenticate = async (prevState, formData) => {
 export const addImg = async (prevState, formData) => {
   const { id, file } = Object.fromEntries(formData);
 
-  const FILE_SIZE = 1000000; // 1MB
+  try {
+    const FILE_SIZE = 1000000; // 1MB
 
-  if (file.size > FILE_SIZE) {
-    return "File size is large! (image has to be less then 1MB) ";
+    if (file.size > FILE_SIZE) {
+      return {
+        message: "File Did't Match",
+      };
+      // return "File size is large! (image has to be less then 1MB) ";
+    }
+
+    console.log(file, id);
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const filename = Date.now() + file.name.replaceAll(" ", "_");
+    console.log(filename);
+
+    await writeFile(
+      path.join(process.cwd(), "public/uploads/" + filename),
+      buffer
+    );
+
+    const newImg = await query({
+      query: "UPDATE users SET img = ? WHERE id = ?",
+      values: [filename, id],
+    });
+
+    console.log(newImg);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
   }
 
-  console.log(file, id);
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = Date.now() + file.name.replaceAll(" ", "_");
-  console.log(filename);
-
-  await writeFile(
-    path.join(process.cwd(), "public/uploads/" + filename),
-    buffer
-  );
-
-  const newImg = await query({
-    query: "UPDATE users SET img = ? WHERE id = ?",
-    values: [filename, id],
-  });
-
-  if (newImg) {
-    console.log("Image Added");
-    redirect("/dashboard");
-  }
-  if (!newImg) {
-    return "Image Added Failed ";
-  }
+  revalidatePath("/dashboard/grit/profile");
+  return {
+    message: "Uploaded",
+  };
 };
 
 // gym

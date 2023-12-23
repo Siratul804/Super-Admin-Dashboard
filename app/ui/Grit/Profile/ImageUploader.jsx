@@ -4,6 +4,8 @@ import { useState } from "react";
 import { addImg } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { LuImagePlus } from "react-icons/lu";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 
 const ImageUploader = ({ id }) => {
   const [previewImage, setPreviewImage] = useState(null);
@@ -35,6 +37,35 @@ const ImageUploader = ({ id }) => {
       setPreviewImage(null);
     }
   };
+
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (state?.message === "Uploaded") {
+      document.getElementById("my_modal_10").close();
+      formRef.current.reset();
+      toast.success("Image Upload Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Failed") {
+      toast.error("Failed to Upload !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "File Did't Match") {
+      toast.error("File size is large! (image has to be less then 1MB)", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
 
   return (
     <>
@@ -75,7 +106,7 @@ const ImageUploader = ({ id }) => {
                   </div>
                 </div>
               )}
-              <form action={formAction}>
+              <form action={formAction} ref={formRef}>
                 <label className="flex flex-col items-center w-full p-10 bg-gray-100 border border-dashed rounded-lg cursor-pointer ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -104,10 +135,16 @@ const ImageUploader = ({ id }) => {
                 </label>
                 <div className="pt-3"></div>
                 <Submit />
-                <div className="toast">
-                  <span className="text-red-500 text-[13px] sm:text-[15px] pr-2 sm:pr-16 ">
-                    {state && state}
-                  </span>
+                <div className="flex justify-center pt-1 ">
+                  {state?.message === "File Did't Match" ? (
+                    <>
+                      <p className="text-red-500">
+                        File size is large! (image has to be less then 1MB)
+                      </p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </form>
             </div>

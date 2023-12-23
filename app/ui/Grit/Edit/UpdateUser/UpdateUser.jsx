@@ -42,7 +42,7 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
           className="p-2 hover:bg-slate-100 rounded-full "
           onClick={() => document.getElementById(id).showModal()}
         >
-          <MdModeEdit size={20} color="black" />
+          <MdModeEdit size={16} color="black" />
         </button>
       </div>
       {/* .....add modal data....... */}

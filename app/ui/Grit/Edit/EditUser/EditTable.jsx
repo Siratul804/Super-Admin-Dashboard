@@ -41,7 +41,7 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
                                   className="rounded-full"
                                 />
                               </div>
-                              <div className="px-2 py-2 text-black ">
+                              <div className="px-2 py-2 text-black  ">
                                 {val.name}
                               </div>
                             </div>
@@ -101,22 +101,28 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
                                   className="rounded-full"
                                 />
                               </div>
-                              <div className="px-2 py-2 text-black ">
-                                {val.name}
+                              <div className="px-2 py-3   ">
+                                <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                                  {val.name}
+                                </p>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            {val.number}
+                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                              {val.number}
+                            </p>
                           </td>
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            {val.email}
+                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                              {val.email}
+                            </p>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {val.status === "Active" ? (
                               <>
                                 <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                                  <p className="text-[#118d57] text-sm font-bold ">
+                                  <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
                                     Active
                                   </p>
                                 </div>
@@ -124,7 +130,7 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
                             ) : (
                               <>
                                 <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                                  <p className="text-[#b71d18] text-sm font-bold ">
+                                  <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
                                     Disable
                                   </p>
                                 </div>

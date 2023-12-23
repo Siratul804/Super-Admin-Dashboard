@@ -2,6 +2,8 @@
 import { changePass } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import { RiEdit2Fill } from "react-icons/ri";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 
 const UpdatePass = ({ id }) => {
   const [state, formAction] = useFormState(changePass, undefined);
@@ -18,6 +20,35 @@ const UpdatePass = ({ id }) => {
       </button>
     );
   }
+
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (state?.message === "Updated") {
+      document.getElementById("my_modal_3").close();
+      formRef.current.reset();
+      toast.success("Password Updated Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Failed") {
+      toast.error("Password Updated Failed !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Did't Match") {
+      toast.error("Password Did't Match !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
   return (
     <>
       <div className="flex">
@@ -44,7 +75,7 @@ const UpdatePass = ({ id }) => {
             <div className="py-4">
               {/* //inside content// */}
 
-              <form action={formAction}>
+              <form action={formAction} ref={formRef}>
                 <input type="hidden" name="id" value={id} />
                 <input
                   placeholder="New Password"
@@ -61,12 +92,16 @@ const UpdatePass = ({ id }) => {
                 />
                 <div className="pt-3"></div>
                 <Submit />
+                <div className="flex justify-end pt-1 ">
+                  {state?.message === "Did't Match" ? (
+                    <>
+                      <p className="text-red-500">Password Did't Match!</p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </form>
-              <div className="toast toast-center ">
-                <span className="text-red-500 text-[12px] ">
-                  {state && state}
-                </span>
-              </div>
             </div>
           </div>
         </dialog>
