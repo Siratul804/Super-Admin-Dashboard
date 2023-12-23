@@ -10,10 +10,14 @@ const EditUser = async ({ FilPageData, PaginationCount, PaginationData }) => {
         <div className="py-2"></div>
         <SearchBox />
         <div className="py-5"></div>
-        <section className="bg-white w-full shadow-lg p-3 rounded-lg">
-          <div className="pt-2 pb-4  flex justify-between  ">
-            <h1 className="text-lg font-bold text-black ">Advance User List</h1>
-            <AddUser />
+        <section className="bg-white w-full shadow-lg rounded-lg">
+          <div className="">
+            <div className="p-4  flex justify-between  ">
+              <h1 className="text-lg font-bold text-black ">
+                Advance User List
+              </h1>
+              <AddUser />
+            </div>
           </div>
           <EditTable
             FilPageData={FilPageData}
