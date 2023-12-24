@@ -2,26 +2,11 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import React, { useState } from "react";
-
 import { useDebouncedCallback } from "use-debounce";
 const SearchBox = () => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
-
-  const [loading, setLoading] = useState(false);
-
-  const handleClick = () => {
-    // Set loading to true to show the loader
-    setLoading(true);
-
-    // Simulate an asynchronous action, like an API call
-    setTimeout(() => {
-      // After some time (simulated API call), set loading back to false
-      setLoading(false);
-    }, 400); // Change 2000 to your desired loading duration
-  };
 
   const handleSearchName = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
@@ -100,12 +85,9 @@ const SearchBox = () => {
           </div>
           <div>
             <br />
-            <button
-              className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]"
-              disabled={loading}
-              onClick={handleClick}
-            >
-              {loading ? "Searching..." : "Search"}
+            <button className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]">
+              {/* {loading ? "Searching..." : "Search"} */}
+              Search
             </button>
           </div>
         </div>

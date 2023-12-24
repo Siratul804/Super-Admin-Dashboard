@@ -3,32 +3,49 @@ import { useFormState, useFormStatus } from "react-dom";
 import { MdModeEdit } from "react-icons/md";
 import { updateUser } from "@/app/lib/actions";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
 
 const UpdateUser = ({ id, name, email, number, role, status }) => {
+  const [formValues, setFormValues] = useState({});
+
+  useEffect(() => {
+    // Update the form values whenever props change
+    setFormValues({ id, name, email, number, role, status });
+  }, [id, name, email, number, role, status]);
+
   const initialState = {
     message: "",
   };
+
   const [state, formAction] = useFormState(updateUser, initialState);
 
-  function Submit() {
-    const { pending } = useFormStatus();
-
-    const notify = () => {
-      toast.success("User Update Successfully!", {
+  useEffect(() => {
+    if (state?.message === "Updated") {
+      toast.success("User Update Successfully !", {
         style: {
           background: "#008000",
           color: "#fff",
         },
       });
       document.getElementById(id).close();
-    };
+    } else if (state?.message === "Failed") {
+      toast.error("User Update Failed !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
+
+  function Submit() {
+    const { pending } = useFormStatus();
 
     return (
       <button
         type="submit"
         className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md "
         disabled={pending}
-        onClick={notify}
       >
         {pending ? "Updating..." : "Update User"}
       </button>
@@ -77,11 +94,10 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <input
                         type="text"
-                        placeholder="name"
                         name="name"
-                        defaultValue={name}
-                        required
                         autocomplete="off"
+                        defaultValue={formValues.name || ""}
+                        required
                         // className="input input-sm  bg-white  text-black border-black focus:outline-black focus:border-black w-[35vh]"
                         className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
@@ -92,10 +108,9 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <input
                         type="email"
-                        placeholder="Enter Your Email"
-                        name="email"
-                        defaultValue={email}
+                        defaultValue={formValues.email || ""}
                         required
+                        name="email"
                         autocomplete="off"
                         className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
@@ -111,9 +126,9 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <input
                         type="number"
-                        placeholder="Enter Your Number"
+                        defaultValue={formValues.number || ""}
+                        required
                         name="number"
-                        defaultValue={number}
                         autocomplete="off"
                         className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       />
@@ -124,10 +139,14 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <select
                         name="status"
-                        defaultValue={status}
+                        defaultValue={formValues.status || ""}
+                        required
                         // className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
+                        <option disabled selected>
+                          Select
+                        </option>
                         <option>Active</option>
                         <option>Disable</option>
                       </select>
@@ -141,7 +160,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <select
                         name="role"
-                        defaultValue={role}
+                        defaultValue={formValues.role || ""}
+                        required
                         // className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >

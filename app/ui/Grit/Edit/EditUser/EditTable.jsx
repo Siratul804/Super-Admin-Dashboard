@@ -1,5 +1,5 @@
+"use client";
 import UpdateUser from "../UpdateUser/UpdateUser";
-
 const EditTable = async ({ FilPageData, PaginationData }) => {
   return (
     <>
@@ -26,139 +26,69 @@ const EditTable = async ({ FilPageData, PaginationData }) => {
           </thead>
           <tbody className="bg-white  ">
             <>
-              {FilPageData.length > 0 ? (
+              {PaginationData.map((val) => (
                 <>
-                  {FilPageData.map((val) => (
-                    <>
-                      <>
-                        <tr>
-                          <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex ">
-                              <div className="h-10 w-10">
-                                <img
-                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
-                                  alt="No Img"
-                                  className="rounded-full"
-                                />
-                              </div>
-                              <div className="px-2 py-3   ">
-                                <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                                  {val.name}
-                                </p>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                              {val.number}
-                            </p>
-                          </td>
-                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                              {val.email}
-                            </p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {val.status === "Active" ? (
-                              <>
-                                <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                                  <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                    Active
-                                  </p>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                                  <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                    Disable
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <UpdateUser
-                              id={val.id}
-                              name={val.name}
-                              email={val.email}
-                              number={val.number}
-                              role={val.role}
-                              status={val.status}
+                  <>
+                    <tr>
+                      <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div className="flex ">
+                          <div className="h-10 w-10">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                              alt="No Img"
+                              className="rounded-full"
                             />
-                          </td>
-                        </tr>
-                      </>
-                    </>
-                  ))}
-                </>
-              ) : (
-                <>
-                  {PaginationData.map((val) => (
-                    <>
-                      <>
-                        <tr>
-                          <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex ">
-                              <div className="h-10 w-10">
-                                <img
-                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
-                                  alt="No Img"
-                                  className="rounded-full"
-                                />
-                              </div>
-                              <div className="px-2 py-3   ">
-                                <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                                  {val.name}
-                                </p>
-                              </div>
+                          </div>
+                          <div className="px-2 py-3   ">
+                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                              {val.name}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                          {val.number}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                          {val.email}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        {val.status === "Active" ? (
+                          <>
+                            <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                              <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                Active
+                              </p>
                             </div>
-                          </td>
-                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                              {val.number}
-                            </p>
-                          </td>
-                          <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                              {val.email}
-                            </p>
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {val.status === "Active" ? (
-                              <>
-                                <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                                  <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                    Active
-                                  </p>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                                  <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                    Disable
-                                  </p>
-                                </div>
-                              </>
-                            )}
-                          </td>
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <UpdateUser
-                              id={val.id}
-                              name={val.name}
-                              email={val.email}
-                              number={val.number}
-                              role={val.role}
-                              status={val.status}
-                            />
-                          </td>
-                        </tr>
-                      </>
-                    </>
-                  ))}
+                          </>
+                        ) : (
+                          <>
+                            <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                              <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                Disable
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <UpdateUser
+                          id={val.id}
+                          name={val.name}
+                          email={val.email}
+                          number={val.number}
+                          role={val.role}
+                          status={val.status}
+                        />
+                      </td>
+                    </tr>
+                  </>
                 </>
-              )}
+              ))}
             </>
           </tbody>
         </table>
