@@ -139,7 +139,6 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                       </label>
                       <select
                         name="status"
-                        defaultValue={formValues.status || ""}
                         required
                         // className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
