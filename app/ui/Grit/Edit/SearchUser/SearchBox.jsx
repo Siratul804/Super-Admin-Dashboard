@@ -8,6 +8,16 @@ const SearchBox = () => {
   const { replace } = useRouter();
   const pathname = usePathname();
 
+  const handleSearchNameSubmit = (e) => {
+    const params = new URLSearchParams(searchParams);
+
+    params.set("page", 1);
+
+    params.set("name", e.target.value);
+
+    replace(`${pathname}?${params}`);
+  };
+
   const handleSearchName = useDebouncedCallback((e) => {
     const params = new URLSearchParams(searchParams);
 

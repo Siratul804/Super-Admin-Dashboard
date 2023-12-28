@@ -1,6 +1,5 @@
-"use client";
 import UpdateUser from "../UpdateUser/UpdateUser";
-const EditTable = async ({ FilPageData, PaginationData }) => {
+const EditTable = async ({ PaginationData }) => {
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">

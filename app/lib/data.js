@@ -3,7 +3,7 @@
 import { query } from "./db";
 export async function GetUserData(request) {
   const users = await query({
-    query: "SELECT * FROM users",
+    query: "SELECT * FROM users WHERE role = 'Grit'",
     values: [],
   });
 
@@ -42,41 +42,34 @@ export async function GetMemberByIdToUpdate(id) {
 
 //filter User/Grit Data
 
-export async function GetGritFilterData(name, number, status) {
-  const filterGrit = await query({
-    query:
-      "SELECT * FROM users WHERE `name` LIKE ? OR `number` LIKE ? OR `status` LIKE ?",
-    values: [name, number, status],
-  });
+// export async function GetSearchData(name, number, status) {
+//   let queryStr = "SELECT * FROM users";
+//   const values = [];
 
-  return filterGrit;
-}
+//   if (name || number || status) {
+//     queryStr += " WHERE";
+//     if (name) {
+//       queryStr += " `name` LIKE ?";
+//       values.push(`%${name}%`);
+//     }
+//     if (number) {
+//       queryStr += (name ? " OR" : "") + " `number` LIKE ?";
+//       values.push(`%${number}%`);
+//     }
+//     if (status) {
+//       queryStr += (name || number ? " OR" : "") + " `status` LIKE ?";
+//       values.push(`%${status}%`);
+//     }
+//   }
 
-//Fill Pagi Data
+//   const searchData = await query({
+//     query: queryStr,
+//     values: values,
+//   });
 
-export async function GetGritFillPagiData(name, number, status, page) {
-  const ITEM_PER_PAGE = 10;
-  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
-
-  const offset = (page - 1) * ITEM_PER_PAGE;
-
-  const OFF_SET_PAGE = offset.toString();
-
-  console.log(page);
-
-  const FillPagiGrit = await query({
-    query:
-      "SELECT * FROM users WHERE role = 'Grit' AND (`name` = ? OR `number` = ? OR `status` = ?) LIMIT ?, ?",
-    values: [name, number, status, OFF_SET_PAGE, ITEM_PER_PAGE_STRING],
-  });
-  const paginationCount = await query({
-    query: "SELECT COUNT(*) FROM users WHERE role = 'Grit'",
-    values: [],
-  });
-
-  const countNumber = paginationCount[0]["COUNT(*)"];
-  return { FillPagiGrit, countNumber };
-}
+//   console.log(searchData);
+//   return { searchData };
+// }
 
 //Paginaion User/Grit Data
 export async function GetGritPaginationData(page) {
@@ -87,7 +80,7 @@ export async function GetGritPaginationData(page) {
 
   const OFF_SET_PAGE = offset.toString();
 
-  console.log(page);
+  // console.log(page);
 
   const paginationGrit = await query({
     query: "SELECT * FROM users WHERE role = 'Grit' LIMIT ? OFFSET ?",
