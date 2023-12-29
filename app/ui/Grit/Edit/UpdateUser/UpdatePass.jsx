@@ -69,13 +69,22 @@ const UpdatePass = ({ email, id }) => {
 
         <dialog id={email} className="modal  ">
           <div className="modal-box bg-white ">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2  text-black   ">
-                ✕
-              </button>
-            </form>
-            <h3 className="font-bold text-lg">Change Password</h3>
+            <div className="">
+              <div className="flex justify-between ">
+                <h1 className="text-xl  text-black ">Change Password</h1>
+                <div>
+                  <form method="dialog">
+                    {/* if there is a button in form, it will close the modal */}
+                    <button className="btn btn-sm btn-circle btn-ghost absolute right-4  text-black   ">
+                      ✕
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div className="py-3">
+                <hr />
+              </div>
+            </div>
             <div className="py-4">
               {/* //inside content// */}
 
