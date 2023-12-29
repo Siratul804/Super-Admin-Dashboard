@@ -1,7 +1,16 @@
 "use client";
 import { changePass } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
-const UpdatePass = ({ id }) => {
+import { IoFingerPrint } from "react-icons/io5";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
+
+const UpdatePass = ({ email, id }) => {
+  const [formValues, setFormValues] = useState({});
+  useEffect(() => {
+    // Update the form values whenever props change
+    setFormValues({ email, id });
+  }, [email, id]);
   const [state, formAction] = useFormState(changePass, undefined);
 
   function Submit() {
@@ -16,21 +25,49 @@ const UpdatePass = ({ id }) => {
       </button>
     );
   }
+
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (state?.message === "Updated") {
+      document.getElementById(email).close();
+      formRef.current.reset();
+      toast.success("Password Updated Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Failed") {
+      toast.error("Password Updated Failed !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Did't Match") {
+      toast.error("Password Did't Match !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
   return (
     <>
-      <div className="flex justify-center pt-4 ">
+      <div className="flex">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
-
-        <button onClick={() => document.getElementById(id).showModal()}>
-          <label
-            for="customFileInput"
-            class="inline-block bg-white rounded-md border border-gray-300 sm:px-[245px] px-[90px] py-1 cursor-pointer hover:border-gray-400"
-          >
-            <span class="ml-3 text-gray-600 text-sm ">Change The Password</span>
-          </label>
+        <button
+          className="w-full"
+          onClick={() => document.getElementById(email).showModal()}
+        >
+          <div className="hover:bg-slate-100 w-full p-2 rounded-md flex ">
+            <IoFingerPrint size={16} color="black" />
+          </div>
         </button>
 
-        <dialog id={id} className="modal  ">
+        <dialog id={email} className="modal  ">
           <div className="modal-box bg-white ">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
@@ -42,11 +79,12 @@ const UpdatePass = ({ id }) => {
             <div className="py-4">
               {/* //inside content// */}
 
-              <form action={formAction}>
-                <input type="hidden" name="id" value={id} />
+              <form action={formAction} ref={formRef}>
+                <input type="hidden" name="id" value={formValues.id} />
                 <input
                   placeholder="New Password"
                   name="previous"
+                  type="password"
                   className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
                   required
                 />
@@ -54,17 +92,22 @@ const UpdatePass = ({ id }) => {
                 <input
                   placeholder="Confirm Password"
                   name="password"
+                  type="password"
                   className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
                 <Submit />
+                <div className="flex justify-end pt-1 ">
+                  {state?.message === "Did't Match" ? (
+                    <>
+                      <p className="text-red-500">Password Did't Match!</p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </div>
               </form>
-              <div className="toast toast-center ">
-                <span className="text-red-500 text-[12px] ">
-                  {state && state}
-                </span>
-              </div>
             </div>
           </div>
         </dialog>

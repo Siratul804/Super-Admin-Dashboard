@@ -1,15 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import UpdateUser from "../UpdateUser/UpdateUser";
+import UpdatePass from "../UpdateUser/UpdatePass";
 import AddUser from "../AddUser/AddUser";
 import Pagination from "../Pagination/Pagination";
+
 const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
   const [input3, setInput3] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [showResults, setShowResults] = useState(false);
+
+  //press enter
+  const buttonRef = useRef(null);
+
+  const handleEnterPress = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      buttonRef.current.click();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleEnterPress);
+    return () => {
+      document.removeEventListener("keydown", handleEnterPress);
+    };
+  }, []);
 
   const handleInput1Change = (e) => {
     setInput1(e.target.value);
@@ -77,7 +96,7 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
                 onChange={handleInput2Change}
                 className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
               >
-                <option>Select</option>
+                <option value="">Select</option>
                 <option>Active</option>
                 <option>Disable</option>
               </select>
@@ -86,6 +105,7 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
               <br />
               <button
                 onClick={handleSearch}
+                ref={buttonRef}
                 className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]"
               >
                 Search
@@ -112,88 +132,108 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
               <table className="w-full border-collapse border border-slate-100">
                 <thead>
                   <tr>
-                    <th className="px-1 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Name
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Number
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Edit
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white">
                   <>
-                    {searchResults.map((val) => (
+                    {searchResults.length > 0 ? (
                       <>
-                        <>
-                          <tr>
-                            <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <div className="flex ">
-                                <div className="h-10 w-10">
-                                  <img
-                                    src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
-                                    alt="No Img"
-                                    className="rounded-full"
-                                  />
-                                </div>
-                                <div className="px-2 py-3   ">
-                                  <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                                    {val.name}
+                        {searchResults.map((val) => (
+                          <>
+                            <>
+                              <tr>
+                                <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
+                                  <div className="flex ">
+                                    <div className="h-10 w-10">
+                                      <img
+                                        src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.img}`}
+                                        alt="No Img"
+                                        className="rounded-full"
+                                      />
+                                    </div>
+                                    <div className="px-2 py-3   ">
+                                      <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                        {val.name}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                                  <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                    {val.number}
                                   </p>
-                                </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                                {val.number}
-                              </p>
-                            </td>
-                            <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
-                                {val.email}
-                              </p>
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              {val.status === "Active" ? (
-                                <>
-                                  <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                                    <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                      Active
-                                    </p>
+                                </td>
+                                <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                                  <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                    {val.email}
+                                  </p>
+                                </td>
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                  {val.status === "Active" ? (
+                                    <>
+                                      <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                                        <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                          Active
+                                        </p>
+                                      </div>
+                                    </>
+                                  ) : (
+                                    <>
+                                      <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                                        <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                          Disable
+                                        </p>
+                                      </div>
+                                    </>
+                                  )}
+                                </td>
+                                <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                  <div className="flex">
+                                    <div>
+                                      <UpdateUser
+                                        id={val.id}
+                                        name={val.name}
+                                        email={val.email}
+                                        number={val.number}
+                                        role={val.role}
+                                        status={val.status}
+                                      />
+                                    </div>
+                                    <div className="">
+                                      <UpdatePass
+                                        email={val.email}
+                                        id={val.id}
+                                      />
+                                    </div>
                                   </div>
-                                </>
-                              ) : (
-                                <>
-                                  <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                                    <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                      Disable
-                                    </p>
-                                  </div>
-                                </>
-                              )}
-                            </td>
-                            <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <UpdateUser
-                                id={val.id}
-                                name={val.name}
-                                email={val.email}
-                                number={val.number}
-                                role={val.role}
-                                status={val.status}
-                              />
-                            </td>
-                          </tr>
-                        </>
+                                </td>
+                              </tr>
+                            </>
+                          </>
+                        ))}
                       </>
-                    ))}
+                    ) : (
+                      <>
+                        <div className="p-4">
+                          <p>No data found</p>
+                        </div>
+                      </>
+                    )}
                   </>
                 </tbody>
               </table>
@@ -206,19 +246,19 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
               <table className="w-full border-collapse border border-slate-100">
                 <thead>
                   <tr>
-                    <th className="px-1 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Name
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Number
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Email
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Status
                     </th>
-                    <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                       Edit
                     </th>
                   </tr>
@@ -239,19 +279,19 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
                                   />
                                 </div>
                                 <div className="px-2 py-3   ">
-                                  <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                                  <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                                     {val.name}
                                   </p>
                                 </div>
                               </div>
                             </td>
                             <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                              <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                                 {val.number}
                               </p>
                             </td>
                             <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                              <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                              <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                                 {val.email}
                               </p>
                             </td>
@@ -259,7 +299,7 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
                               {val.status === "Active" ? (
                                 <>
                                   <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                                    <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                    <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
                                       Active
                                     </p>
                                   </div>
@@ -267,7 +307,7 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
                               ) : (
                                 <>
                                   <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                                    <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                    <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
                                       Disable
                                     </p>
                                   </div>
@@ -275,14 +315,21 @@ const SearchDataTable = ({ searchDeal, PaginationCount, PaginationData }) => {
                               )}
                             </td>
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                              <UpdateUser
-                                id={val.id}
-                                name={val.name}
-                                email={val.email}
-                                number={val.number}
-                                role={val.role}
-                                status={val.status}
-                              />
+                              <div className="flex">
+                                <div>
+                                  <UpdateUser
+                                    id={val.id}
+                                    name={val.name}
+                                    email={val.email}
+                                    number={val.number}
+                                    role={val.role}
+                                    status={val.status}
+                                  />
+                                </div>
+                                <div className="">
+                                  <UpdatePass email={val.email} id={val.id} />
+                                </div>
+                              </div>
                             </td>
                           </tr>
                         </>
