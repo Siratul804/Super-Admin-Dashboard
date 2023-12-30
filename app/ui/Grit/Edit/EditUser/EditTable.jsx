@@ -1,4 +1,5 @@
 import UpdateUser from "../UpdateUser/UpdateUser";
+import UpdatePass from "../UpdateUser/UpdatePass";
 const EditTable = async ({ PaginationData }) => {
   return (
     <>
@@ -6,19 +7,19 @@ const EditTable = async ({ PaginationData }) => {
         <table className="w-full border-collapse border border-slate-100">
           <thead>
             <tr>
-              <th className="px-1 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Name
               </th>
-              <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Number
               </th>
-              <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Email
               </th>
-              <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 bg-slate-100 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Edit
               </th>
             </tr>
@@ -39,19 +40,19 @@ const EditTable = async ({ PaginationData }) => {
                             />
                           </div>
                           <div className="px-2 py-3   ">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {val.name}
                             </p>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                        <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                           {val.number}
                         </p>
                       </td>
                       <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                        <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                           {val.email}
                         </p>
                       </td>
@@ -59,7 +60,7 @@ const EditTable = async ({ PaginationData }) => {
                         {val.status === "Active" ? (
                           <>
                             <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
-                              <p className="text-center text-xs leading-4  font-bold  text-[#118d57]  tracking-wider">
+                              <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
                                 Active
                               </p>
                             </div>
@@ -67,7 +68,7 @@ const EditTable = async ({ PaginationData }) => {
                         ) : (
                           <>
                             <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
-                              <p className="text-center text-xs leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                              <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
                                 Disable
                               </p>
                             </div>
@@ -75,14 +76,21 @@ const EditTable = async ({ PaginationData }) => {
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <UpdateUser
-                          id={val.id}
-                          name={val.name}
-                          email={val.email}
-                          number={val.number}
-                          role={val.role}
-                          status={val.status}
-                        />
+                        <div className="flex">
+                          <div>
+                            <UpdateUser
+                              id={val.id}
+                              name={val.name}
+                              email={val.email}
+                              number={val.number}
+                              role={val.role}
+                              status={val.status}
+                            />
+                          </div>
+                          <div className="">
+                            <UpdatePass email={val.email} id={val.id} />
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   </>

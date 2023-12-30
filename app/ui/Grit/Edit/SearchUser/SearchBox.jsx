@@ -1,52 +1,40 @@
 "use client";
-
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
-import { useDebouncedCallback } from "use-debounce";
 const SearchBox = () => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [status, setStatus] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Added loading state
 
-  const handleSearchNameSubmit = (e) => {
+  const handleSearch = () => {
+    setIsLoading(true); // Set loading to true before search starts
+
+    console.log(name);
+
     const params = new URLSearchParams(searchParams);
-
     params.set("page", 1);
+    params.set("name", name);
+    params.set("number", number);
+    params.set("status", status);
 
-    params.set("name", e.target.value);
-
-    replace(`${pathname}?${params}`);
+    // Simulating a delay (you can replace this with your actual search logic)
+    setTimeout(() => {
+      replace(`${pathname}?${params}`);
+      setIsLoading(false); // Set loading to false after search completes
+    }, 1000); // Replace 1000 with your desired delay (milliseconds)
   };
 
-  const handleSearchName = useDebouncedCallback((e) => {
-    const params = new URLSearchParams(searchParams);
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSearch();
+    }
+  };
 
-    params.set("page", 1);
-
-    params.set("name", e.target.value);
-
-    replace(`${pathname}?${params}`);
-  }, 300);
-
-  const handleSearchNumber = useDebouncedCallback((e) => {
-    const params = new URLSearchParams(searchParams);
-
-    params.set("page", 1);
-
-    params.set("number", e.target.value);
-
-    replace(`${pathname}?${params}`);
-  }, 300);
-
-  const handleSearchStatus = useDebouncedCallback((e) => {
-    const params = new URLSearchParams(searchParams);
-
-    params.set("page", 1);
-
-    params.set("status", e.target.value);
-
-    replace(`${pathname}?${params}`);
-  }, 300);
   return (
     <>
       <div className="flex justify-center">
@@ -58,10 +46,11 @@ const SearchBox = () => {
               type="text"
               placeholder="Enter Your Name "
               name="name"
-              onChange={handleSearchName}
-              autocomplete="off"
-              // className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
-              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyPress={handleKeyPress}
+              autoComplete="off"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
@@ -71,10 +60,11 @@ const SearchBox = () => {
               type="number"
               placeholder="Enter Your Number "
               name="number"
-              onChange={handleSearchNumber}
-              autocomplete="off"
-              // className="input input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]  "
-              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
+              onKeyPress={handleKeyPress}
+              autoComplete="off"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
@@ -82,22 +72,24 @@ const SearchBox = () => {
             <br />
             <select
               name="status"
-              onChange={handleSearchStatus}
-              // className="select bg-white text-black border-black focus:outline-black focus:border-black select-sm w-[35vh]  "
-              className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              onKeyPress={handleKeyPress}
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             >
-              <option disabled selected>
-                Select
-              </option>
-              <option>Active</option>
-              <option>Disable</option>
+              <option value="">Select</option>
+              <option value="Active">Active</option>
+              <option value="Disable">Disable</option>
             </select>
           </div>
           <div>
             <br />
-            <button className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]">
-              {/* {loading ? "Searching..." : "Search"} */}
-              Search
+            <button
+              onClick={handleSearch}
+              disabled={isLoading}
+              className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]"
+            >
+              {isLoading ? "Searching..." : "Search"}
             </button>
           </div>
         </div>

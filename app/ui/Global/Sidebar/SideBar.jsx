@@ -22,7 +22,7 @@ const SideBar = ({ data }) => {
                 >
                   <span className="pl-1  text-sm flex ">
                     <FaUserEdit size={20} />
-                    <p className="px-3">Edit Grit</p>
+                    <p className="px-3">User List</p>
                   </span>
                 </span>
               </Link>
