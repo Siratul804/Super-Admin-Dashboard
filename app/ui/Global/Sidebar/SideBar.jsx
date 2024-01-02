@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
+import { RiAdminFill } from "react-icons/ri";
 
 const SideBar = ({ data }) => {
   const pathname = usePathname();
@@ -23,6 +24,22 @@ const SideBar = ({ data }) => {
                   <span className="pl-1  text-sm flex ">
                     <FaUserEdit size={20} />
                     <p className="px-3">User List</p>
+                  </span>
+                </span>
+              </Link>
+            </li>
+            <li className="pl-3 pr-3 pt-3">
+              <Link href="/dashboard/grit/role">
+                <span
+                  className={
+                    pathname === "/dashboard/grit/role"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
+                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                  }
+                >
+                  <span className="pl-1  text-sm flex ">
+                    <RiAdminFill size={20} />
+                    <p className="px-3">Role List</p>
                   </span>
                 </span>
               </Link>

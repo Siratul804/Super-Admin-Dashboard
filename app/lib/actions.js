@@ -8,6 +8,7 @@ import { writeFile } from "fs/promises";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
+
 //grit
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, role, status } =
@@ -95,20 +96,6 @@ export const changePass = async (prevState, formData) => {
     message: "Updated",
   };
 };
-
-// export const deleteUser = async (formData) => {
-//   const { id } = Object.fromEntries(formData);
-
-//   const deleteMember = await query({
-//     query: "DELETE FROM users WHERE id = (?)",
-//     values: [id],
-//   });
-
-//   if (deleteMember) {
-//     console.log("user deleted");
-//     redirect("/dashboard/grit/edit");
-//   }
-// };
 
 //global
 export const authenticate = async (prevState, formData) => {
@@ -348,4 +335,46 @@ export const resettPass = async (prevState, formData) => {
   if (updateNewPass) {
     return "Your password has been changed !";
   }
+};
+
+// Permission
+
+export const addRole = async (prevState, formData) => {
+  const { name, description } = Object.fromEntries(formData);
+  const createPermission = formData.get("create") === null ? "off" : "on";
+  const editPermission = formData.get("edit") === null ? "off" : "on";
+  const viewPermission = formData.get("view") === null ? "off" : "on";
+  console.log(
+    name,
+    description,
+    createPermission,
+    editPermission,
+    viewPermission
+  );
+  try {
+    const newRole = await query({
+      query: "INSERT INTO role (name, description) VALUES (?, ?)",
+      values: [name, description],
+    });
+    console.log(newRole);
+
+    const newPermission = await query({
+      query:
+        "INSERT INTO permission (`create`, `edit`, `view`) VALUES (?, ?, ?)",
+      values: [createPermission, editPermission, viewPermission],
+    });
+    console.log(newPermission);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "role error",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/grit/role");
+  return {
+    message: "role Added",
+  };
 };
