@@ -3,7 +3,7 @@ import { addRole } from "@/app/lib/actions";
 import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
-const RoleGrit = () => {
+const RoleGrit = ({ permissionData }) => {
   const [toggle, setToggle] = useState(false);
 
   const handleToggleChange = () => {
@@ -17,6 +17,8 @@ const RoleGrit = () => {
   };
 
   //
+
+  console.log(permissionData);
 
   function Submit() {
     const { pending } = useFormStatus();
@@ -94,7 +96,8 @@ const RoleGrit = () => {
               Which permissions do you like to include in this role ?
             </h1>
           </div>
-          <div className="p-3">
+          {/* ................................................ */}
+          {/* <div className="p-3">
             <div className="">
               <div className="py-2">
                 <input
@@ -135,6 +138,42 @@ const RoleGrit = () => {
                   disabled={toggle}
                 />
                 <span className="label-text  pl-5 text-black ">View</span>
+              </label>
+            </div>
+            <div className="pt-4">
+              <Submit />
+            </div>
+          </div> */}
+          {/* ................................................ */}
+
+          <div className="p-3">
+            <div className="">
+              <div className="py-2">
+                <input
+                  type="checkbox"
+                  checked={toggle}
+                  onChange={handleToggleChange}
+                  className="toggle"
+                />
+              </div>
+              <label className="flex flex-col ">
+                {permissionData.map((val) => (
+                  <>
+                    <label className=" flex py-2 ">
+                      <input
+                        type="checkbox"
+                        name="id"
+                        value={val.id}
+                        className="checkbox checkbox-sm"
+                        onChange={handleCheckboxChange}
+                        disabled={toggle}
+                      />
+                      <span className="label-text  pl-5 text-black ">
+                        {val.name}
+                      </span>
+                    </label>
+                  </>
+                ))}
               </label>
             </div>
             <div className="pt-4">

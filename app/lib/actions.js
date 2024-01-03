@@ -340,37 +340,37 @@ export const resettPass = async (prevState, formData) => {
 // Permission
 
 export const addRole = async (prevState, formData) => {
-  const { name, description } = Object.fromEntries(formData);
-  const createPermission = formData.get("create") === null ? "off" : "on";
-  const editPermission = formData.get("edit") === null ? "off" : "on";
-  const viewPermission = formData.get("view") === null ? "off" : "on";
-  console.log(
-    name,
-    description,
-    createPermission,
-    editPermission,
-    viewPermission
-  );
+  const { name, description, id } = Object.fromEntries(formData);
+
   try {
     const newRole = await query({
       query: "INSERT INTO role (name, description) VALUES (?, ?)",
       values: [name, description],
     });
-    console.log(newRole);
+
+    const role_id = newRole.insertId; // Fetch the ID of the newly inserted role
+
+    function stringToNumber(str) {
+      return Number(str);
+    }
+
+    const permission_id = stringToNumber(id);
+
+    console.log(role_id, permission_id);
 
     const newPermission = await query({
       query:
-        "INSERT INTO permission (`create`, `edit`, `view`) VALUES (?, ?, ?)",
-      values: [createPermission, editPermission, viewPermission],
+        "INSERT INTO role_permission (`role_id`, `permission_id`) VALUES (?, ?)",
+      values: [role_id, permission_id],
     });
+
+    console.log(newRole);
     console.log(newPermission);
   } catch (err) {
-    if (err) {
-      console.log(err);
-      return {
-        message: "role error",
-      };
-    }
+    console.log(err);
+    return {
+      message: "role error",
+    };
   }
 
   revalidatePath("/dashboard/grit/role");

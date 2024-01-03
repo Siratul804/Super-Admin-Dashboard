@@ -131,3 +131,14 @@ export async function GetGritPaginationData(page, name, number, status) {
 
   return { paginationGrit, countNumber };
 }
+
+// permissions
+
+export async function GetPermissionData(request) {
+  const permission = await query({
+    query: "SELECT * FROM permission",
+    values: [],
+  });
+
+  return permission;
+}
