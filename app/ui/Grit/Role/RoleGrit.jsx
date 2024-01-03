@@ -5,20 +5,43 @@ import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 const RoleGrit = ({ permissionData }) => {
   const [toggle, setToggle] = useState(false);
+  const [selectedPermissions, setSelectedPermissions] = useState([]);
 
   const handleToggleChange = () => {
     setToggle(!toggle);
   };
 
+  // const handleCheckboxChange = (e) => {
+  //   if (toggle) {
+  //     e.preventDefault();
+  //   }
+  // };
+
+  console.log(permissionData);
+
   const handleCheckboxChange = (e) => {
+    const permissionId = e.target.value;
+    const isChecked = e.target.checked;
+
     if (toggle) {
       e.preventDefault();
     }
+
+    if (isChecked) {
+      setSelectedPermissions([
+        ...selectedPermissions,
+        {
+          role_id: 1 /* Replace with your role ID */,
+          permission_id: permissionId,
+        },
+      ]);
+    } else {
+      const updatedPermissions = selectedPermissions.filter(
+        (permission) => permission.permission_id !== permissionId
+      );
+      setSelectedPermissions(updatedPermissions);
+    }
   };
-
-  //
-
-  console.log(permissionData);
 
   function Submit() {
     const { pending } = useFormStatus();

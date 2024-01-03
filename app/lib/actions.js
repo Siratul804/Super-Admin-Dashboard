@@ -8,6 +8,42 @@ import { writeFile } from "fs/promises";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
+// .......................
+//testing
+
+export const test = async (checkedItems) => {
+  console.log(checkedItems);
+
+  try {
+    const valuesToInsert = checkedItems.map((item) => [item.id, item.name]);
+
+    console.log(valuesToInsert);
+
+    const newPermission = await Promise.all(
+      valuesToInsert.map((values) =>
+        query({
+          query:
+            "INSERT INTO test (`permission_id`, `permission_name`) VALUES (?, ?)",
+          values,
+        })
+      )
+    );
+
+    console.log(newPermission);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "error",
+    };
+  }
+
+  return {
+    message: "success",
+  };
+};
+
+//testing
+// .......................
 
 //grit
 export const addUser = async (prevState, formData) => {
