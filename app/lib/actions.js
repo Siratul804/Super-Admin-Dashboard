@@ -11,11 +11,17 @@ import { revalidatePath } from "next/cache";
 // .......................
 //testing
 
-export const test = async (checkedItems) => {
-  console.log(checkedItems);
+export const test = async (checkedItems, username, description) => {
+  // console.log(checkedItems);
+
+  console.log(username, description);
 
   try {
-    const valuesToInsert = checkedItems.map((item) => [item.id, item.name]);
+    const valuesToInsert = checkedItems.map((item) => [
+      item.id,
+      item.name,
+      item.role_id,
+    ]);
 
     console.log(valuesToInsert);
 
@@ -23,7 +29,7 @@ export const test = async (checkedItems) => {
       valuesToInsert.map((values) =>
         query({
           query:
-            "INSERT INTO test (`permission_id`, `permission_name`) VALUES (?, ?)",
+            "INSERT INTO test (`permission_id`, `permission_name`, `role_id`) VALUES (?, ?, ?)",
           values,
         })
       )
@@ -375,32 +381,35 @@ export const resettPass = async (prevState, formData) => {
 
 // Permission
 
-export const addRole = async (prevState, formData) => {
-  const { name, description, id } = Object.fromEntries(formData);
-
+export const addRole = async (checkedItems, username, description) => {
+  console.log(username, description);
+  console.log(checkedItems);
   try {
     const newRole = await query({
       query: "INSERT INTO role (name, description) VALUES (?, ?)",
-      values: [name, description],
+      values: [username, description],
     });
-
-    const role_id = newRole.insertId; // Fetch the ID of the newly inserted role
-
-    function stringToNumber(str) {
-      return Number(str);
-    }
-
-    const permission_id = stringToNumber(id);
-
-    console.log(role_id, permission_id);
-
-    const newPermission = await query({
-      query:
-        "INSERT INTO role_permission (`role_id`, `permission_id`) VALUES (?, ?)",
-      values: [role_id, permission_id],
-    });
-
     console.log(newRole);
+
+    const role_id = await query({
+      query: "SELECT id FROM role ORDER BY id DESC LIMIT 1",
+      values: [],
+    });
+    // const role_num = Number(role_id);
+    const role_id_num = role_id[0].id;
+    console.log(role_id_num);
+    //
+    const valuesToInsert = checkedItems.map((item) => [item.id, role_id_num]);
+    console.log(valuesToInsert);
+    const newPermission = await Promise.all(
+      valuesToInsert.map((values) =>
+        query({
+          query:
+            "INSERT INTO role_permission (`permission_id`, `role_id`) VALUES (?, ?)",
+          values,
+        })
+      )
+    );
     console.log(newPermission);
   } catch (err) {
     console.log(err);

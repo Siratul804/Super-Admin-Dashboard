@@ -142,3 +142,11 @@ export async function GetPermissionData(request) {
 
   return permission;
 }
+export async function GetRoleData(request) {
+  const role = await query({
+    query: "SELECT * FROM role",
+    values: [],
+  });
+
+  return role;
+}

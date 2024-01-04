@@ -1,210 +1,91 @@
 "use client";
 import { addRole } from "@/app/lib/actions";
-import { useFormState, useFormStatus } from "react-dom";
-import toast from "react-hot-toast";
-import { useEffect, useRef, useState } from "react";
-const RoleGrit = ({ permissionData }) => {
-  const [toggle, setToggle] = useState(false);
-  const [selectedPermissions, setSelectedPermissions] = useState([]);
+import { useState } from "react";
+const RoleGrit = () => {
+  const [username, setUsername] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleToggleChange = () => {
-    setToggle(!toggle);
-  };
+  const [checkboxes, setCheckboxes] = useState([
+    { id: 3, name: "create", isChecked: false },
+    { id: 4, name: "edit", isChecked: false },
+    { id: 5, name: "view", isChecked: false },
+    // Add more checkboxes as needed
+  ]);
 
-  // const handleCheckboxChange = (e) => {
-  //   if (toggle) {
-  //     e.preventDefault();
-  //   }
-  // };
-
-  console.log(permissionData);
-
-  const handleCheckboxChange = (e) => {
-    const permissionId = e.target.value;
-    const isChecked = e.target.checked;
-
-    if (toggle) {
-      e.preventDefault();
-    }
-
-    if (isChecked) {
-      setSelectedPermissions([
-        ...selectedPermissions,
-        {
-          role_id: 1 /* Replace with your role ID */,
-          permission_id: permissionId,
-        },
-      ]);
-    } else {
-      const updatedPermissions = selectedPermissions.filter(
-        (permission) => permission.permission_id !== permissionId
-      );
-      setSelectedPermissions(updatedPermissions);
-    }
-  };
-
-  function Submit() {
-    const { pending } = useFormStatus();
-    return (
-      <button
-        type="submit"
-        className="btn btn-neutral btn-sm text-white h-[2vh] w-full"
-        disabled={pending}
-      >
-        {pending ? "Creating..." : "Create Role"}
-      </button>
+  const handleCheckboxChange = (id) => {
+    setCheckboxes(
+      checkboxes.map((checkbox) =>
+        checkbox.id === id
+          ? { ...checkbox, isChecked: !checkbox.isChecked }
+          : checkbox
+      )
     );
-  }
-
-  const initialState = {
-    message: "",
   };
 
-  const [state, formAction] = useFormState(addRole, initialState);
+  const handleShowCheckedData = async () => {
+    const checkedItems = checkboxes.filter((checkbox) => checkbox.isChecked);
 
-  const formRef = useRef();
+    console.log(checkedItems); // Display in console
 
-  useEffect(() => {
-    if (state?.message === "role Added") {
-      formRef.current.reset();
-      toast.success("Role Added Successfully !", {
-        style: {
-          background: "#008000",
-          color: "#fff",
-        },
-      });
-    } else if (state?.message === "role error") {
-      toast.error("Role Added Failed !", {
-        style: {
-          background: "#FF0000",
-          color: "#fff",
-        },
-      });
-    }
-  }, [state]);
+    await addRole(checkedItems, username, description);
+  };
 
   return (
     <>
-      <div className="py-2"></div>
-      <section className="bg-white w-full shadow-lg rounded-lg">
-        <form action={formAction} ref={formRef}>
-          <div className="p-3 rounded-lg flex justify-center sm:justify-between flex-wrap">
-            <div>
-              <label className="text-sm text-black ">Name </label>
-              <br />
-              <input
-                type="text"
-                placeholder="Enter Role Name "
-                name="name"
-                required
-                autoComplete="off"
-                className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] sm:w-[78vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-              />
-            </div>
-            <div>
-              <label className="text-sm text-black ">Description </label>
-              <br />
-              <input
-                type="text"
-                placeholder="Enter Role Description "
-                name="description"
-                required
-                autoComplete="off"
-                className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] sm:w-[78vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-              />
-            </div>
+      <div class="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          for="username"
+        >
+          Username
+        </label>
+        <input
+          className="shadow appearance-none border rounded w-full bg-white py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          type="text"
+          placeholder="Username"
+        />
+      </div>
+      <div className="mb-4">
+        <label
+          className="block text-gray-700 text-sm font-bold mb-2"
+          for="description"
+        >
+          Description
+        </label>
+        <textarea
+          placeholder="Description"
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          type="text"
+          className="shadow appearance-none border rounded w-full bg-white py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        ></textarea>
+      </div>
+      <div>
+        {checkboxes.map((checkbox) => (
+          <div key={checkbox.id}>
+            <input
+              type="checkbox"
+              id={`checkbox-${checkbox.id}`}
+              checked={checkbox.isChecked}
+              onChange={() => handleCheckboxChange(checkbox.id)}
+            />
+            <label className="px-2" htmlFor={`checkbox-${checkbox.id}`}>
+              {checkbox.name}
+            </label>
           </div>
-          <div className="p-3">
-            <h1 className="text-lg font-bold text-black ">
-              Which permissions do you like to include in this role ?
-            </h1>
-          </div>
-          {/* ................................................ */}
-          {/* <div className="p-3">
-            <div className="">
-              <div className="py-2">
-                <input
-                  type="checkbox"
-                  checked={toggle}
-                  onChange={handleToggleChange}
-                  className="toggle"
-                />
-              </div>
-              <label className="flex">
-                <input
-                  type="checkbox"
-                  name="create"
-                  className="checkbox checkbox-sm"
-                  onChange={handleCheckboxChange}
-                  disabled={toggle}
-                />
-                <span className="label-text  pl-5 text-black ">Create</span>
-              </label>
-              <div className="py-2"></div>
-              <label className=" flex ">
-                <input
-                  type="checkbox"
-                  name="edit"
-                  className="checkbox checkbox-sm"
-                  onChange={handleCheckboxChange}
-                  disabled={toggle}
-                />
-                <span className="label-text  pl-5 text-black ">Edit</span>
-              </label>
-              <div className="py-2"></div>
-              <label className=" flex ">
-                <input
-                  type="checkbox"
-                  name="view"
-                  className="checkbox checkbox-sm  "
-                  onChange={handleCheckboxChange}
-                  disabled={toggle}
-                />
-                <span className="label-text  pl-5 text-black ">View</span>
-              </label>
-            </div>
-            <div className="pt-4">
-              <Submit />
-            </div>
-          </div> */}
-          {/* ................................................ */}
-
-          <div className="p-3">
-            <div className="">
-              <div className="py-2">
-                <input
-                  type="checkbox"
-                  checked={toggle}
-                  onChange={handleToggleChange}
-                  className="toggle"
-                />
-              </div>
-              <label className="flex flex-col ">
-                {permissionData.map((val) => (
-                  <>
-                    <label className=" flex py-2 ">
-                      <input
-                        type="checkbox"
-                        name="id"
-                        value={val.id}
-                        className="checkbox checkbox-sm"
-                        onChange={handleCheckboxChange}
-                        disabled={toggle}
-                      />
-                      <span className="label-text  pl-5 text-black ">
-                        {val.name}
-                      </span>
-                    </label>
-                  </>
-                ))}
-              </label>
-            </div>
-            <div className="pt-4">
-              <Submit />
-            </div>
-          </div>
-        </form>
-      </section>
+        ))}
+        <div className="py-1"></div>
+        <button
+          className="btn btn-sm bg-white text-black hover:text-lime-50  "
+          onClick={handleShowCheckedData}
+        >
+          Show Checked Data
+        </button>
+      </div>
     </>
   );
 };
