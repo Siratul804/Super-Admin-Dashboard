@@ -1,9 +1,12 @@
 "use client";
 import { addRole } from "@/app/lib/actions";
-import { useState } from "react";
-
+import { useState, useRef } from "react";
+import toast from "react-hot-toast";
 const RoleGrit = () => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
+  const [loading, setLoading] = useState(false); // Initialize loading state
+
+  const formRef = useRef();
 
   const [checkboxes, setCheckboxes] = useState([
     { id: 3, name: "create", isChecked: false },
@@ -32,15 +35,33 @@ const RoleGrit = () => {
     );
   };
 
-  const handleSubmitRolePermission = async (formData) => {
+  const handleSubmit = async (event) => {
     const checkedItems = checkboxes.filter((checkbox) => checkbox.isChecked);
 
     console.log(checkedItems); // Display in console
 
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(event.target);
+
     const username = formData.get("username");
     const description = formData.get("description");
 
-    await addRole(checkedItems, username, description);
+    setLoading(true); // Set loading to true while submitting
+
+    try {
+      const response = await addRole(checkedItems, username, description);
+      if (response?.message === "role Added") {
+        formRef.current.reset();
+        toast.success("Role Added Successfully");
+      } else if (response?.message === "role error") {
+        toast.error("Role Added Failed");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false); // Set loading back to false after submission
+    }
   };
 
   //form state
@@ -48,9 +69,10 @@ const RoleGrit = () => {
     return (
       <button
         type="submit"
+        disabled={loading}
         className="btn btn-sm btn-neutral text-white h-[6vh] w-full rounded-md "
       >
-        Create Role & Permission
+        {loading ? "Creating..." : "Create Role & Permission"}
       </button>
     );
   }
@@ -59,7 +81,7 @@ const RoleGrit = () => {
     <>
       <section className="bg-white w-full shadow-lg rounded-lg">
         <div className="p-3">
-          <form action={handleSubmitRolePermission}>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
