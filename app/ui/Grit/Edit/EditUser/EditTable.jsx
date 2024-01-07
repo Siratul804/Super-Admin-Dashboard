@@ -83,7 +83,7 @@ const EditTable = async ({ PaginationData }) => {
                               name={val.name}
                               email={val.email}
                               number={val.number}
-                              role={val.role}
+                              type={val.type}
                               status={val.status}
                             />
                           </div>

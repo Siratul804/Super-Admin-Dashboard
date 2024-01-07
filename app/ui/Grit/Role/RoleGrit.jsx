@@ -9,9 +9,30 @@ const RoleGrit = () => {
   const formRef = useRef();
 
   const [checkboxes, setCheckboxes] = useState([
-    { id: 3, name: "create", isChecked: false },
-    { id: 4, name: "edit", isChecked: false },
-    { id: 5, name: "view", isChecked: false },
+    {
+      id: 3,
+      name: "create",
+      code: "create_grit_user",
+      module: "Manage Roles",
+      type: "grit",
+      isChecked: false,
+    },
+    {
+      id: 4,
+      name: "edit",
+      code: "edit_grit_user",
+      module: "Manage Roles",
+      type: "grit",
+      isChecked: false,
+    },
+    {
+      id: 5,
+      name: "view",
+      code: "view_grit_user",
+      module: "Manage Roles",
+      type: "grit",
+      isChecked: false,
+    },
     // Add more checkboxes as needed
   ]);
 
@@ -117,7 +138,7 @@ const RoleGrit = () => {
               ></textarea>
             </div>
             <div className="">
-              <h1 className="text-xl  text-black font-bold ">
+              <h1 className="text-xl  text-black ">
                 What permission do you like to include in this role?{" "}
               </h1>
             </div>
@@ -130,6 +151,7 @@ const RoleGrit = () => {
                 onChange={handleToggleChange}
                 className="toggle toggle-md "
               />
+              <p className="font-bold px-2 text-black ">Manage Roles</p>
             </label>
 
             <div>

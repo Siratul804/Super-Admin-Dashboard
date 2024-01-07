@@ -2,13 +2,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
-
+import { RiAdminFill } from "react-icons/ri";
 const CollapsedSidebar = ({ data }) => {
   const pathname = usePathname();
   return (
     <>
       <div className="font-sans ">
-        {data.role === "grit" ? (
+        {data.type === "grit" ? (
           <>
             <div className="py-[10px]"></div>
             <li className="pl-3 pr-3 pt-3">
@@ -22,6 +22,21 @@ const CollapsedSidebar = ({ data }) => {
                 >
                   <span className="pl-1  text-sm flex ">
                     <FaUserEdit size={20} />
+                  </span>
+                </span>
+              </Link>
+            </li>
+            <li className="pl-3 pr-3 pt-3">
+              <Link href="/dashboard/grit/role">
+                <span
+                  className={
+                    pathname === "/dashboard/grit/role"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
+                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                  }
+                >
+                  <span className="pl-1  text-sm flex ">
+                    <RiAdminFill size={20} />
                   </span>
                 </span>
               </Link>

@@ -5,13 +5,13 @@ import { updateUser } from "@/app/lib/actions";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
-const UpdateUser = ({ id, name, email, number, role, status }) => {
+const UpdateUser = ({ id, name, email, number, type, status }) => {
   const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
     // Update the form values whenever props change
-    setFormValues({ id, name, email, number, role, status });
-  }, [id, name, email, number, role, status]);
+    setFormValues({ id, name, email, number, type, status });
+  }, [id, name, email, number, type, status]);
 
   const initialState = {
     message: "",
@@ -158,8 +158,8 @@ const UpdateUser = ({ id, name, email, number, role, status }) => {
                         <span className="text-[black]">Type</span>
                       </label>
                       <select
-                        name="role"
-                        defaultValue={formValues.role || ""}
+                        name="type"
+                        defaultValue={formValues.type || ""}
                         required
                         // className="select border-black focus:outline-black focus:border-black w-[350px] max-w-xs bg-white text-black "
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"

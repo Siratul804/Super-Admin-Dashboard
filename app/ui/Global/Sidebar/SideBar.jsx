@@ -9,7 +9,7 @@ const SideBar = ({ data }) => {
   return (
     <>
       <div className="font-sans ">
-        {data.role === "grit" ? (
+        {data.type === "grit" ? (
           <>
             <div className="py-[10px]"></div>
             <li className="pl-3 pr-3 pt-3">

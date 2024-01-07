@@ -4,7 +4,7 @@ const layout = async ({ children }) => {
   const { user } = await auth();
   return (
     <>
-      {user.role === "grit" && user.status === "Active" ? (
+      {user.type === "grit" && user.status === "Active" ? (
         <>
           <main>{children}</main>
         </>

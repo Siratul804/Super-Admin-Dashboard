@@ -3,7 +3,7 @@ import SearchBox from "../SearchUser/SearchBox";
 import AddUser from "../AddUser/AddUser";
 import EditTable from "./EditTable";
 
-const EditUser = async ({ PaginationCount, PaginationData }) => {
+const EditUser = async ({ PaginationCount, PaginationData, roleData }) => {
   return (
     <>
       <div className="">
@@ -16,7 +16,7 @@ const EditUser = async ({ PaginationCount, PaginationData }) => {
               <h1 className="text-lg font-bold text-black ">
                 Advance User List
               </h1>
-              <AddUser />
+              <AddUser roleData={roleData} />
             </div>
           </div>
           <EditTable PaginationData={PaginationData} />

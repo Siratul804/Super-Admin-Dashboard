@@ -5,7 +5,9 @@ import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { useEffect, useRef } from "react";
 
-const AddGrit = () => {
+const AddGrit = ({ roleData }) => {
+  // console.log(roleData);
+
   function Submit() {
     const { pending } = useFormStatus();
     return (
@@ -152,10 +154,29 @@ const AddGrit = () => {
                         <option>Disable</option>
                       </select>
                     </main>
+                    <main>
+                      <select
+                        itemType="number"
+                        name="role"
+                        className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                      >
+                        <option disabled selected>
+                          Select Role
+                        </option>
+                        {roleData.map((val) => (
+                          <>
+                            <option value={val.id}>{val.name}</option>
+                          </>
+                        ))}
+                      </select>
+                    </main>
+                  </div>
+                  <div className="flex justify-center sm:flex-row flex-col pt-4 ">
                     <main className="pt-4 sm:pt-0">
                       <Submit />
                     </main>
                   </div>
+
                   <div className="flex justify-end pt-1 ">
                     {state?.message === "Already Exits" ? (
                       <>
@@ -171,7 +192,7 @@ const AddGrit = () => {
                         <span className="text-[black] text-sm ">Type</span>
                       </label>
                       <select
-                        name="role"
+                        name="type"
                         className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                       >
                         <option value="grit">grit</option>

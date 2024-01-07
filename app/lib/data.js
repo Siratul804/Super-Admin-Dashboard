@@ -3,7 +3,7 @@
 import { query } from "./db";
 export async function GetUserData(request) {
   const users = await query({
-    query: "SELECT * FROM users WHERE role = 'Grit'",
+    query: "SELECT * FROM users WHERE type = 'Grit'",
     values: [],
   });
 
@@ -94,7 +94,7 @@ export async function GetGritPaginationData(page, name, number, status) {
   //   ],
   // });
 
-  let queryStr = "SELECT * FROM users WHERE role = 'Grit'";
+  let queryStr = "SELECT * FROM users WHERE type = 'Grit'";
 
   const values = [];
 
@@ -123,7 +123,7 @@ export async function GetGritPaginationData(page, name, number, status) {
   });
 
   const paginationCount = await query({
-    query: "SELECT COUNT(*) FROM users WHERE role = 'Grit'",
+    query: "SELECT COUNT(*) FROM users WHERE type = 'Grit'",
     values: [],
   });
 

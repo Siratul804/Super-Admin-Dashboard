@@ -53,8 +53,15 @@ export const test = async (checkedItems, username, description) => {
 
 //grit
 export const addUser = async (prevState, formData) => {
-  const { name, email, password, number, role, status } =
+  const { name, email, password, number, type, status, role } =
     Object.fromEntries(formData);
+
+  console.log(name, email, password, number, type, status, role);
+
+  const role_id = Number(role);
+
+  console.log(role_id);
+
   try {
     const hasedPassword = await bcrypt.hash(password, 10);
 
@@ -62,8 +69,17 @@ export const addUser = async (prevState, formData) => {
 
     const newUser = await query({
       query:
-        "INSERT INTO users (name, email, password, number, img, role, status) VALUES (?, ?, ?, ?, ?, ?, ?)",
-      values: [name, email, hasedPassword, number, image, role, status],
+        "INSERT INTO users (name, email, password, number, img, type, status, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      values: [
+        name,
+        email,
+        hasedPassword,
+        number,
+        image,
+        type,
+        status,
+        role_id,
+      ],
     });
 
     console.log(newUser);
@@ -82,14 +98,14 @@ export const addUser = async (prevState, formData) => {
   };
 };
 export const updateUser = async (prevState, formData) => {
-  const { id, name, email, number, role, status } =
+  const { id, name, email, number, type, status } =
     Object.fromEntries(formData);
 
   try {
     const newUser = await query({
       query:
-        "UPDATE users SET  name = ?, email = ?, number = ?, role = ?, status = ? WHERE id = ?",
-      values: [name, email, number, role, status, id],
+        "UPDATE users SET  name = ?, email = ?, number = ?, type = ?, status = ? WHERE id = ?",
+      values: [name, email, number, type, status, id],
     });
 
     console.log(newUser);
