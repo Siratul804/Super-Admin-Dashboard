@@ -2,39 +2,42 @@
 import { addRole } from "@/app/lib/actions";
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
-const RoleGrit = () => {
+const RoleGrit = ({ permissionData }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
   const [loading, setLoading] = useState(false); // Initialize loading state
 
   const formRef = useRef();
 
-  const [checkboxes, setCheckboxes] = useState([
-    {
-      id: 3,
-      name: "create",
-      code: "create_grit_user",
-      module: "Manage Roles",
-      type: "grit",
-      isChecked: false,
-    },
-    {
-      id: 4,
-      name: "edit",
-      code: "edit_grit_user",
-      module: "Manage Roles",
-      type: "grit",
-      isChecked: false,
-    },
-    {
-      id: 5,
-      name: "view",
-      code: "view_grit_user",
-      module: "Manage Roles",
-      type: "grit",
-      isChecked: false,
-    },
-    // Add more checkboxes as needed
-  ]);
+  console.log(permissionData);
+
+  // const [checkboxes, setCheckboxes] = useState([
+  //   {
+  //     id: 3,
+  //     name: "create",
+  //     code: "create_grit_user",
+  //     module: "Manage Roles",
+  //     type: "grit",
+  //     isChecked: false,
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "edit",
+  //     code: "edit_grit_user",
+  //     module: "Manage Roles",
+  //     type: "grit",
+  //     isChecked: false,
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "view",
+  //     code: "view_grit_user",
+  //     module: "Manage Roles",
+  //     type: "grit",
+  //     isChecked: false,
+  //   },
+  // ]);
+
+  const [checkboxes, setCheckboxes] = useState(permissionData);
 
   const handleCheckboxChange = (id) => {
     setCheckboxes(
@@ -91,7 +94,7 @@ const RoleGrit = () => {
       <button
         type="submit"
         disabled={loading}
-        className="btn btn-sm btn-neutral text-white h-[6vh] w-full rounded-md "
+        className="btn btn-sm btn-neutral text-white h-[6vh] w-[30vh] rounded-xl "
       >
         {loading ? "Creating..." : "Create Role & Permission"}
       </button>
