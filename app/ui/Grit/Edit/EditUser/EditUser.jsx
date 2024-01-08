@@ -19,7 +19,7 @@ const EditUser = async ({ PaginationCount, PaginationData, roleData }) => {
               <AddUser roleData={roleData} />
             </div>
           </div>
-          <EditTable PaginationData={PaginationData} />
+          <EditTable PaginationData={PaginationData} roleData={roleData} />
           <Pagination PaginationCount={PaginationCount} />
         </section>
       </div>

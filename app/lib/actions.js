@@ -56,7 +56,7 @@ export const addUser = async (prevState, formData) => {
   const { name, email, password, number, type, status, role } =
     Object.fromEntries(formData);
 
-  console.log(name, email, password, number, type, status, role);
+  // console.log(name, email, password, number, type, status, role);
 
   const role_id = Number(role);
 
@@ -98,14 +98,20 @@ export const addUser = async (prevState, formData) => {
   };
 };
 export const updateUser = async (prevState, formData) => {
-  const { id, name, email, number, type, status } =
+  const { id, name, email, number, type, status, role } =
     Object.fromEntries(formData);
+
+  console.log(name, email, number, type, status, role);
+
+  const role_id = Number(role);
+
+  console.log(role_id);
 
   try {
     const newUser = await query({
       query:
-        "UPDATE users SET  name = ?, email = ?, number = ?, type = ?, status = ? WHERE id = ?",
-      values: [name, email, number, type, status, id],
+        "UPDATE users SET  name = ?, email = ?, number = ?, type = ?, status = ?, role_id = ? WHERE id = ?",
+      values: [name, email, number, type, status, role_id, id],
     });
 
     console.log(newUser);

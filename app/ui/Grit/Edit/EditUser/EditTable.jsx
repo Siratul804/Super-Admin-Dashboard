@@ -1,6 +1,6 @@
 import UpdateUser from "../UpdateUser/UpdateUser";
 import UpdatePass from "../UpdateUser/UpdatePass";
-const EditTable = async ({ PaginationData }) => {
+const EditTable = async ({ PaginationData, roleData }) => {
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">
@@ -85,6 +85,8 @@ const EditTable = async ({ PaginationData }) => {
                               number={val.number}
                               type={val.type}
                               status={val.status}
+                              roleData={roleData}
+                              role_id={val.role_id}
                             />
                           </div>
                           <div className="">

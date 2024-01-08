@@ -5,13 +5,26 @@ import { updateUser } from "@/app/lib/actions";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
-const UpdateUser = ({ id, name, email, number, type, status }) => {
+const UpdateUser = ({
+  id,
+  name,
+  email,
+  number,
+  type,
+  status,
+  role_id,
+  roleData,
+}) => {
   const [formValues, setFormValues] = useState({});
+
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedRole, setSelectedRole] = useState("");
 
   useEffect(() => {
     // Update the form values whenever props change
-    setFormValues({ id, name, email, number, type, status });
-  }, [id, name, email, number, type, status]);
+
+    setFormValues({ id, name, email, number, type, status, role_id });
+  }, [id, name, email, number, type, status, role_id]);
 
   const initialState = {
     message: "",
@@ -140,12 +153,11 @@ const UpdateUser = ({ id, name, email, number, type, status }) => {
                       <select
                         name="status"
                         required
+                        value={selectedStatus || formValues.status || ""}
+                        onChange={(e) => setSelectedStatus(e.target.value)} // Update selectedRole when the user changes the selection
                         // className="select  select-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
-                        <option disabled selected>
-                          Select
-                        </option>
                         <option>Active</option>
                         <option>Disable</option>
                       </select>
@@ -169,7 +181,23 @@ const UpdateUser = ({ id, name, email, number, type, status }) => {
                     </main>
                   </div>
                   <br />
-                  <div className="flex justify-center ">
+                  <div className="flex justify-between sm:flex-row flex-col">
+                    <main>
+                      <select
+                        itemType="number"
+                        name="role"
+                        value={selectedRole || formValues.role_id || ""} // Set value based on selectedRole or formValues.role
+                        onChange={(e) => setSelectedRole(e.target.value)} // Update selectedRole when the user changes the selection
+                        className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                      >
+                        {roleData.map((val) => (
+                          <>
+                            {/* <option value={val.id}>{val.name}</option> */}
+                            <option value={val.id}>{val.name}</option>
+                          </>
+                        ))}
+                      </select>
+                    </main>
                     <label>
                       <Submit />
                     </label>
