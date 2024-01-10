@@ -6,39 +6,18 @@ const RoleGrit = ({ permissionData }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
   const [loading, setLoading] = useState(false); // Initialize loading state
 
+  const [toggleCheckboxesManageRole, setToggleCheckboxesManageRole] =
+    useState(false); // State for toggle
+  const [toggleCheckboxesManageGuest, setToggleCheckboxesManageGuest] =
+    useState(false); // State for toggle
+
   const formRef = useRef();
 
   console.log(permissionData);
 
-  // const [checkboxes, setCheckboxes] = useState([
-  //   {
-  //     id: 3,
-  //     name: "create",
-  //     code: "create_grit_user",
-  //     module: "Manage Roles",
-  //     type: "grit",
-  //     isChecked: false,
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "edit",
-  //     code: "edit_grit_user",
-  //     module: "Manage Roles",
-  //     type: "grit",
-  //     isChecked: false,
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "view",
-  //     code: "view_grit_user",
-  //     module: "Manage Roles",
-  //     type: "grit",
-  //     isChecked: false,
-  //   },
-  // ]);
-
   const [checkboxes, setCheckboxes] = useState(permissionData);
 
+  //checkbox_chnage_input
   const handleCheckboxChange = (id) => {
     setCheckboxes(
       checkboxes.map((checkbox) =>
@@ -49,13 +28,45 @@ const RoleGrit = ({ permissionData }) => {
     );
   };
 
+  //toggles_chnage_toggle
   const handleToggleChange = () => {
     setToggleCheckboxes(!toggleCheckboxes); // Toggles the state of checkboxes
+
     setCheckboxes(
       checkboxes.map((checkbox) => ({
         ...checkbox,
         isChecked: !toggleCheckboxes,
       }))
+    );
+  };
+  const handleToggleChangeManageRoles = () => {
+    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
+
+    setCheckboxes(
+      checkboxes.map((checkbox) => {
+        if (checkbox.module === "Manage Roles") {
+          return {
+            ...checkbox,
+            isChecked: !toggleCheckboxesManageRole,
+          };
+        }
+        return checkbox;
+      })
+    );
+  };
+  const handleToggleChangeManageGuest = () => {
+    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
+
+    setCheckboxes(
+      checkboxes.map((checkbox) => {
+        if (checkbox.module === "Manage Guests") {
+          return {
+            ...checkbox,
+            isChecked: !toggleCheckboxesManageGuest,
+          };
+        }
+        return checkbox;
+      })
     );
   };
 
@@ -94,7 +105,7 @@ const RoleGrit = ({ permissionData }) => {
       <button
         type="submit"
         disabled={loading}
-        className="btn btn-sm btn-neutral text-white h-[6vh] w-[30vh] rounded-xl "
+        className="btn btn-sm btn-neutral text-white h-[4vh] w-[30vh] rounded-xl "
       >
         {loading ? "Creating..." : "Create Role & Permission"}
       </button>
@@ -152,32 +163,82 @@ const RoleGrit = ({ permissionData }) => {
                 type="checkbox"
                 checked={toggleCheckboxes}
                 onChange={handleToggleChange}
-                className="toggle toggle-md "
+                className="toggle toggle-md toggle-success "
               />
-              <p className="font-bold px-2 text-black ">Manage Roles</p>
+              <p className=" px-2 text-black "> Select All Permissions</p>
             </label>
-
-            <div>
-              {checkboxes.map((checkbox) => (
-                <div key={checkbox.id} className="flex py-1 ">
+            <div className="flex justify-between">
+              <div className="manage_role">
+                <label className="flex items-center py-2 ">
                   <input
-                    className="checkbox bg-white "
                     type="checkbox"
-                    id={`checkbox-${checkbox.id}`}
-                    checked={checkbox.isChecked}
-                    onChange={() => handleCheckboxChange(checkbox.id)}
+                    checked={toggleCheckboxesManageRole}
+                    onChange={handleToggleChangeManageRoles}
+                    className="toggle toggle-md toggle-primary "
                   />
-                  <label
-                    className="px-2 text-md text-black "
-                    htmlFor={`checkbox-${checkbox.id}`}
-                  >
-                    {checkbox.name}
-                  </label>
-                </div>
-              ))}
+                  <p className=" px-2 text-black font-bold "> Manage Roles</p>
+                </label>
+
+                {checkboxes.map((checkbox) => (
+                  <>
+                    {checkbox.module === "Manage Roles" ? (
+                      <div key={checkbox.id} className="flex py-1 ">
+                        <input
+                          className="checkbox bg-white "
+                          type="checkbox"
+                          id={`checkbox-${checkbox.id}`}
+                          checked={checkbox.isChecked}
+                          onChange={() => handleCheckboxChange(checkbox.id)}
+                        />
+                        <label
+                          className="px-2 text-md text-black "
+                          htmlFor={`checkbox-${checkbox.id}`}
+                        >
+                          {checkbox.name}
+                        </label>
+                      </div>
+                    ) : null}
+                  </>
+                ))}
+              </div>
               <div className="py-1"></div>
-              <Submit />
+              <div className="manage_guest">
+                <label className="flex items-center py-2 ">
+                  <input
+                    type="checkbox"
+                    checked={toggleCheckboxesManageGuest}
+                    onChange={handleToggleChangeManageGuest}
+                    className="toggle toggle-md toggle-primary "
+                  />
+                  <p className=" px-2 text-black font-bold "> Manage Guest</p>
+                </label>
+                <div className="py-1"></div>
+                {checkboxes.map((checkbox) => (
+                  <>
+                    {checkbox.module === "Manage Guests" ? (
+                      <div key={checkbox.id} className="flex py-1 ">
+                        <input
+                          className="checkbox bg-white "
+                          type="checkbox"
+                          id={`checkbox-${checkbox.id}`}
+                          checked={checkbox.isChecked}
+                          onChange={() => handleCheckboxChange(checkbox.id)}
+                        />
+                        <label
+                          className="px-2 text-md text-black "
+                          htmlFor={`checkbox-${checkbox.id}`}
+                        >
+                          {checkbox.name}
+                        </label>
+                      </div>
+                    ) : null}
+                  </>
+                ))}
+              </div>
+
+              <div className="py-1"></div>
             </div>
+            <Submit />
           </form>
         </div>
       </section>
