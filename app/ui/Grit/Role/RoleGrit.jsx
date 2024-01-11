@@ -31,6 +31,8 @@ const RoleGrit = ({ permissionData }) => {
   //toggles_chnage_toggle
   const handleToggleChange = () => {
     setToggleCheckboxes(!toggleCheckboxes); // Toggles the state of checkboxes
+    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
+    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
 
     setCheckboxes(
       checkboxes.map((checkbox) => ({
