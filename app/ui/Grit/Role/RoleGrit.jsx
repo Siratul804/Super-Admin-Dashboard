@@ -13,7 +13,7 @@ const RoleGrit = ({ permissionData }) => {
 
   const formRef = useRef();
 
-  console.log(permissionData);
+  // console.log(permissionData);
 
   const [checkboxes, setCheckboxes] = useState(permissionData);
 
@@ -30,7 +30,7 @@ const RoleGrit = ({ permissionData }) => {
 
   //toggles_chnage_toggle
   const handleToggleChange = () => {
-    setToggleCheckboxes(!toggleCheckboxes); // Toggles the state of checkboxes
+    setToggleCheckboxes(!toggleCheckboxes);
     setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
     setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
 
@@ -107,7 +107,7 @@ const RoleGrit = ({ permissionData }) => {
       <button
         type="submit"
         disabled={loading}
-        className="btn btn-sm btn-neutral text-white h-[4vh] w-[30vh] rounded-xl "
+        className="bg-black pl-3 pr-3 pt-2 pb-2 text-sm rounded-md font-bold text-white "
       >
         {loading ? "Creating..." : "Create Role & Permission"}
       </button>
@@ -122,9 +122,9 @@ const RoleGrit = ({ permissionData }) => {
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                for="username"
+                htmlFor="username"
               >
-                Username
+                Role Name
               </label>
               <input
                 // className="shadow appearance-none border rounded w-full bg-white py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -132,19 +132,19 @@ const RoleGrit = ({ permissionData }) => {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="Username"
+                placeholder="Role Name"
                 required
               />
             </div>
             <div className="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                for="description"
+                htmlFor="description"
               >
-                Description
+                Role Description
               </label>
               <textarea
-                placeholder="Description"
+                placeholder="Role Description"
                 id="description"
                 name="description"
                 type="text"
@@ -160,7 +160,7 @@ const RoleGrit = ({ permissionData }) => {
             </div>
             <div className="py-1"></div>
 
-            <label className="flex items-center py-2 ">
+            <label className="flex items-center py-2 " htmlFor="checkbox">
               <input
                 type="checkbox"
                 checked={toggleCheckboxes}
@@ -171,7 +171,7 @@ const RoleGrit = ({ permissionData }) => {
             </label>
             <div className="flex justify-between">
               <div className="manage_role">
-                <label className="flex items-center py-2 ">
+                <label className="flex items-center py-2 " htmlFor="checkbox">
                   <input
                     type="checkbox"
                     checked={toggleCheckboxesManageRole}
@@ -182,9 +182,9 @@ const RoleGrit = ({ permissionData }) => {
                 </label>
 
                 {checkboxes.map((checkbox) => (
-                  <>
+                  <div key={checkbox.id}>
                     {checkbox.module === "Manage Roles" ? (
-                      <div key={checkbox.id} className="flex py-1 ">
+                      <div className="flex py-1 ">
                         <input
                           className="checkbox bg-white "
                           type="checkbox"
@@ -200,12 +200,12 @@ const RoleGrit = ({ permissionData }) => {
                         </label>
                       </div>
                     ) : null}
-                  </>
+                  </div>
                 ))}
               </div>
               <div className="py-1"></div>
               <div className="manage_guest">
-                <label className="flex items-center py-2 ">
+                <label className="flex items-center py-2 " htmlFor="checkbox">
                   <input
                     type="checkbox"
                     checked={toggleCheckboxesManageGuest}
@@ -215,10 +215,11 @@ const RoleGrit = ({ permissionData }) => {
                   <p className=" px-2 text-black font-bold "> Manage Guest</p>
                 </label>
                 <div className="py-1"></div>
+
                 {checkboxes.map((checkbox) => (
-                  <>
+                  <div key={checkbox.id}>
                     {checkbox.module === "Manage Guests" ? (
-                      <div key={checkbox.id} className="flex py-1 ">
+                      <div className="flex py-1 ">
                         <input
                           className="checkbox bg-white "
                           type="checkbox"
@@ -234,13 +235,15 @@ const RoleGrit = ({ permissionData }) => {
                         </label>
                       </div>
                     ) : null}
-                  </>
+                  </div>
                 ))}
               </div>
 
               <div className="py-1"></div>
             </div>
-            <Submit />
+            <div className="py-2">
+              <Submit />
+            </div>
           </form>
         </div>
       </section>

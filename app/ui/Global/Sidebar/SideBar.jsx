@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
-import { RiAdminFill } from "react-icons/ri";
+import { FaUserCog } from "react-icons/fa";
 
 const SideBar = ({ data }) => {
   const pathname = usePathname();
@@ -38,7 +38,7 @@ const SideBar = ({ data }) => {
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <RiAdminFill size={20} />
+                    <FaUserCog size={20} />
                     <p className="px-3">Role List</p>
                   </span>
                 </span>
