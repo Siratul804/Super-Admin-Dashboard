@@ -2,7 +2,7 @@
 import { addRole } from "@/app/lib/actions";
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
-const RoleGrit = ({ permissionData }) => {
+const CreateRoleGrit = ({ permissionData }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
   const [loading, setLoading] = useState(false); // Initialize loading state
 
@@ -251,4 +251,4 @@ const RoleGrit = ({ permissionData }) => {
   );
 };
 
-export default RoleGrit;
+export default CreateRoleGrit;

@@ -1,11 +1,11 @@
-import RoleGrit from "@/app/ui/Grit/Role/RoleGrit";
+import CreateRoleGrit from "@/app/ui/Grit/Role/CreateRoleGrit";
 import { GetPermissionData } from "@/app/lib/data";
 const Role = async () => {
   const permissionData = await GetPermissionData();
 
   return (
     <>
-      <RoleGrit permissionData={permissionData} />
+      <CreateRoleGrit permissionData={permissionData} />
     </>
   );
 };

@@ -13,10 +13,10 @@ const CollapsedSidebar = ({ data }) => {
           <>
             <div className="py-[10px]"></div>
             <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/grit/edit">
+              <Link href="/dashboard/grit/userList">
                 <span
                   className={
-                    pathname === "/dashboard/grit/edit"
+                    pathname === "/dashboard/grit/userList"
                       ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
@@ -28,10 +28,10 @@ const CollapsedSidebar = ({ data }) => {
               </Link>
             </li>
             <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/grit/role">
+              <Link href="/dashboard/grit/roleList">
                 <span
                   className={
-                    pathname === "/dashboard/grit/role"
+                    pathname === "/dashboard/grit/roleList"
                       ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
