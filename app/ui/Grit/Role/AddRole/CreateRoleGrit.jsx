@@ -83,11 +83,17 @@ const CreateRoleGrit = ({ permissionData }) => {
 
     const username = formData.get("username");
     const description = formData.get("description");
+    const status = formData.get("status");
 
     setLoading(true); // Set loading to true while submitting
 
     try {
-      const response = await addRole(checkedItems, username, description);
+      const response = await addRole(
+        checkedItems,
+        username,
+        description,
+        status
+      );
       if (response?.message === "role Added") {
         formRef.current.reset();
         toast.success("Role Added Successfully");
@@ -107,7 +113,7 @@ const CreateRoleGrit = ({ permissionData }) => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-black pl-3 pr-3 pt-2 pb-2 text-sm rounded-md font-bold text-white "
+        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white "
       >
         {loading ? "Creating..." : "Create Role & Permission"}
       </button>
@@ -135,6 +141,26 @@ const CreateRoleGrit = ({ permissionData }) => {
                 placeholder="Role Name"
                 required
               />
+            </div>
+            <div class="mb-4">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="username"
+              >
+                Role Status
+              </label>
+              <main>
+                <select
+                  name="status"
+                  className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-full py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                >
+                  <option disabled selected>
+                    Select Status
+                  </option>
+                  <option>Active</option>
+                  <option>Disable</option>
+                </select>
+              </main>
             </div>
             <div className="mb-4">
               <label

@@ -403,13 +403,13 @@ export const resettPass = async (prevState, formData) => {
 
 // Permission
 
-export const addRole = async (checkedItems, username, description) => {
-  console.log(username, description);
+export const addRole = async (checkedItems, username, description, status) => {
+  console.log(username, description, status);
   console.log(checkedItems);
   try {
     const newRole = await query({
-      query: "INSERT INTO role (name, description) VALUES (?, ?)",
-      values: [username, description],
+      query: "INSERT INTO role (name, description, status) VALUES (?, ?, ?)",
+      values: [username, description, status],
     });
     console.log(newRole);
 

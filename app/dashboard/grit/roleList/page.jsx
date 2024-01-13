@@ -1,8 +1,9 @@
-import RoleListGrit from "@/app/ui/Grit/Role/RoleListGrit";
+import EditRole from "@/app/ui/Grit/Role/EditRole/EditRole";
+
 const RoleList = () => {
   return (
     <>
-      <RoleListGrit />
+      <EditRole />
     </>
   );
 };

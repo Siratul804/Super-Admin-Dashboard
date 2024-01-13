@@ -40,37 +40,6 @@ export async function GetMemberByIdToUpdate(id) {
   return members[0];
 }
 
-//filter User/Grit Data
-
-// export async function GetSearchData(name, number, status) {
-//   let queryStr = "SELECT * FROM users";
-//   const values = [];
-
-//   if (name || number || status) {
-//     queryStr += " WHERE";
-//     if (name) {
-//       queryStr += " `name` LIKE ?";
-//       values.push(`%${name}%`);
-//     }
-//     if (number) {
-//       queryStr += (name ? " OR" : "") + " `number` LIKE ?";
-//       values.push(`%${number}%`);
-//     }
-//     if (status) {
-//       queryStr += (name || number ? " OR" : "") + " `status` LIKE ?";
-//       values.push(`%${status}%`);
-//     }
-//   }
-
-//   const searchData = await query({
-//     query: queryStr,
-//     values: values,
-//   });
-
-//   console.log(searchData);
-//   return { searchData };
-// }
-
 //Paginaion User/Grit Data
 export async function GetGritPaginationData(page, name, number, status) {
   const ITEM_PER_PAGE = 10;
@@ -81,18 +50,6 @@ export async function GetGritPaginationData(page, name, number, status) {
   const OFF_SET_PAGE = offset.toString();
 
   console.log(page, name, number, status);
-
-  // const paginationGrit = await query({
-  //   query:
-  //     "SELECT * FROM users WHERE role = 'Grit' AND name LIKE ? AND number LIKE ? AND status = ? LIMIT ? OFFSET ?",
-  //   values: [
-  //     `%${name}%`,
-  //     `%${number}%`,
-  //     status,
-  //     ITEM_PER_PAGE_STRING,
-  //     OFF_SET_PAGE,
-  //   ],
-  // });
 
   let queryStr = "SELECT * FROM users WHERE type = 'Grit'";
 
@@ -149,4 +106,47 @@ export async function GetRoleData(request) {
   });
 
   return role;
+}
+
+export async function GetGritRolePaginationData(page, name, status) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, name, number, status);
+
+  let queryStr = "SELECT * FROM role ";
+
+  const values = [];
+
+  if (name) {
+    queryStr += " AND name LIKE ?";
+    values.push(`%${name}%`);
+  }
+
+  if (status) {
+    queryStr += " AND status = ?";
+    values.push(status);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationGrit = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM role",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { paginationGrit, countNumber };
 }
