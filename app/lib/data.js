@@ -116,19 +116,19 @@ export async function GetGritRolePaginationData(page, name, status) {
 
   const OFF_SET_PAGE = offset.toString();
 
-  console.log(page, name, number, status);
+  console.log(page, name, status);
 
-  let queryStr = "SELECT * FROM role ";
+  let queryStr = "SELECT * FROM role";
 
   const values = [];
 
   if (name) {
-    queryStr += " AND name LIKE ?";
+    queryStr += " AND (name LIKE ?)";
     values.push(`%${name}%`);
   }
 
   if (status) {
-    queryStr += " AND status = ?";
+    queryStr += " AND (status = ?)";
     values.push(status);
   }
 
