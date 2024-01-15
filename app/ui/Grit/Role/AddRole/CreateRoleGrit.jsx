@@ -2,6 +2,7 @@
 import { addRole } from "@/app/lib/actions";
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
+
 const CreateRoleGrit = ({ permissionData }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
   const [loading, setLoading] = useState(false); // Initialize loading state
@@ -96,9 +97,19 @@ const CreateRoleGrit = ({ permissionData }) => {
       );
       if (response?.message === "role Added") {
         formRef.current.reset();
-        toast.success("Role Added Successfully");
+        toast.success("Role Added Successfully", {
+          style: {
+            background: "#008000",
+            color: "#fff",
+          },
+        });
       } else if (response?.message === "role error") {
-        toast.error("Role Added Failed");
+        toast.error("Role Added Failed", {
+          style: {
+            background: "#FF0000",
+            color: "#fff",
+          },
+        });
       }
     } catch (error) {
       console.error("Error submitting form:", error);

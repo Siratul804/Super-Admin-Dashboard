@@ -113,7 +113,6 @@ export async function GetGritRolePaginationData(page, name, status) {
   const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
 
   const offset = (page - 1) * ITEM_PER_PAGE;
-
   const OFF_SET_PAGE = offset.toString();
 
   console.log(page, name, status);
@@ -122,13 +121,21 @@ export async function GetGritRolePaginationData(page, name, status) {
 
   const values = [];
 
+  if (name || status) {
+    queryStr += " WHERE";
+  }
+
   if (name) {
-    queryStr += " AND (name LIKE ?)";
+    queryStr += " name LIKE ?";
     values.push(`%${name}%`);
   }
 
+  if (name && status) {
+    queryStr += " AND";
+  }
+
   if (status) {
-    queryStr += " AND (status = ?)";
+    queryStr += " status = ?";
     values.push(status);
   }
 
@@ -140,6 +147,8 @@ export async function GetGritRolePaginationData(page, name, status) {
     query: queryStr,
     values: values,
   });
+
+  console.log(paginationGrit);
 
   const paginationCount = await query({
     query: "SELECT COUNT(*) FROM role",

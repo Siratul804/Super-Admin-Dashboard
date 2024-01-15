@@ -433,6 +433,11 @@ export const addRole = async (checkedItems, username, description, status) => {
       )
     );
     console.log(newPermission);
+    if (newPermission) {
+      return {
+        message: "role Added",
+      };
+    }
   } catch (err) {
     console.log(err);
     return {
@@ -440,8 +445,6 @@ export const addRole = async (checkedItems, username, description, status) => {
     };
   }
 
-  revalidatePath("/dashboard/grit/role");
-  return {
-    message: "role Added",
-  };
+  revalidatePath("/dashboard/grit/roleList");
+  redirect("/dashboard/grit/roleList");
 };
