@@ -55,7 +55,7 @@ const EditRoleTable = async ({ PaginationData }) => {
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         {val.status === "Active" ? (
                           <>
-                            <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                            <div className=" p-0.2 bg-[#22c55e29] w-20 h-4.5 text-center rounded-md">
                               <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
                                 Active
                               </p>
@@ -63,7 +63,7 @@ const EditRoleTable = async ({ PaginationData }) => {
                           </>
                         ) : (
                           <>
-                            <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                            <div className=" p-0.2 bg-[#ff563029] w-20 h-4.5 text-center rounded-md">
                               <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
                                 Disable
                               </p>
@@ -73,7 +73,10 @@ const EditRoleTable = async ({ PaginationData }) => {
                       </td>
 
                       <td className="px-8 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                        <Link href="/dashboard/grit/editRole" className="flex">
+                        <Link
+                          href="/dashboard/grit/editRole"
+                          className="flex w-8"
+                        >
                           <MdModeEdit size={16} color="black" />
                         </Link>
                       </td>

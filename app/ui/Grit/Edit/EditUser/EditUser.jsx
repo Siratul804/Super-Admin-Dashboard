@@ -12,7 +12,7 @@ const EditUser = async ({ PaginationCount, PaginationData, roleData }) => {
         <div className="py-5"></div>
         <section className="bg-white w-full shadow-lg rounded-lg">
           <div className="">
-            <div className="p-3  flex justify-between  ">
+            <div className="p-3 flex justify-between  ">
               <h1 className="text-lg font-bold text-black ">
                 Advance User List
               </h1>

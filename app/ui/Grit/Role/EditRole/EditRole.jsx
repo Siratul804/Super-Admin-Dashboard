@@ -2,6 +2,7 @@ import Link from "next/link";
 import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchRole/SearchBox";
 import EditTable from "./EditRoleTable";
+import { IoMdAdd } from "react-icons/io";
 const EditRole = ({ PaginationCount, PaginationData }) => {
   return (
     <>
@@ -17,9 +18,11 @@ const EditRole = ({ PaginationCount, PaginationData }) => {
               </h1>
               <Link
                 href="/dashboard/grit/createRole"
-                className="bg-black p-2 rounded-md font-bold text-white text-sm"
+                className="bg-black rounded-lg text-white text-sm"
               >
-                Add Role
+                <button className="btn btn-neutral btn-sm text-white  ">
+                  <IoMdAdd size={17} /> Add Role
+                </button>
               </Link>
             </div>
           </div>
