@@ -74,7 +74,7 @@ const EditRoleTable = async ({ PaginationData }) => {
 
                       <td className="px-8 py-4 whitespace-no-wrap border-b border-gray-200 ">
                         <Link
-                          href="/dashboard/grit/editRole"
+                          href={`/dashboard/grit/editRole/${val.id}`}
                           className="flex w-8"
                         >
                           <MdModeEdit size={16} color="black" />
