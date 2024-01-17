@@ -159,3 +159,13 @@ export async function GetGritRolePaginationData(page, name, status) {
 
   return { paginationGrit, countNumber };
 }
+
+export async function GetRoleByIdToUpdate(id) {
+  console.log(id);
+  const members = await query({
+    query: "SELECT * FROM role WHERE id = ?",
+    values: [id],
+  });
+
+  return members[0];
+}

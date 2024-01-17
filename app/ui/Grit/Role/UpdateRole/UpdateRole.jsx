@@ -1,5 +1,74 @@
 "use client";
-const UpdateRole = ({ id }) => {
+import { useEffect, useState } from "react";
+
+const UpdateRole = ({ roleData, permissionData }) => {
+  const [checkboxes, setCheckboxes] = useState(permissionData);
+  const [toggleCheckboxes, setToggleCheckboxes] = useState(false);
+
+  const [toggleCheckboxesManageRole, setToggleCheckboxesManageRole] =
+    useState(false); // State for toggle
+  const [toggleCheckboxesManageGuest, setToggleCheckboxesManageGuest] =
+    useState(false); // State for toggle
+
+  //checkbox_chnage_input
+  const handleCheckboxChange = (id) => {
+    setCheckboxes(
+      checkboxes.map((checkbox) =>
+        checkbox.id === id
+          ? { ...checkbox, isChecked: !checkbox.isChecked }
+          : checkbox
+      )
+    );
+  };
+
+  //toggles_chnage_toggle
+  const handleToggleChange = () => {
+    setToggleCheckboxes(!toggleCheckboxes);
+    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
+    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
+
+    setCheckboxes(
+      checkboxes.map((checkbox) => ({
+        ...checkbox,
+        isChecked: !toggleCheckboxes,
+      }))
+    );
+  };
+  const handleToggleChangeManageRoles = () => {
+    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
+
+    setCheckboxes(
+      checkboxes.map((checkbox) => {
+        if (checkbox.module === "Manage Roles") {
+          return {
+            ...checkbox,
+            isChecked: !toggleCheckboxesManageRole,
+          };
+        }
+        return checkbox;
+      })
+    );
+  };
+  const handleToggleChangeManageGuest = () => {
+    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
+
+    setCheckboxes(
+      checkboxes.map((checkbox) => {
+        if (checkbox.module === "Manage Guests") {
+          return {
+            ...checkbox,
+            isChecked: !toggleCheckboxesManageGuest,
+          };
+        }
+        return checkbox;
+      })
+    );
+  };
+
+  useEffect(() => {
+    console.log(roleData);
+  }, [roleData]);
+
   function Submit() {
     return (
       <button
@@ -12,11 +81,9 @@ const UpdateRole = ({ id }) => {
   }
   return (
     <>
-      {" "}
       <section className="bg-white w-full shadow-lg rounded-lg">
         <div className="p-3">
           <form onSubmit="">
-            {id}
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -31,6 +98,7 @@ const UpdateRole = ({ id }) => {
                 name="username"
                 type="text"
                 placeholder="Role Name"
+                defaultValue={roleData.name}
                 required
               />
             </div>
@@ -44,11 +112,9 @@ const UpdateRole = ({ id }) => {
               <main>
                 <select
                   name="status"
+                  defaultValue={roleData.status}
                   className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-full py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                 >
-                  <option disabled selected>
-                    Select Status
-                  </option>
                   <option>Active</option>
                   <option>Disable</option>
                 </select>
@@ -64,6 +130,7 @@ const UpdateRole = ({ id }) => {
               <textarea
                 placeholder="Role Description"
                 id="description"
+                defaultValue={roleData.description}
                 name="description"
                 type="text"
                 required
@@ -73,17 +140,99 @@ const UpdateRole = ({ id }) => {
             </div>
             <div className="">
               <h1 className="text-xl  text-black ">
-                What permission do you like to Edit in this role?{" "}
+                What permission do you like to Edit in this role?
               </h1>
             </div>
             <div className="py-1"></div>
+            <label className="flex items-center py-2 " htmlFor="checkbox">
+              <input
+                type="checkbox"
+                checked={toggleCheckboxes}
+                onChange={handleToggleChange}
+                className="toggle toggle-md toggle-success "
+              />
+              <p className=" px-2 text-black "> Select All Permissions</p>
+            </label>
+
+            <div className="flex justify-between">
+              <div className="manage_role">
+                <label className="flex items-center py-2 " htmlFor="checkbox">
+                  <input
+                    type="checkbox"
+                    checked={toggleCheckboxesManageRole}
+                    onChange={handleToggleChangeManageRoles}
+                    className="toggle toggle-md toggle-primary "
+                  />
+                  <p className=" px-2 text-black font-bold "> Manage Roles</p>
+                </label>
+
+                {checkboxes.map((checkbox) => (
+                  <div key={checkbox.id}>
+                    {checkbox.module === "Manage Roles" ? (
+                      <div className="flex py-1 ">
+                        <input
+                          className="checkbox bg-white "
+                          type="checkbox"
+                          id={`checkbox-${checkbox.id}`}
+                          checked={checkbox.isChecked}
+                          onChange={() => handleCheckboxChange(checkbox.id)}
+                        />
+                        <label
+                          className="px-2 text-md text-black "
+                          htmlFor={`checkbox-${checkbox.id}`}
+                        >
+                          {checkbox.name}
+                        </label>
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+              <div className="py-1"></div>
+              <div className="manage_guest">
+                <label className="flex items-center py-2 " htmlFor="checkbox">
+                  <input
+                    type="checkbox"
+                    checked={toggleCheckboxesManageGuest}
+                    onChange={handleToggleChangeManageGuest}
+                    className="toggle toggle-md toggle-primary "
+                  />
+                  <p className=" px-2 text-black font-bold "> Manage Guest</p>
+                </label>
+                <div className="py-1"></div>
+
+                {checkboxes.map((checkbox) => (
+                  <div key={checkbox.id}>
+                    {checkbox.module === "Manage Guests" ? (
+                      <div className="flex py-1 ">
+                        <input
+                          className="checkbox bg-white "
+                          type="checkbox"
+                          id={`checkbox-${checkbox.id}`}
+                          checked={checkbox.isChecked}
+                          onChange={() => handleCheckboxChange(checkbox.id)}
+                        />
+                        <label
+                          className="px-2 text-md text-black "
+                          htmlFor={`checkbox-${checkbox.id}`}
+                        >
+                          {checkbox.name}
+                        </label>
+                      </div>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
+
+              <div className="py-1"></div>
+            </div>
 
             <div className="py-2">
               <Submit />
             </div>
           </form>
         </div>
-      </section>{" "}
+      </section>
     </>
   );
 };
