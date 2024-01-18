@@ -169,3 +169,13 @@ export async function GetRoleByIdToUpdate(id) {
 
   return members[0];
 }
+
+export async function GetRolePermissionByIdToUpdate(id) {
+  console.log(id);
+  const users = await query({
+    query: "SELECT * FROM role_permission WHERE role_id = ?",
+    values: [id],
+  });
+
+  return users;
+}

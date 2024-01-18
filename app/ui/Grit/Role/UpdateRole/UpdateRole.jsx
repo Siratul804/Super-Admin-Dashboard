@@ -1,7 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 
-const UpdateRole = ({ roleData, permissionData }) => {
+// I have to put logic wiht the help of chatGPT here. The logic would be how to make editable and add save value
+// It's little bit tricky !
+
+const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
   const [checkboxes, setCheckboxes] = useState(permissionData);
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false);
 
