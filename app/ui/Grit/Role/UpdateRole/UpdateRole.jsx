@@ -1,9 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-// I have to put logic wiht the help of chatGPT here. The logic would be how to make editable and add save value
-// It's little bit tricky !
-
 const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
   const [checkboxes, setCheckboxes] = useState(permissionData);
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false);
@@ -12,6 +9,9 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
     useState(false); // State for toggle
   const [toggleCheckboxesManageGuest, setToggleCheckboxesManageGuest] =
     useState(false); // State for toggle
+
+  // Fetch ids from your separate table (assuming it's an array of ids)
+  const storedIds = permissionActiveData.map((item) => item.permission_id);
 
   //checkbox_chnage_input
   const handleCheckboxChange = (id) => {
@@ -69,7 +69,13 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
   };
 
   useEffect(() => {
-    console.log(roleData);
+    setCheckboxes(
+      checkboxes.map((checkbox) => ({
+        ...checkbox,
+        isChecked: storedIds.includes(checkbox.id),
+      }))
+    );
+    console.log(roleData, storedIds);
   }, [roleData]);
 
   function Submit() {
@@ -155,6 +161,13 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
                 className="toggle toggle-md toggle-success "
               />
               <p className=" px-2 text-black "> Select All Permissions</p>
+              {/* <span className="text-red-500 font-bold ">
+                {permissionActiveData.permission_id === permissionData.id ? (
+                  <>
+                    <p>It's On</p>
+                  </>
+                ) : null}
+              </span> */}
             </label>
 
             <div className="flex justify-between">
