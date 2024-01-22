@@ -11,9 +11,9 @@ const EditRole = async ({ params }) => {
   const roleDataId = await GetRoleByIdToUpdate(id);
   const permissionActiveData = await GetRolePermissionByIdToUpdate(id);
 
-  console.log(permissionActiveData, permissionData);
+  // console.log(permissionActiveData, permissionData);
 
-  console.log(id);
+  // console.log(id);
 
   return (
     <>

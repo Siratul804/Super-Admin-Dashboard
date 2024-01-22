@@ -448,3 +448,38 @@ export const addRole = async (checkedItems, username, description, status) => {
   revalidatePath("/dashboard/grit/roleList");
   redirect("/dashboard/grit/roleList");
 };
+
+export const updateRole = async (
+  checkedItems,
+  username,
+  description,
+  status,
+  id
+) => {
+  console.log(username, description, status, id);
+  console.log(checkedItems);
+
+  try {
+    const updateRole = await query({
+      query:
+        "UPDATE role SET  name = ?, description = ?, status = ? WHERE id = ?",
+      values: [username, description, status, id],
+    });
+    console.log(updateRole);
+
+    const valuesToInsert = checkedItems.map((item) => [item.id, id]);
+    console.log(valuesToInsert);
+    // create & Update (maybe)
+    const newPermission = await Promise.all(
+      valuesToInsert.map((values) =>
+        query({
+          query: "UPDATE role_permission SET permission_id = ? WHERE id = ?",
+          values,
+        })
+      )
+    );
+    console.log(newPermission);
+  } catch (error) {
+    console.log(error);
+  }
+};

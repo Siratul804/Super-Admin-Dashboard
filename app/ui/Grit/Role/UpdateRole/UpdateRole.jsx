@@ -1,9 +1,14 @@
 "use client";
 import { useEffect, useState } from "react";
 
+import { updateRole } from "@/app/lib/actions";
+
+import toast from "react-hot-toast";
 const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
   const [checkboxes, setCheckboxes] = useState(permissionData);
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false);
+
+  const [loading, setLoading] = useState(false); // Initialize loading state
 
   const [toggleCheckboxesManageRole, setToggleCheckboxesManageRole] =
     useState(false); // State for toggle
@@ -78,13 +83,60 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
     console.log(roleData, storedIds);
   }, [roleData]);
 
+  const handleSubmit = async (event) => {
+    const checkedItems = checkboxes.filter((checkbox) => checkbox.isChecked);
+
+    console.log(checkedItems); // Display in console
+
+    event.preventDefault(); // Prevent the default form submission
+
+    const formData = new FormData(event.target);
+
+    const username = formData.get("username");
+    const description = formData.get("description");
+    const status = formData.get("status");
+    const id = formData.get("id");
+
+    setLoading(true); // Set loading to true while submitting
+
+    try {
+      const response = await updateRole(
+        checkedItems,
+        username,
+        description,
+        status,
+        id
+      );
+      if (response?.message === "Role updated") {
+        toast.success("Role Updated Successfully", {
+          style: {
+            background: "#008000",
+            color: "#fff",
+          },
+        });
+      } else if (response?.message === "Role update error") {
+        toast.error("Role Updated Failed", {
+          style: {
+            background: "#FF0000",
+            color: "#fff",
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false); // Set loading back to false after submission
+    }
+  };
+
   function Submit() {
     return (
       <button
         type="submit"
+        disabled={loading}
         className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white "
       >
-        Update Role & Permissions
+        {loading ? "Updaing..." : "Update Role & Permissions"}
       </button>
     );
   }
@@ -92,7 +144,8 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
     <>
       <section className="bg-white w-full shadow-lg rounded-lg">
         <div className="p-3">
-          <form onSubmit="">
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="id" value={roleData.id} />
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
