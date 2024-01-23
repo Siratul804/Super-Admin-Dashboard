@@ -466,19 +466,21 @@ export const updateRole = async (
       values: [username, description, status, id],
     });
     console.log(updateRole);
+    // create & Update & delete === maybe
+    const role_id = Number(id);
+    const valuesToUpdate = checkedItems.map((item) => [item.id, role_id]);
+    console.log(valuesToUpdate);
 
-    const valuesToInsert = checkedItems.map((item) => [item.id, id]);
-    console.log(valuesToInsert);
-    // create & Update (maybe)
-    const newPermission = await Promise.all(
-      valuesToInsert.map((values) =>
+    const updatePermission = await Promise.all(
+      valuesToUpdate.map((values) =>
         query({
-          query: "UPDATE role_permission SET permission_id = ? WHERE id = ?",
+          query:
+            "UPDATE role_permission SET permission_id = ? WHERE role_id = ?",
           values,
         })
       )
     );
-    console.log(newPermission);
+    console.log(updatePermission);
   } catch (error) {
     console.log(error);
   }
