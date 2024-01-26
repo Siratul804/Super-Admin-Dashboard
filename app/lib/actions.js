@@ -462,6 +462,15 @@ export const updateRole = async (
   try {
     const valuesToInsert = checkedItems.map((item) => [item.id, id]);
     console.log(valuesToInsert);
+
+    if (valuesToInsert.length === 0) {
+      const deletePermission = await query({
+        query: "DELETE FROM role_permission WHERE role_id = ?",
+        values: [id],
+      });
+      console.log(deletePermission);
+    }
+
     const newPermission = await Promise.all(
       valuesToInsert.map((values) =>
         query({
@@ -472,15 +481,20 @@ export const updateRole = async (
       )
     );
     console.log(newPermission);
-
-    // const { id } = Object.fromEntries(formData);
-
-    // const deletePermission = await query({
-    //   query: "DELETE FROM users WHERE id = (?)",
-    //   values: [id],
-    // });
-    // console.log(deletePermission);
   } catch (error) {
     console.log(error);
   }
 };
+
+// const { id } = Object.fromEntries(formData);
+
+// const deletePermission = await query({
+//   query: "DELETE FROM users WHERE id = (?)",
+//   values: [id],
+// });
+// console.log(deletePermission);
+
+// await query({
+//   query: "DELETE FROM role_permission WHERE role_id = ?",
+//   values: [id],
+// });
