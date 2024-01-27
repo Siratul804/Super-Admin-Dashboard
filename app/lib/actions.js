@@ -481,9 +481,20 @@ export const updateRole = async (
       )
     );
     console.log(newPermission);
+    if (newPermission) {
+      return {
+        message: "role Updated",
+      };
+    }
   } catch (error) {
     console.log(error);
+    return {
+      message: "role error",
+    };
   }
+
+  revalidatePath("/dashboard/grit/roleList");
+  redirect("/dashboard/grit/roleList");
 };
 
 // const { id } = Object.fromEntries(formData);
