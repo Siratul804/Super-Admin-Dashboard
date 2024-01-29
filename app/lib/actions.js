@@ -493,6 +493,8 @@ export const updateRole = async (
       console.log(newPermission);
     }
 
+    revalidatePath("/dashboard/grit/roleList");
+
     return {
       message: "Role updated",
     };
