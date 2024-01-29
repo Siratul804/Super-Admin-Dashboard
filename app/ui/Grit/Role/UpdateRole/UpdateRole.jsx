@@ -107,14 +107,14 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
         status,
         id
       );
-      if (response?.message === "role Updated") {
+      if (response?.message === "Role updated") {
         toast.success("Role Updated Successfully", {
           style: {
             background: "#008000",
             color: "#fff",
           },
         });
-      } else if (response?.message === "role error") {
+      } else if (response?.message === "Role error") {
         toast.error("Role Updated Failed", {
           style: {
             background: "#FF0000",
