@@ -460,52 +460,46 @@ export const updateRole = async (
   console.log(checkedItems);
 
   try {
-    const valuesToInsert = checkedItems.map((item) => [item.id, id]);
-    console.log(valuesToInsert);
+    // Delete existing permissions for the role
+    const deletePermission = await query({
+      query: "DELETE FROM role_permission WHERE role_id = ?",
+      values: [id],
+    });
+    console.log(deletePermission);
 
-    if (valuesToInsert.length === 0) {
-      const deletePermission = await query({
-        query: "DELETE FROM role_permission WHERE role_id = ?",
-        values: [id],
-      });
-      console.log(deletePermission);
+    //update role
+    const updateRole = await query({
+      query:
+        "UPDATE role SET name = ?, description = ?, status = ?  WHERE id = ?",
+      values: [username, description, status, id],
+    });
+
+    console.log(updateRole);
+
+    if (checkedItems.length > 0) {
+      // Insert new permissions only if there are items to insert
+      const valuesToInsert = checkedItems.map((item) => [item.id, id]);
+      console.log(valuesToInsert);
+
+      const newPermission = await Promise.all(
+        valuesToInsert.map((values) =>
+          query({
+            query:
+              "INSERT INTO role_permission (`permission_id`, `role_id`) VALUES (?, ?)",
+            values,
+          })
+        )
+      );
+      console.log(newPermission);
     }
 
-    const newPermission = await Promise.all(
-      valuesToInsert.map((values) =>
-        query({
-          query:
-            "INSERT INTO role_permission (`permission_id`, `role_id`) VALUES (?, ?)",
-          values,
-        })
-      )
-    );
-    console.log(newPermission);
-    if (newPermission) {
-      return {
-        message: "role Updated",
-      };
-    }
-  } catch (error) {
-    console.log(error);
     return {
-      message: "role error",
+      message: "Role updated",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      message: "Role error",
     };
   }
-
-  revalidatePath("/dashboard/grit/roleList");
-  redirect("/dashboard/grit/roleList");
 };
-
-// const { id } = Object.fromEntries(formData);
-
-// const deletePermission = await query({
-//   query: "DELETE FROM users WHERE id = (?)",
-//   values: [id],
-// });
-// console.log(deletePermission);
-
-// await query({
-//   query: "DELETE FROM role_permission WHERE role_id = ?",
-//   values: [id],
-// });
