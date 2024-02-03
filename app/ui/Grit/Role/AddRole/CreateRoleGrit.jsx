@@ -2,6 +2,7 @@
 import { addRole } from "@/app/lib/actions";
 import { useState, useRef } from "react";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const CreateRoleGrit = ({ permissionData }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
@@ -278,8 +279,16 @@ const CreateRoleGrit = ({ permissionData }) => {
 
               <div className="py-1"></div>
             </div>
-            <div className="py-2">
+            <div className="py-4 flex ">
               <Submit />
+              <Link
+                href="/dashboard/grit/roleList"
+                className="bg-black rounded-lg text-white text-sm ml-3 "
+              >
+                <button className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white">
+                  Close
+                </button>
+              </Link>
             </div>
           </form>
         </div>

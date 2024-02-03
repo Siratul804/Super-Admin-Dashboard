@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 
 import { updateRole } from "@/app/lib/actions";
 
+import Link from "next/link";
+
 import toast from "react-hot-toast";
 const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
   const [checkboxes, setCheckboxes] = useState(permissionData);
@@ -296,8 +298,16 @@ const UpdateRole = ({ roleData, permissionData, permissionActiveData }) => {
               <div className="py-1"></div>
             </div>
 
-            <div className="py-2">
+            <div className="py-4 flex ">
               <Submit />
+              <Link
+                href="/dashboard/grit/roleList"
+                className="bg-black rounded-lg text-white text-sm ml-3 "
+              >
+                <button className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white">
+                  Close
+                </button>
+              </Link>
             </div>
           </form>
         </div>
