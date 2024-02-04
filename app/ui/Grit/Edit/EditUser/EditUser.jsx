@@ -3,7 +3,18 @@ import SearchBox from "../SearchUser/SearchBox";
 import AddUser from "../AddUser/AddUser";
 import EditTable from "./EditTable";
 
-const EditUser = async ({ PaginationCount, PaginationData, roleData }) => {
+const EditUser = async ({
+  PaginationCount,
+  PaginationData,
+  roleData,
+  permissionData,
+}) => {
+  console.log(permissionData);
+
+  const permission = permissionData.map((val) => val.permission_id);
+
+  console.log(permission);
+
   return (
     <>
       <div className="">
@@ -16,7 +27,7 @@ const EditUser = async ({ PaginationCount, PaginationData, roleData }) => {
               <h1 className="text-lg font-bold text-black ">
                 Advance User List
               </h1>
-              <AddUser roleData={roleData} />
+              {permission.includes(3) && <AddUser roleData={roleData} />}
             </div>
           </div>
           <EditTable PaginationData={PaginationData} roleData={roleData} />

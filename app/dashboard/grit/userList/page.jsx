@@ -2,6 +2,8 @@ import EditUser from "@/app/ui/Grit/Edit/EditUser/EditUser";
 import { GetGritPaginationData } from "@/app/lib/data";
 import { GetRoleData } from "@/app/lib/data";
 
+import { GetRPermissionData } from "@/app/lib/data";
+
 const Edit = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const name = searchParams?.name || "";
@@ -19,12 +21,17 @@ const Edit = async ({ searchParams }) => {
 
   // console.log(roleData);
 
+  const permissionActiveData = await GetRPermissionData();
+
+  // console.log(permissionActiveData);
+
   return (
     <>
       <EditUser
         PaginationData={paginationGrit}
         PaginationCount={countNumber}
         roleData={roleData}
+        permissionData={permissionActiveData}
       />
     </>
   );

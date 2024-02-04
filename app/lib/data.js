@@ -179,3 +179,15 @@ export async function GetRolePermissionByIdToUpdate(id) {
 
   return users;
 }
+
+// role & permission
+export async function GetRPermissionData() {
+  const id = 77;
+  const permission = await query({
+    query: "SELECT * FROM role_permission WHERE role_id = ?",
+    values: [id],
+  });
+
+  return permission;
+}
+// I have to add the dynamic id which is the users table role_id which id will go here dynamicly , like the person who login that guy's role_id will go here
