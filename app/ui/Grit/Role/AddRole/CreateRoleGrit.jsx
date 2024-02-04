@@ -48,7 +48,7 @@ const CreateRoleGrit = ({ permissionData }) => {
 
     setCheckboxes(
       checkboxes.map((checkbox) => {
-        if (checkbox.module === "Manage Roles") {
+        if (checkbox.module === "Manage User") {
           return {
             ...checkbox,
             isChecked: !toggleCheckboxesManageRole,
@@ -63,7 +63,7 @@ const CreateRoleGrit = ({ permissionData }) => {
 
     setCheckboxes(
       checkboxes.map((checkbox) => {
-        if (checkbox.module === "Manage Guests") {
+        if (checkbox.module === "Manage Role") {
           return {
             ...checkbox,
             isChecked: !toggleCheckboxesManageGuest,
@@ -216,12 +216,12 @@ const CreateRoleGrit = ({ permissionData }) => {
                     onChange={handleToggleChangeManageRoles}
                     className="toggle toggle-md toggle-primary "
                   />
-                  <p className=" px-2 text-black font-bold "> Manage Roles</p>
+                  <p className=" px-2 text-black font-bold "> Manage User</p>
                 </label>
 
                 {checkboxes.map((checkbox) => (
                   <div key={checkbox.id}>
-                    {checkbox.module === "Manage Roles" ? (
+                    {checkbox.module === "Manage User" ? (
                       <div className="flex py-1 ">
                         <input
                           className="checkbox bg-white "
@@ -250,13 +250,13 @@ const CreateRoleGrit = ({ permissionData }) => {
                     onChange={handleToggleChangeManageGuest}
                     className="toggle toggle-md toggle-primary "
                   />
-                  <p className=" px-2 text-black font-bold "> Manage Guest</p>
+                  <p className=" px-2 text-black font-bold "> Manage Role</p>
                 </label>
                 <div className="py-1"></div>
 
                 {checkboxes.map((checkbox) => (
                   <div key={checkbox.id}>
-                    {checkbox.module === "Manage Guests" ? (
+                    {checkbox.module === "Manage Role" ? (
                       <div className="flex py-1 ">
                         <input
                           className="checkbox bg-white "
