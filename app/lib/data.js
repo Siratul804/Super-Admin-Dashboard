@@ -181,8 +181,9 @@ export async function GetRolePermissionByIdToUpdate(id) {
 }
 
 // role & permission
-export async function GetRPermissionData() {
-  const id = 77;
+export async function GetRolePermissionData(id) {
+  console.log(id);
+
   const permission = await query({
     query: "SELECT * FROM role_permission WHERE role_id = ?",
     values: [id],

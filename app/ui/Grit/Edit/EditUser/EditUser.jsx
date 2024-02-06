@@ -8,6 +8,7 @@ const EditUser = async ({
   PaginationData,
   roleData,
   permissionData,
+  userData,
 }) => {
   console.log(permissionData);
 

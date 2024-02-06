@@ -10,7 +10,7 @@ const login = async (credentials) => {
       values: [credentials.email],
     });
 
-    // console.log(user[0]);
+    console.log(user[0]);
 
     if (!user[0]) throw new Error("Wrong Credentials");
 
@@ -48,23 +48,27 @@ export const { signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.username = user.username;
-        token.type = user.type;
-        token.number = user.number;
         token.id = user.id;
+        token.name = user.name;
+        token.email = user.email;
+        token.number = user.number;
         token.img = user.img;
+        token.type = user.type;
         token.status = user.status;
+        token.role_id = user.role_id;
       }
       return token;
     },
     async session({ session, token }) {
       if (token) {
-        session.user.username = token.username;
-        session.user.type = token.type;
-        session.user.number = token.number;
         session.user.id = token.id;
+        session.user.name = token.name;
+        session.user.email = token.email;
+        session.user.number = token.number;
         session.user.img = token.img;
+        session.user.type = token.type;
         session.user.status = token.status;
+        session.user.role_id = token.role_id;
       }
       return session;
     },
