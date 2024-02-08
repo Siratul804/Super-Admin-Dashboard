@@ -1,6 +1,8 @@
 "use server";
 //users
 import { query } from "./db";
+
+import { auth } from "@/app/auth";
 export async function GetUserData(request) {
   const users = await query({
     query: "SELECT * FROM users WHERE type = 'Grit'",
@@ -181,12 +183,23 @@ export async function GetRolePermissionByIdToUpdate(id) {
 }
 
 // role & permission
-export async function GetRolePermissionData(id) {
-  console.log(id);
+export async function GetRolePermissionData() {
+  const { user } = await auth();
+
+  console.log(user.email);
+
+  const role_id_main = await query({
+    query: "SELECT role_id FROM users WHERE email = ?",
+    values: [user.email],
+  });
+
+  console.log(role_id_main[0].role_id);
+
+  const role_id = role_id_main[0].role_id;
 
   const permission = await query({
     query: "SELECT * FROM role_permission WHERE role_id = ?",
-    values: [id],
+    values: [role_id],
   });
 
   return permission;
