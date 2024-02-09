@@ -1,6 +1,6 @@
 import UpdateUser from "../UpdateUser/UpdateUser";
 import UpdatePass from "../UpdateUser/UpdatePass";
-const EditTable = async ({ PaginationData, roleData }) => {
+const EditTable = async ({ PaginationData, roleData, permission }) => {
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">
@@ -78,19 +78,23 @@ const EditTable = async ({ PaginationData, roleData }) => {
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div className="flex">
                           <div>
-                            <UpdateUser
-                              id={val.id}
-                              name={val.name}
-                              email={val.email}
-                              number={val.number}
-                              type={val.type}
-                              status={val.status}
-                              roleData={roleData}
-                              role_id={val.role_id}
-                            />
+                            {permission.includes(4) && (
+                              <UpdateUser
+                                id={val.id}
+                                name={val.name}
+                                email={val.email}
+                                number={val.number}
+                                type={val.type}
+                                status={val.status}
+                                roleData={roleData}
+                                role_id={val.role_id}
+                              />
+                            )}
                           </div>
                           <div className="">
-                            <UpdatePass email={val.email} id={val.id} />
+                            {permission.includes(5) && (
+                              <UpdatePass email={val.email} id={val.id} />
+                            )}
                           </div>
                         </div>
                       </td>

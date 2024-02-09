@@ -4,16 +4,12 @@ import { GetRoleData } from "@/app/lib/data";
 
 import { GetRolePermissionData } from "@/app/lib/data";
 
-import { GetUserData } from "@/app/lib/data";
-
 const Edit = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const name = searchParams?.name || "";
   const number = searchParams?.number || "";
   const status = searchParams?.status || "";
   // console.log(name, number, status);
-
-  const userData = await GetUserData();
 
   const { paginationGrit, countNumber } = await GetGritPaginationData(
     page,
@@ -35,7 +31,6 @@ const Edit = async ({ searchParams }) => {
         PaginationData={paginationGrit}
         PaginationCount={countNumber}
         roleData={roleData}
-        userData={userData}
         permissionData={permissionActiveData}
       />
     </>

@@ -1,6 +1,7 @@
 import EditRole from "@/app/ui/Grit/Role/EditRole/EditRole";
 import { GetGritRolePaginationData } from "@/app/lib/data";
 // import { GetRoleData } from "@/app/lib/data";
+import { GetRolePermissionData } from "@/app/lib/data";
 
 const RoleList = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
@@ -13,9 +14,17 @@ const RoleList = async ({ searchParams }) => {
     status
   );
 
+  const permissionActiveData = await GetRolePermissionData();
+
+  console.log(permissionActiveData);
+
   return (
     <>
-      <EditRole PaginationData={paginationGrit} PaginationCount={countNumber} />
+      <EditRole
+        PaginationData={paginationGrit}
+        PaginationCount={countNumber}
+        permissionData={permissionActiveData}
+      />
     </>
   );
 };

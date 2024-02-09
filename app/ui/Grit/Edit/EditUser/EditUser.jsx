@@ -8,7 +8,6 @@ const EditUser = async ({
   PaginationData,
   roleData,
   permissionData,
-  userData,
 }) => {
   console.log(permissionData);
 
@@ -31,7 +30,14 @@ const EditUser = async ({
               {permission.includes(3) && <AddUser roleData={roleData} />}
             </div>
           </div>
-          <EditTable PaginationData={PaginationData} roleData={roleData} />
+          {permission.includes(6) && (
+            <EditTable
+              permission={permission}
+              PaginationData={PaginationData}
+              roleData={roleData}
+            />
+          )}
+
           <Pagination PaginationCount={PaginationCount} />
         </section>
       </div>

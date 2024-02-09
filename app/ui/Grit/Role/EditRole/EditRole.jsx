@@ -3,7 +3,12 @@ import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchRole/SearchBox";
 import EditTable from "./EditRoleTable";
 import { IoMdAdd } from "react-icons/io";
-const EditRole = ({ PaginationCount, PaginationData }) => {
+const EditRole = ({ PaginationCount, PaginationData, permissionData }) => {
+  console.log(permissionData);
+
+  const permission = permissionData.map((val) => val.permission_id);
+
+  console.log(permission);
   return (
     <>
       <div className="">
@@ -20,13 +25,21 @@ const EditRole = ({ PaginationCount, PaginationData }) => {
                 href="/dashboard/grit/createRole"
                 className="bg-black rounded-lg text-white text-sm"
               >
-                <button className="btn btn-neutral btn-sm text-white  ">
-                  <IoMdAdd size={17} /> Add Role
-                </button>
+                {permission.includes(7) && (
+                  <button className="btn btn-neutral btn-sm text-white  ">
+                    <IoMdAdd size={17} /> Add Role
+                  </button>
+                )}
               </Link>
             </div>
           </div>
-          <EditTable PaginationData={PaginationData} />
+          {permission.includes(9) && (
+            <EditTable
+              permission={permission}
+              PaginationData={PaginationData}
+            />
+          )}
+
           <Pagination PaginationCount={PaginationCount} />
         </section>
       </div>

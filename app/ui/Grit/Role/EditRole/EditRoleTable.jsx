@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { MdModeEdit } from "react-icons/md";
 
-const EditRoleTable = async ({ PaginationData }) => {
+const EditRoleTable = async ({ PaginationData, permission }) => {
   return (
     <>
       {" "}
@@ -73,12 +73,14 @@ const EditRoleTable = async ({ PaginationData }) => {
                       </td>
 
                       <td className="px-8 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                        <Link
-                          href={`/dashboard/grit/editRole/${val.id}`}
-                          className="flex w-8 p-2 hover:bg-slate-100 rounded-full"
-                        >
-                          <MdModeEdit size={16} color="black" />
-                        </Link>
+                        {permission.includes(8) && (
+                          <Link
+                            href={`/dashboard/grit/editRole/${val.id}`}
+                            className="flex w-8 p-2 hover:bg-slate-100 rounded-full"
+                          >
+                            <MdModeEdit size={16} color="black" />
+                          </Link>
+                        )}
                       </td>
                     </tr>
                   </>
