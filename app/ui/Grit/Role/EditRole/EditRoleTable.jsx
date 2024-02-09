@@ -19,9 +19,11 @@ const EditRoleTable = async ({ PaginationData, permission }) => {
                 Status
               </th>
 
-              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Edit
-              </th>
+              {permission.includes(8) && (
+                <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                  Edit
+                </th>
+              )}
             </tr>
           </thead>
           <tbody className="bg-white  ">
@@ -72,16 +74,16 @@ const EditRoleTable = async ({ PaginationData, permission }) => {
                         )}
                       </td>
 
-                      <td className="px-8 py-4 whitespace-no-wrap border-b border-gray-200 ">
-                        {permission.includes(8) && (
+                      {permission.includes(8) && (
+                        <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
                           <Link
                             href={`/dashboard/grit/editRole/${val.id}`}
                             className="flex w-8 p-2 hover:bg-slate-100 rounded-full"
                           >
                             <MdModeEdit size={16} color="black" />
                           </Link>
-                        )}
-                      </td>
+                        </td>
+                      )}
                     </tr>
                   </>
                 </>

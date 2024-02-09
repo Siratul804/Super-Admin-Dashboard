@@ -141,8 +141,11 @@ const AddGrit = ({ roleData }) => {
                       />
                     </main>
                   </div>
-                  <div className="flex justify-between sm:flex-row flex-col pt-4 ">
+                  <div className="flex justify-between sm:flex-row flex-col  ">
                     <main>
+                      <label className="label">
+                        <span className="text-[black] text-sm">Status</span>
+                      </label>
                       <select
                         name="status"
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
@@ -155,6 +158,9 @@ const AddGrit = ({ roleData }) => {
                       </select>
                     </main>
                     <main>
+                      <label className="label">
+                        <span className="text-[black] text-sm">Role</span>
+                      </label>
                       <select
                         itemType="number"
                         name="role"
@@ -171,7 +177,7 @@ const AddGrit = ({ roleData }) => {
                       </select>
                     </main>
                   </div>
-                  <div className="flex justify-center sm:flex-row flex-col pt-4 ">
+                  <div className="flex justify-center sm:flex-row flex-col pt-5 ">
                     <main className="pt-4 sm:pt-0">
                       <Submit />
                     </main>

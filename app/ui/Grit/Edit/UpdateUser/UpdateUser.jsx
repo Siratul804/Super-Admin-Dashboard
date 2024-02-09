@@ -180,11 +180,13 @@ const UpdateUser = ({
                       </select>
                     </main>
                   </div>
-                  <br />
+
                   <div className="flex justify-between sm:flex-row flex-col">
                     <main>
+                      <label className="label">
+                        <span className="text-[black] text-sm">Role</span>
+                      </label>
                       <select
-                        itemType="number"
                         name="role"
                         value={selectedRole || formValues.role_id || ""} // Set value based on selectedRole or formValues.role
                         onChange={(e) => setSelectedRole(e.target.value)} // Update selectedRole when the user changes the selection
@@ -198,9 +200,12 @@ const UpdateUser = ({
                         ))}
                       </select>
                     </main>
-                    <label>
+                    <main>
+                      <label className="label">
+                        <span className="text-[black] text-sm pt-5 "></span>
+                      </label>
                       <Submit />
-                    </label>
+                    </main>
                   </div>
                   <div className="flex justify-end ">
                     {state?.message === "Failed" ? (

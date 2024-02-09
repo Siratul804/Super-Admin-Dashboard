@@ -19,9 +19,17 @@ const EditTable = async ({ PaginationData, roleData, permission }) => {
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Edit
-              </th>
+              {permission.includes(5) || permission.includes(4) ? (
+                <>
+                  <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                    Edit
+                  </th>
+                </>
+              ) : (
+                <>
+                  <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider"></th>
+                </>
+              )}
             </tr>
           </thead>
           <tbody className="bg-white  ">
