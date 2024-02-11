@@ -125,7 +125,7 @@ const CreateRoleGrit = ({ permissionData }) => {
       <button
         type="submit"
         disabled={loading}
-        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white "
+        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[200px] sm:w-[250px] text-sm rounded-md font-bold text-white "
       >
         {loading ? "Creating..." : "Create Role & Permission"}
       </button>
@@ -285,7 +285,7 @@ const CreateRoleGrit = ({ permissionData }) => {
                 href="/dashboard/grit/roleList"
                 className="bg-black rounded-lg text-white text-sm ml-3 "
               >
-                <button className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] text-sm rounded-md font-bold text-white">
+                <button className="bg-black pl-3 pr-3 pt-2 pb-2 w-[100px] sm:w-[250px] text-sm rounded-md font-bold text-white">
                   Close
                 </button>
               </Link>

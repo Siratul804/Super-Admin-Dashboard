@@ -24,7 +24,7 @@ const layout = async ({ children }) => {
                         <div className="w-full  ">
                           <Navbar data={user} />
                           <div className="">
-                            <main className="bg-[#EEF2F6] p-3	 ">
+                            <main className="bg-[#EEF2F6] p-3 h-[87.2vh] ">
                               {children}
                             </main>
                           </div>

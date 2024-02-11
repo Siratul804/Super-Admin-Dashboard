@@ -6,7 +6,7 @@ const layout = async ({ children }) => {
     <>
       {user.type === "grit" && user.status === "Active" ? (
         <>
-          <main>{children}</main>
+          <main className="h-auto">{children}</main>
         </>
       ) : (
         <>

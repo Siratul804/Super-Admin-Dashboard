@@ -17,6 +17,9 @@ const EditTable = async ({ PaginationData, roleData, permission }) => {
                 Email
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Role
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Status
               </th>
               {permission.includes(5) || permission.includes(4) ? (
@@ -62,6 +65,21 @@ const EditTable = async ({ PaginationData, roleData, permission }) => {
                       <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
                         <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                           {val.email}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                          {roleData.map((role) => (
+                            <>
+                              {val.role_id === role.id ? (
+                                <>
+                                  <span>{role.name}</span>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </>
+                          ))}
                         </p>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">

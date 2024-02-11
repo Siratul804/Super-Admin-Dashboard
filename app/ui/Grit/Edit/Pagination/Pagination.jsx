@@ -37,10 +37,7 @@ const Pagination = ({ PaginationCount }) => {
           <div className="text-black pt-2 text-[12px] sm:text-sm ">
             Total Users : {PaginationCount}
           </div>
-          <div className="px-2"></div>
-          <div className="text-black pt-2 text-[12px] sm:text-sm ">
-            Row Per Page : {ITEM_PER_PAGE}
-          </div>
+
           <div className="px-2"></div>
           <div className="flex">
             {/* ............. */}

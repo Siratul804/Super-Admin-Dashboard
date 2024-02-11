@@ -35,12 +35,12 @@ const Pagination = ({ PaginationCount }) => {
         {/* ................ */}
         <div className="flex justify-end py-1 ">
           <div className="text-black pt-2 text-[12px] sm:text-sm ">
-            Total Users : {PaginationCount}
+            Total Roles : {PaginationCount}
           </div>
-          <div className="px-2"></div>
-          <div className="text-black pt-2 text-[12px] sm:text-sm ">
+
+          {/* <div className="text-black pt-2 text-[12px] sm:text-sm ">
             Row Per Page : {ITEM_PER_PAGE}
-          </div>
+          </div> */}
           <div className="px-2"></div>
           <div className="flex">
             {/* ............. */}
