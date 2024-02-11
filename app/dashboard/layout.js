@@ -1,13 +1,12 @@
 import Navbar from "../ui/Global/Navbar/Navbar";
 import { auth } from "@/app/auth";
-import { GetUserData } from "@/app/lib/data";
+import { GetAllUserData } from "@/app/lib/data";
 import { signOut } from "@/app/auth";
 import LeftSideBarOpen from "../ui/Global/LeftSideBarOpen/LeftSideBarOpen";
 
 const layout = async ({ children }) => {
   const { user } = await auth();
-  const userData = await GetUserData();
-
+  const userData = await GetAllUserData();
   return (
     <>
       {userData.map((val) => (

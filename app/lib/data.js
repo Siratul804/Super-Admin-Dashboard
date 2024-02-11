@@ -3,6 +3,14 @@
 import { query } from "./db";
 
 import { auth } from "@/app/auth";
+export async function GetAllUserData(request) {
+  const users = await query({
+    query: "SELECT * FROM users",
+    values: [],
+  });
+
+  return users;
+}
 export async function GetUserData(request) {
   const users = await query({
     query: "SELECT * FROM users WHERE type = 'Grit'",
