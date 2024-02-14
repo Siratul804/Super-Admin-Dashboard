@@ -8,6 +8,7 @@ import { writeFile } from "fs/promises";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
+import { signOut } from "@/app/auth";
 // .......................
 //testing
 
@@ -173,6 +174,9 @@ export const authenticate = async (prevState, formData) => {
     }
     throw error;
   }
+};
+export const logout_user = async () => {
+  await signOut();
 };
 
 // img

@@ -3,10 +3,14 @@ import { auth } from "@/app/auth";
 import { GetAllUserData } from "@/app/lib/data";
 import { signOut } from "@/app/auth";
 import LeftSideBarOpen from "../ui/Global/LeftSideBarOpen/LeftSideBarOpen";
+import { GetUserData } from "@/app/lib/data";
+import LogoutOnClose from "@/app/ui/Global/LogoutOnClose/LogoutOnClose";
 
 const layout = async ({ children }) => {
   const { user } = await auth();
   const userData = await GetAllUserData();
+  const ImgNav = await GetUserData();
+
   return (
     <>
       {userData.map((val) => (
@@ -21,7 +25,8 @@ const layout = async ({ children }) => {
                         <LeftSideBarOpen data={user} />
 
                         <div className="w-full  ">
-                          <Navbar data={user} />
+                          <Navbar data={user} ImgNav={ImgNav} />
+                          <LogoutOnClose />
                           <div className="">
                             <main className="bg-[#EEF2F6] p-3 h-[87.2vh] ">
                               {children}

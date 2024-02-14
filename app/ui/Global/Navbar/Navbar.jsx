@@ -1,11 +1,9 @@
 import { IoMdNotifications } from "react-icons/io";
 import { BiMenuAltLeft } from "react-icons/bi";
 import Link from "next/link";
-import { signOut } from "@/app/auth";
-import { GetUserData } from "@/app/lib/data";
+import { logout_user } from "@/app/lib/actions";
 
-const Navbar = async ({ data }) => {
-  const ImgNav = await GetUserData();
+const Navbar = async ({ data, ImgNav }) => {
   return (
     <>
       <div className="navbar bg-white pr-5 pl-5 pt-5 sm:pr-10 sm:pl-10 drop-shadow-sm sticky top-0 ">
@@ -70,12 +68,7 @@ const Navbar = async ({ data }) => {
                 </span>
               </Link>
 
-              <form
-                action={async () => {
-                  "use server";
-                  await signOut();
-                }}
-              >
+              <form action={logout_user}>
                 <button className="w-full">
                   <span className=" font-bold p-2 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex">
                     <span className="pl-1 text-slate-500 text-sm flex ">
