@@ -2,6 +2,7 @@
 // components/LogoutOnClose.js
 
 import { useEffect } from "react";
+import { logout_user } from "@/app/lib/actions";
 
 const LogoutOnClose = () => {
   useEffect(() => {
@@ -9,6 +10,7 @@ const LogoutOnClose = () => {
       // You can perform logout or other cleanup actions here
       console.log("Logging out on close...");
       // Add your logout logic here
+      logout_user();
     };
 
     // Add the event listener
