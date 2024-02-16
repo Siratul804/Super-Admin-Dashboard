@@ -52,7 +52,7 @@ export const test = async (checkedItems, username, description) => {
 //testing
 // .......................
 
-//grit
+//user
 export const addUser = async (prevState, formData) => {
   const { name, email, password, number, type, status, role } =
     Object.fromEntries(formData);
@@ -508,4 +508,68 @@ export const updateRole = async (
       message: "Role error",
     };
   }
+};
+
+// Gym
+export const addGym = async (prevState, formData) => {
+  const { name, address, email, number, logo, status, website } =
+    Object.fromEntries(formData);
+
+  console.log(name, address, email, number, logo, status, website);
+
+  try {
+    const FILE_SIZE = 1000000; // 1MB
+
+    if (logo.size > FILE_SIZE) {
+      return {
+        message: "File Did't Match",
+      };
+      // return "File size is large! (image has to be less then 1MB) ";
+    }
+
+    const buffer = Buffer.from(await logo.arrayBuffer());
+    const filename = Date.now() + logo.name.replaceAll(" ", "_");
+    console.log(filename);
+
+    await writeFile(
+      path.join(process.cwd(), "public/uploads/" + filename),
+      buffer
+    );
+
+    const currentDateTime = new Date()
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
+    console.log(currentDateTime);
+
+    const newGym = await query({
+      query:
+        "INSERT INTO list_gym (name, address, email, phone, logo, status, RegisteredSince, website) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      values: [
+        name,
+        address,
+        email,
+        number,
+        filename,
+        status,
+        currentDateTime,
+        website,
+      ],
+    });
+
+    console.log(newGym);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "Gym Added Failed",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/grit/listOfGym");
+  return {
+    message: "Gym Added",
+  };
 };

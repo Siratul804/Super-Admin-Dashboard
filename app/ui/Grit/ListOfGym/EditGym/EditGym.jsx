@@ -1,5 +1,11 @@
+import AddGym from "../AddGym/AddGym";
+
 const EditGym = () => {
-  return <>EditGym</>;
+  return (
+    <>
+      <AddGym />
+    </>
+  );
 };
 
 export default EditGym;
