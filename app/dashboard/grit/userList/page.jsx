@@ -1,10 +1,10 @@
-import EditUser from "@/app/ui/Grit/Edit/EditUser/EditUser";
+import UserList from "@/app/ui/Grit/User/EditUser/EditUser";
 import { GetGritPaginationData } from "@/app/lib/data";
 import { GetRoleData } from "@/app/lib/data";
 
 import { GetRolePermissionData } from "@/app/lib/data";
 
-const Edit = async ({ searchParams }) => {
+const User = async ({ searchParams }) => {
   const page = searchParams?.page || 1;
   const name = searchParams?.name || "";
   const number = searchParams?.number || "";
@@ -27,7 +27,7 @@ const Edit = async ({ searchParams }) => {
 
   return (
     <>
-      <EditUser
+      <UserList
         PaginationData={paginationGrit}
         PaginationCount={countNumber}
         roleData={roleData}
@@ -37,4 +37,4 @@ const Edit = async ({ searchParams }) => {
   );
 };
 
-export default Edit;
+export default User;

@@ -1,4 +1,4 @@
-import ListOfGymGrit from "@/app/ui/Grit/ListOfGym/ListOfGymGrit";
+import ListOfGymGrit from "@/app/ui/Grit/ListOfGym/EditGym/EditGym";
 
 const ListOfGym = () => {
   return (
