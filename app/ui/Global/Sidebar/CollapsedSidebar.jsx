@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
+import { FaListUl } from "react-icons/fa";
 
 const CollapsedSidebar = ({ data }) => {
   const pathname = usePathname();
@@ -38,6 +39,21 @@ const CollapsedSidebar = ({ data }) => {
                 >
                   <span className="pl-1  text-sm flex ">
                     <FaUserCog size={20} />
+                  </span>
+                </span>
+              </Link>
+            </li>
+            <li className="pl-3 pr-3 pt-3">
+              <Link href="/dashboard/grit/listOfGym">
+                <span
+                  className={
+                    pathname === "/dashboard/grit/listOfGym"
+                      ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
+                      : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
+                  }
+                >
+                  <span className="pl-1  text-sm flex ">
+                    <FaListUl size={20} />
                   </span>
                 </span>
               </Link>

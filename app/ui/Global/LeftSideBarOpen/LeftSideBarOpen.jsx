@@ -19,7 +19,7 @@ const LeftSideBarOpen = ({ data }) => {
             collapsed={collapsed}
             backgroundColor="#FFFFFF"
             width="250px"
-            collapsedWidth="70px"
+            collapsedWidth="75px"
           >
             <Menu>
               <div className="flex justify-between  pt-8">
