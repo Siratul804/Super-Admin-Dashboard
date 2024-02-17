@@ -212,4 +212,57 @@ export async function GetRolePermissionData() {
 
   return permission;
 }
-// I have to add the dynamic id which is the users table role_id which id will go here dynamicly , like the person who login that guy's role_id will go here
+
+// list of Gym
+
+export async function GetGListGymPaginationData(page, name, status) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, name, status);
+
+  let queryStr = "SELECT * FROM list_gym";
+
+  const values = [];
+
+  if (name || status) {
+    queryStr += " WHERE";
+  }
+
+  if (name) {
+    queryStr += " name LIKE ?";
+    values.push(`%${name}%`);
+  }
+
+  if (name && status) {
+    queryStr += " AND";
+  }
+
+  if (status) {
+    queryStr += " status = ?";
+    values.push(status);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationGrit = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  console.log(paginationGrit);
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM list_gym",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { paginationGrit, countNumber };
+}

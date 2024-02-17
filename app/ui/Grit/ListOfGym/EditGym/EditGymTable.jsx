@@ -1,5 +1,127 @@
-const EditGymTable = () => {
-  return <>EditGymTable</>;
+import UpdateGym from "../UpdateGym/UpdateGym";
+import { CgWebsite } from "react-icons/cg";
+const EditGymTable = async ({ PaginationData }) => {
+  return (
+    <>
+      <div className="overflow-x-auto w-full h-auto ">
+        <table className="w-full border-collapse border border-slate-100">
+          <thead>
+            <tr>
+              <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Name
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Address
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Phone
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                email
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Status
+              </th>
+
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                RegisteredSince
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Website
+              </th>
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Edit
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white  ">
+            <>
+              {PaginationData.map((val) => (
+                <>
+                  <>
+                    <tr>
+                      <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div className="flex ">
+                          <div className="h-10 w-10">
+                            <img
+                              src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
+                              alt="No Img"
+                              className="rounded-full w-10 h-10 "
+                            />
+                          </div>
+                          <div className="px-2 py-3   ">
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                              {val.name}
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                          {val.address}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                          {val.phone}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                        <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                          {val.email}
+                        </p>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        {val.status === "Active" ? (
+                          <>
+                            <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                              <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                Active
+                              </p>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                              <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                Disable
+                              </p>
+                            </div>
+                          </>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-black ">
+                        {val.RegisteredSince}
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <a href={val.website}>
+                          <CgWebsite size={16} color="black" />
+                        </a>
+                      </td>
+                      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div>
+                          <UpdateGym
+                            id={val.id}
+                            name={val.name}
+                            address={val.address}
+                            phone={val.phone}
+                            email={val.email}
+                            status={val.status}
+                            RegisteredSince={val.RegisteredSince}
+                            website={val.website}
+                          />
+                        </div>
+                      </td>
+                    </tr>
+                  </>
+                </>
+              ))}
+            </>
+          </tbody>
+        </table>
+      </div>
+    </>
+  );
 };
 
 export default EditGymTable;

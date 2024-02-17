@@ -18,9 +18,7 @@ const EditRole = ({ PaginationCount, PaginationData, permissionData }) => {
         <section className="bg-white w-full shadow-lg rounded-lg">
           <div className="">
             <div className="p-3  flex justify-between  ">
-              <h1 className="text-lg font-bold text-black ">
-                Advance Role List
-              </h1>
+              <h1 className="text-lg font-bold text-black ">Role List</h1>
               <Link
                 href="/dashboard/grit/createRole"
                 className="bg-black rounded-lg text-white text-sm"

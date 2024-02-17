@@ -42,7 +42,7 @@ const SearchRole = () => {
             <br />
             <input
               type="text"
-              placeholder="Enter Your Name "
+              placeholder="Enter Role Name "
               name="name"
               value={name}
               onChange={(e) => setName(e.target.value)}

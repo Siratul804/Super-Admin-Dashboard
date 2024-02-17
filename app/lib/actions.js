@@ -536,12 +536,9 @@ export const addGym = async (prevState, formData) => {
       buffer
     );
 
-    const currentDateTime = new Date()
-      .toISOString()
-      .slice(0, 19)
-      .replace("T", " ");
+    const currentDate = new Date().toISOString().split("T")[0];
 
-    console.log(currentDateTime);
+    console.log(currentDate);
 
     const newGym = await query({
       query:
@@ -553,7 +550,7 @@ export const addGym = async (prevState, formData) => {
         number,
         filename,
         status,
-        currentDateTime,
+        currentDate,
         website,
       ],
     });
