@@ -3,7 +3,7 @@ import { CgWebsite } from "react-icons/cg";
 const EditGymTable = async ({ PaginationData }) => {
   return (
     <>
-      <div className="overflow-x-auto w-full h-auto ">
+      <div className="overflow-x-auto w-full sm:w-full h-auto ">
         <table className="w-full border-collapse border border-slate-100">
           <thead>
             <tr>
@@ -17,14 +17,14 @@ const EditGymTable = async ({ PaginationData }) => {
                 Phone
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                email
+                Email
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Status
               </th>
 
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                RegisteredSince
+                Registered
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Website
@@ -46,11 +46,11 @@ const EditGymTable = async ({ PaginationData }) => {
                             <img
                               src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
                               alt="No Img"
-                              className="rounded-full w-10 h-10 "
+                              className="rounded-full w-[45px] h-[40px] "
                             />
                           </div>
-                          <div className="px-2 py-3   ">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                          <div className="px-3 py-3   ">
+                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
                               {val.name}
                             </p>
                           </div>
@@ -91,12 +91,20 @@ const EditGymTable = async ({ PaginationData }) => {
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-black ">
-                        {val.RegisteredSince}
+                        <div className="flex justify-center text-sm tracking-wider leading-4 font-medium ">
+                          {val.RegisteredSince}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                        <a href={val.website}>
-                          <CgWebsite size={16} color="black" />
-                        </a>
+                        <div className="flex justify-center p-1 ">
+                          <a
+                            href={val.website}
+                            target="_blank"
+                            className="p-2 hover:bg-slate-100 rounded-full "
+                          >
+                            <CgWebsite size={16} color="black" />
+                          </a>
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div>

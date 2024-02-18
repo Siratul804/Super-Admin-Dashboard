@@ -48,7 +48,7 @@ const SearchGym = () => {
               onChange={(e) => setName(e.target.value)}
               onKeyPress={handleKeyPress}
               autoComplete="off"
-              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[47vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[40vh] sm:w-[47vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
 
@@ -60,7 +60,7 @@ const SearchGym = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[47vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[40vh] sm:w-[47vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             >
               <option value="">Select</option>
               <option value="Active">Active</option>
@@ -72,7 +72,7 @@ const SearchGym = () => {
             <button
               onClick={handleSearch}
               disabled={isLoading}
-              className="btn btn-neutral btn-sm text-white h-[6vh] w-[47vh]"
+              className="btn btn-neutral btn-sm text-white h-[6vh] sm:w-[47vh] w-[40vh]"
             >
               {isLoading ? "Searching..." : "Search"}
             </button>
