@@ -570,3 +570,79 @@ export const addGym = async (prevState, formData) => {
     message: "Gym Added",
   };
 };
+
+export const updateGym = async (prevState, formData) => {
+  const {
+    id,
+    name,
+    address,
+    email,
+    number,
+    logo,
+    status,
+    website,
+    RegisteredSince,
+  } = Object.fromEntries(formData);
+
+  console.log(
+    id,
+    name,
+    address,
+    email,
+    number,
+    logo,
+    status,
+    website,
+    RegisteredSince
+  );
+
+  try {
+    const FILE_SIZE = 1000000; // 1MB
+
+    if (logo.size > FILE_SIZE) {
+      return {
+        message: "File Did't Match",
+      };
+      // return "File size is large! (image has to be less then 1MB) ";
+    }
+
+    console.log(logo, id);
+
+    const buffer = Buffer.from(await logo.arrayBuffer());
+    const filename = Date.now() + logo.name.replaceAll(" ", "_");
+    console.log(filename);
+
+    await writeFile(
+      path.join(process.cwd(), "public/uploads/" + filename),
+      buffer
+    );
+
+    const newGym = await query({
+      query:
+        "UPDATE list_gym SET  name = ?,address = ?, phone = ?,email = ?,logo = ?,status = ?,RegisteredSince = ?,website = ? WHERE id = ?",
+      values: [
+        name,
+        address,
+        number,
+        email,
+        logo,
+        status,
+        RegisteredSince,
+        website,
+        id,
+      ],
+    });
+
+    console.log(newGym);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
+  }
+
+  revalidatePath("/dashboard/grit/listOfGym");
+  return {
+    message: "Updated",
+  };
+};

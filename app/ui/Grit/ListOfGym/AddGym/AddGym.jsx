@@ -202,6 +202,18 @@ const AddGym = ({}) => {
                       <Submit />
                     </main>
                   </div>
+                  <div className="flex justify-end ">
+                    {state?.message === "File Did't Match" ? (
+                      <>
+                        <p className="text-red-500">
+                          {" "}
+                          File size is large! (image has to be less then 1MB){" "}
+                        </p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
                 </form>
               </section>
             </div>
