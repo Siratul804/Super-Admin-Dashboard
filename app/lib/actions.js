@@ -625,7 +625,7 @@ export const updateGym = async (prevState, formData) => {
         address,
         number,
         email,
-        logo,
+        filename,
         status,
         RegisteredSince,
         website,

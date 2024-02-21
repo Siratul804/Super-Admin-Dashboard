@@ -245,7 +245,7 @@ const UpdateGym = ({
                       <Submit />
                     </main>
                   </div>
-                  <div className="flex justify-end ">
+                  <div className="flex justify-center pt-3">
                     {state?.message === "File Did't Match" ? (
                       <>
                         <p className="text-red-500">
