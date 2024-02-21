@@ -1,7 +1,8 @@
 import AddGym from "../AddGym/AddGym";
+import Pagination from "../Pagination/Pagination";
 import SearchBox from "../SearchGym/SearchBox";
 import EditGymTable from "./EditGymTable";
-const EditGym = ({ PaginationData }) => {
+const EditGym = ({ PaginationData, PaginationCount }) => {
   return (
     <>
       <div className="py-2"></div>
@@ -17,7 +18,7 @@ const EditGym = ({ PaginationData }) => {
 
         <EditGymTable PaginationData={PaginationData} />
 
-        {/* <Pagination PaginationCount={PaginationCount} /> */}
+        <Pagination PaginationCount={PaginationCount} />
       </section>
     </>
   );

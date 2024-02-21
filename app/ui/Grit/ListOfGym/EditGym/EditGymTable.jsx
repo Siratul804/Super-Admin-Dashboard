@@ -4,7 +4,7 @@ const EditGymTable = async ({ PaginationData }) => {
   return (
     <>
       <div className="overflow-x-auto w-full sm:w-full h-auto ">
-        <table className="w-full border-collapse border border-slate-100">
+        <table className="w-full  border-collapse border border-slate-100">
           <thead>
             <tr>
               <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
@@ -50,7 +50,7 @@ const EditGymTable = async ({ PaginationData }) => {
                             />
                           </div>
                           <div className="px-3 py-3   ">
-                            <p className="text-left text-xs leading-4 font-medium text-black  tracking-wider">
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {val.name}
                             </p>
                           </div>
