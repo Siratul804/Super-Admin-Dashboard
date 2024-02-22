@@ -570,7 +570,6 @@ export const addGym = async (prevState, formData) => {
     message: "Gym Added",
   };
 };
-
 export const updateGym = async (prevState, formData) => {
   const {
     id,
@@ -582,44 +581,37 @@ export const updateGym = async (prevState, formData) => {
     status,
     website,
     RegisteredSince,
+    prev_logo,
   } = Object.fromEntries(formData);
 
-  console.log(
-    id,
-    name,
-    address,
-    email,
-    number,
-    logo,
-    status,
-    website,
-    RegisteredSince
-  );
+  console.log(prev_logo);
 
   try {
     const FILE_SIZE = 1000000; // 1MB
 
-    if (logo.size > FILE_SIZE) {
+    if (logo && logo.size > FILE_SIZE) {
       return {
         message: "File Did't Match",
       };
-      // return "File size is large! (image has to be less then 1MB) ";
     }
 
-    console.log(logo, id);
+    let filename = prev_logo; // Use the existing logo filename by default
 
-    const buffer = Buffer.from(await logo.arrayBuffer());
-    const filename = Date.now() + logo.name.replaceAll(" ", "_");
-    console.log(filename);
+    console.log(logo.name);
 
-    await writeFile(
-      path.join(process.cwd(), "public/uploads/" + filename),
-      buffer
-    );
+    if (logo.name !== "undefined") {
+      // If a new image is provided, update the filename
+      const buffer = Buffer.from(await logo.arrayBuffer());
+      filename = Date.now() + logo.name.replaceAll(" ", "_");
+      await writeFile(
+        path.join(process.cwd(), "public/uploads/" + filename),
+        buffer
+      );
+    }
 
-    const newGym = await query({
+    await query({
       query:
-        "UPDATE list_gym SET  name = ?,address = ?, phone = ?,email = ?,logo = ?,status = ?,RegisteredSince = ?,website = ? WHERE id = ?",
+        "UPDATE list_gym SET  name = ?, address = ?, phone = ?, email = ?, logo = ?, status = ?, RegisteredSince = ?, website = ? WHERE id = ?",
       values: [
         name,
         address,
@@ -632,8 +624,6 @@ export const updateGym = async (prevState, formData) => {
         id,
       ],
     });
-
-    console.log(newGym);
   } catch (err) {
     console.log(err);
     return {

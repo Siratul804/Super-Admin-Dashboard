@@ -117,6 +117,12 @@ const UpdateGym = ({
                 <form action={formAction}>
                   <div className="flex justify-between sm:flex-row flex-col  ">
                     <input type="hidden" name="id" value={id} />
+                    <input
+                      type="hidden"
+                      name="prev_logo"
+                      value={formValues.logo}
+                    />
+
                     <main className="pr-1">
                       <label className="label">
                         <span className="text-[black]  text-sm"> Name </span>
@@ -218,7 +224,6 @@ const UpdateGym = ({
                       <input
                         type="text"
                         defaultValue={formValues.website || ""}
-                        required
                         name="website"
                         autocomplete="off"
                         className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
@@ -230,7 +235,6 @@ const UpdateGym = ({
                       </label>
                       <input
                         type="file"
-                        defaultValue={formValues.logo || ""}
                         name="logo"
                         accept="image/*"
                         className=" h-[6vh] w-[35vh] file-input rounded-md file-input-bordered file-input-xs bg-white boder-[1px] border-slate-400  "

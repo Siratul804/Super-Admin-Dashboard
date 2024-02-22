@@ -118,6 +118,7 @@ const EditGymTable = async ({ PaginationData }) => {
                             status={val.status}
                             RegisteredSince={val.RegisteredSince}
                             website={val.website}
+                            logo={val.logo}
                           />
                         </div>
                       </td>
