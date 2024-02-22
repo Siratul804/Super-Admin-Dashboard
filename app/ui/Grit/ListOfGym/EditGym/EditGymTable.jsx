@@ -98,6 +98,7 @@ const EditGymTable = async ({ PaginationData }) => {
                       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div className="flex justify-center p-1 ">
                           <a
+                            // need to add https: to hred
                             href={val.website}
                             target="_blank"
                             className="p-2 hover:bg-slate-100 rounded-full "

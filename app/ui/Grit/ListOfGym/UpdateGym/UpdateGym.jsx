@@ -230,6 +230,7 @@ const UpdateGym = ({
                       </label>
                       <input
                         type="file"
+                        defaultValue={formValues.logo || ""}
                         name="logo"
                         accept="image/*"
                         className=" h-[6vh] w-[35vh] file-input rounded-md file-input-bordered file-input-xs bg-white boder-[1px] border-slate-400  "

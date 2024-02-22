@@ -28,7 +28,7 @@ const layout = async ({ children }) => {
                           <Navbar data={user} ImgNav={ImgNav} />
                           <LogoutOnClose />
                           <div className="">
-                            <main className="bg-[#EEF2F6] p-3 h-[87.2vh] ">
+                            <main className="bg-[#EEF2F6] p-3 h-auto ">
                               {children}
                             </main>
                           </div>

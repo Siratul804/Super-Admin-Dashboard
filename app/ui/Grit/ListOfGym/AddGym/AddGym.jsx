@@ -71,7 +71,7 @@ const AddGym = ({}) => {
             {/* //inside content// */}
             <div className="">
               <div className="flex justify-between ">
-                <h1 className="text-xl  text-black ">Add Advance Gym</h1>
+                <h1 className="text-xl  text-black ">Add Gym</h1>
                 <div>
                   <form method="dialog">
                     {/* if there is a button in form, it will close the modal */}
@@ -173,6 +173,7 @@ const AddGym = ({}) => {
                       <input
                         type="file"
                         name="logo"
+                        required
                         accept="image/*"
                         className=" h-[6vh] w-[35vh] file-input rounded-md file-input-bordered file-input-xs bg-white boder-[1px] border-slate-400  "
                       />
