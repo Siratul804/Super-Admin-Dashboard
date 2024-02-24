@@ -13,7 +13,7 @@ const UpdatePass = ({ id }) => {
     return (
       <button
         type="submit"
-        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  "
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm h-[6vh] w-[38vh] sm:w-[72vh] "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update Password"}
@@ -80,14 +80,14 @@ const UpdatePass = ({ id }) => {
                 <input
                   placeholder="New Password"
                   name="previous"
-                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black h-[6vh] w-[38vh] sm:w-[72vh]  text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
                 <input
                   placeholder="Confirm Password"
                   name="password"
-                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black h-[6vh] w-[38vh] sm:w-[72vh]  text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>

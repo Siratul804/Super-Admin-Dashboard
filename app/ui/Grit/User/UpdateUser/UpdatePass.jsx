@@ -18,7 +18,7 @@ const UpdatePass = ({ email, id }) => {
     return (
       <button
         type="submit"
-        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  "
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm h-[6vh] w-[38vh] sm:w-[72vh] "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update Password"}
@@ -94,7 +94,7 @@ const UpdatePass = ({ email, id }) => {
                   placeholder="New Password"
                   name="previous"
                   type="password"
-                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black btn-sm h-[6vh] w-[38vh] sm:w-[72vh] text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
@@ -102,7 +102,7 @@ const UpdatePass = ({ email, id }) => {
                   placeholder="Confirm Password"
                   name="password"
                   type="password"
-                  className="input border-black focus:outline-black focus:border-black w-full  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black btn-sm h-[6vh] w-[38vh] sm:w-[72vh] text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
