@@ -1,3 +1,4 @@
+import Link from "next/link";
 import UpdateGym from "../UpdateGym/UpdateGym";
 import { CgWebsite } from "react-icons/cg";
 const EditGymTable = async ({ PaginationData }) => {
@@ -43,16 +44,20 @@ const EditGymTable = async ({ PaginationData }) => {
                       <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div className="flex ">
                           <div className="h-10 w-10">
-                            <img
-                              src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
-                              alt="No Img"
-                              className="rounded-full w-[45px] h-[40px] "
-                            />
+                            <Link href={`/dashboard/grit/gymDetails/${val.id}`}>
+                              <img
+                                src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
+                                alt="No Img"
+                                className="rounded-full w-[45px] h-[40px] "
+                              />
+                            </Link>
                           </div>
                           <div className="px-3 py-3   ">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              {val.name}
-                            </p>
+                            <Link href={`/dashboard/grit/gymDetails/${val.id}`}>
+                              <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                {val.name}
+                              </p>
+                            </Link>
                           </div>
                         </div>
                       </td>

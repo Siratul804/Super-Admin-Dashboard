@@ -266,3 +266,15 @@ export async function GetGListGymPaginationData(page, name, status) {
 
   return { paginationGrit, countNumber };
 }
+
+//GymDetails
+
+export async function GetGymDataById(id) {
+  console.log(id);
+  const users = await query({
+    query: "SELECT * FROM list_gym WHERE id = ?",
+    values: [id],
+  });
+
+  return users;
+}
