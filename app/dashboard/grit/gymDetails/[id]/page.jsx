@@ -7,7 +7,7 @@ const GymInfoWithControl = async ({ params }) => {
   const GymSpecificData = await GetGymDataById(id);
   return (
     <>
-      <GymDetails GymSpecificData={GymSpecificData} />
+      <GymDetails GymSpecificData={GymSpecificData} id={id} />
     </>
   );
 };
