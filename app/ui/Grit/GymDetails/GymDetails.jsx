@@ -11,7 +11,13 @@ const GymDetails = ({ GymSpecificData, id }) => {
     switch (selectedNav) {
       case "general":
         // Render General component
-        return <General GymSpecificData={GymSpecificData} />;
+        return (
+          <>
+            <section className="py-[8vh]">
+              <General GymSpecificData={GymSpecificData} />
+            </section>
+          </>
+        );
       // Add more cases for other navbar items as needed
       case "anotherNavItem":
         return <AnotherComponent />;

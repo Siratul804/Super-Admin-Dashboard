@@ -4,8 +4,8 @@ const General = ({ GymSpecificData }) => {
       <div className="general p-5">
         {GymSpecificData.map((val) => (
           <>
-            <section className="flex justify-between ">
-              <div className="general_left flex-initial w-[62vh] border rounded p-5 ">
+            <section className="flex justify-between flex-wrap ">
+              <div className="general_left flex-initial w-[58vh]  rounded p-5 shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
                 <div className="flex justify-center ">
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
@@ -36,8 +36,32 @@ const General = ({ GymSpecificData }) => {
                   </div>
                 </div>
               </div>
-              <div className="general_rightp-5 flex-0.7 flex-initial w-[82vh] border rounded p-5 ">
-                <p>{val.name}</p>
+              <div className="general_rightp-5 flex-0.7 flex-initial w-[78vh] rounded p-5 shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
+                <div className="flex justify-between text-black py-1 ">
+                  <b>Name:</b>
+                  <p>{val.name}</p>
+                </div>
+                <div className="flex justify-between text-black py-1  ">
+                  <b>Address:</b>
+                  <p>{val.address}</p>
+                </div>
+                <div className="flex justify-between text-black py-1  ">
+                  <b>Email:</b>
+
+                  <p>{val.email}</p>
+                </div>
+                <div className="flex justify-between text-black py-1  ">
+                  <b>Phone:</b>
+                  <p>{val.phone}</p>
+                </div>
+                <div className="flex justify-between text-black py-1 ">
+                  <b>Website:</b>
+                  <a href={val.website}>{val.website}</a>
+                </div>
+                <div className="flex justify-between text-black py-1 ">
+                  <b>RegisteredSince:</b>
+                  <p>{val.RegisteredSince}</p>
+                </div>
               </div>
             </section>
           </>
