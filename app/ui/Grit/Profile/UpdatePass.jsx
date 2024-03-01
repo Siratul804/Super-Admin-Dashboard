@@ -13,7 +13,7 @@ const UpdatePass = ({ id }) => {
     return (
       <button
         type="submit"
-        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm h-[6vh] w-[38vh] sm:w-[72vh] "
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm h-[6vh] w-[35vh] "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update Password"}
@@ -72,7 +72,10 @@ const UpdatePass = ({ id }) => {
               </button>
             </form>
             <h3 className="font-bold text-lg">Change Password</h3>
-            <div className="py-4">
+            <div className="py-3">
+              <hr />
+            </div>
+            <div className="pt-2 flex justify-center  ">
               {/* //inside content// */}
 
               <form action={formAction} ref={formRef}>
@@ -80,14 +83,14 @@ const UpdatePass = ({ id }) => {
                 <input
                   placeholder="New Password"
                   name="previous"
-                  className="input border-black focus:outline-black focus:border-black h-[6vh] w-[38vh] sm:w-[72vh]  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black btn-sm h-[6vh] w-[35vh] text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>
                 <input
                   placeholder="Confirm Password"
                   name="password"
-                  className="input border-black focus:outline-black focus:border-black h-[6vh] w-[38vh] sm:w-[72vh]  text-[black] bg-white "
+                  className="input border-black focus:outline-black focus:border-black btn-sm h-[6vh] w-[35vh] text-[black] bg-white "
                   required
                 />
                 <div className="pt-3"></div>

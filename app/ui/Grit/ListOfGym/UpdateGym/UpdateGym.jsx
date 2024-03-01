@@ -73,7 +73,7 @@ const UpdateGym = ({
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md "
+        className="btn btn-sm btn-neutral text-white h-[6vh] w-[72vh] rounded-md  "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update Gym"}
