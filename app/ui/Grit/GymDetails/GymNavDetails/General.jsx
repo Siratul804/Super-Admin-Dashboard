@@ -36,7 +36,8 @@ const General = ({ GymSpecificData }) => {
                   </div>
                 </div>
               </div>
-              <div className="general_rightp-5 flex-0.7 flex-initial w-[78vh] rounded p-5 shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
+              <div className="sm:py-0 py-4 "></div>
+              <div className="general_rightp-5 flex-0.7 flex-initial w-[78vh] rounded p-5  shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
                 <div className="flex justify-between text-black py-1 ">
                   <b>Name:</b>
                   <p>{val.name}</p>

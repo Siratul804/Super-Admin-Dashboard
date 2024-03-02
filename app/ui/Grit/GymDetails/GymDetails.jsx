@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
 import { BsFillPersonVcardFill } from "react-icons/bs";
-import { GiConfrontation } from "react-icons/gi";
+import { FaUserFriends } from "react-icons/fa";
 import General from "./GymNavDetails/General";
+import Users from "./GymNavDetails/Users";
+import Role from "./GymNavDetails/Role";
+import { FaUserLock } from "react-icons/fa";
 
 const GymDetails = ({ GymSpecificData, id }) => {
   const [selectedNav, setSelectedNav] = useState("general"); // State to track the selected navbar item
@@ -19,8 +22,22 @@ const GymDetails = ({ GymSpecificData, id }) => {
           </>
         );
       // Add more cases for other navbar items as needed
-      case "anotherNavItem":
-        return <AnotherComponent />;
+      case "users":
+        return (
+          <>
+            <section className="py-[8vh]">
+              <Users />;
+            </section>
+          </>
+        );
+      case "role":
+        return (
+          <>
+            <section className="py-[8vh]">
+              <Role />;
+            </section>
+          </>
+        );
       default:
         return null;
     }
@@ -54,25 +71,36 @@ const GymDetails = ({ GymSpecificData, id }) => {
           {/* Add more navbar items with similar structure */}
           <div
             className={`text-md flex  cursor-pointer font-bold ${
-              selectedNav === "anotherNavItem" &&
+              selectedNav === "users" &&
               "font-bold border-b-2 border-black text-black  "
             }`}
-            onClick={() => setSelectedNav("anotherNavItem")}
+            onClick={() => setSelectedNav("users")}
           >
             <p className="py-1 ">
-              <GiConfrontation />
+              <FaUserFriends />
             </p>
-            <p className="pl-1">Another</p>
+            <p className="pl-1">Users</p>
+          </div>
+          {/* Add more navbar items with similar structure */}
+          <div className="pl-4"></div>
+          {/* Add more navbar items with similar structure */}
+          <div
+            className={`text-md flex  cursor-pointer font-bold ${
+              selectedNav === "role" &&
+              "font-bold border-b-2 border-black text-black  "
+            }`}
+            onClick={() => setSelectedNav("role")}
+          >
+            <p className="py-1 ">
+              <FaUserLock />
+            </p>
+            <p className="pl-1">Role</p>
           </div>
         </section>
         <section>{renderNavContent()}</section>
       </div>
     </>
   );
-};
-
-const AnotherComponent = () => {
-  return <div className="py-2">This is the Another Component</div>;
 };
 
 export default GymDetails;

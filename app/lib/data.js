@@ -11,9 +11,17 @@ export async function GetAllUserData(request) {
 
   return users;
 }
+export async function GetGymData(request) {
+  const users = await query({
+    query: "SELECT * FROM users WHERE type = 'gym'",
+    values: [],
+  });
+
+  return users;
+}
 export async function GetUserData(request) {
   const users = await query({
-    query: "SELECT * FROM users WHERE type = 'Grit'",
+    query: "SELECT * FROM users WHERE type = 'grit'",
     values: [],
   });
 

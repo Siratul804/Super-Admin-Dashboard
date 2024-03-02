@@ -1,9 +1,9 @@
 import { auth } from "@/app/auth";
 import ImageUploader from "./ImageUploader";
-import { GetUserData } from "@/app/lib/data";
+import { GetGymData } from "@/app/lib/data";
 const ProfileGym = async () => {
   const { user } = await auth();
-  const data = await GetUserData();
+  const data = await GetGymData();
 
   return (
     <>

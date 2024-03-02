@@ -64,30 +64,13 @@ const SideBar = ({ data }) => {
           </>
         ) : (
           <>
-            <Link href="/">
-              <li className="flex p-5 ">
-                <img
-                  src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                  className="w-auto h-6"
-                />
-              </li>
-            </Link>
             <div className="py-[20px]"></div>
-            <Link href="/dashboard/gym/profile">
-              <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
-                <span className="font-bold text-md text-[black] flex">
-                  <span className="pl-1 text-slate-500 text-sm ">
-                    Gym Profile
-                  </span>
-                </span>
-              </li>
-            </Link>
-            <div className="py-1"></div>
+
             <Link href="/dashboard/gym/create">
               <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
                 <span className="font-bold text-md text-[black] flex">
                   <span className="pl-1 text-slate-500 text-sm ">
-                    Create Gym Member
+                    Create Member
                   </span>
                 </span>
               </li>
@@ -97,8 +80,7 @@ const SideBar = ({ data }) => {
               <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
                 <span className="font-bold text-md text-[black] flex">
                   <span className="pl-1 text-slate-500 text-sm ">
-                    {" "}
-                    Edit Gym Member
+                    Edit Member
                   </span>
                 </span>
               </li>
@@ -107,10 +89,7 @@ const SideBar = ({ data }) => {
             <Link href="/dashboard/gym/contact">
               <li className="p-5 hover:bg-[#f5f4f4] cursor-pointer rounded-lg">
                 <span className="font-bold text-md text-[black] flex">
-                  <span className="pl-1 text-slate-500 text-sm ">
-                    {" "}
-                    Contact To Grit Team
-                  </span>
+                  <span className="pl-1 text-slate-500 text-sm "> Contact</span>
                 </span>
               </li>
             </Link>
