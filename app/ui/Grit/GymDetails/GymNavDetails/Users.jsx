@@ -24,7 +24,7 @@ const Users = ({ GymUserData, id, PaginationCount }) => {
         <div className="">
           <div className="p-3 flex justify-between  ">
             <h1 className="text-lg font-bold text-black ">Gym User List</h1>
-            <AddUser />
+            <AddUser id={id} />
           </div>
         </div>
 
@@ -156,6 +156,7 @@ const Users = ({ GymUserData, id, PaginationCount }) => {
         </div>
 
         {/* Table */}
+        <Pagination PaginationCount={PaginationCount} />
       </section>
     </>
   );

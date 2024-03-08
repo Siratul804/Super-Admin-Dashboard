@@ -54,7 +54,7 @@ export const test = async (checkedItems, username, description) => {
 
 //user
 export const addUser = async (prevState, formData) => {
-  const { name, email, password, number, type, status, role } =
+  const { name, email, password, number, type, status, role, gym_id } =
     Object.fromEntries(formData);
 
   // console.log(name, email, password, number, type, status, role);
@@ -70,7 +70,7 @@ export const addUser = async (prevState, formData) => {
 
     const newUser = await query({
       query:
-        "INSERT INTO users (name, email, password, number, img, type, status, role_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO users (name, email, password, number, img, type, status, role_id, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         name,
         email,
@@ -80,6 +80,7 @@ export const addUser = async (prevState, formData) => {
         type,
         status,
         role_id,
+        gym_id,
       ],
     });
 

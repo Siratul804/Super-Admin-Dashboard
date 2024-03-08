@@ -204,6 +204,12 @@ const AddGrit = ({ roleData }) => {
                         <option value="grit">grit</option>
                       </select>
                     </main>
+                    <main className="hidden">
+                      <label className="label">
+                        <span className="text-[black] text-sm ">Gym Id</span>
+                      </label>
+                      <input name="gym_id" value={0} />
+                    </main>
                   </div>
                 </form>
               </section>
