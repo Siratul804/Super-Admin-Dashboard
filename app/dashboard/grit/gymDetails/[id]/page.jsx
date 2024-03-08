@@ -2,20 +2,32 @@ import GymDetails from "@/app/ui/Grit/GymDetails/GymDetails";
 
 import { GetGymDataById } from "@/app/lib/data";
 
-import { GetGymData } from "@/app/lib/data";
+import { GetGymUserPaginationData } from "@/app/lib/data";
 
-const GymInfoWithControl = async ({ params }) => {
+const GymInfoWithControl = async ({ params, searchParams }) => {
   const { id } = params;
   const GymSpecificData = await GetGymDataById(id);
 
-  const GymUserData = await GetGymData();
+  const page = searchParams?.page || 1;
+  const name = searchParams?.name || "";
+  const number = searchParams?.number || "";
+  const status = searchParams?.status || "";
 
-  console.log(GymUserData);
+  const { paginationGym, countNumber } = await GetGymUserPaginationData(
+    page,
+    name,
+    number,
+    status
+  );
+
+  console.log(paginationGym);
+  // console.log(GymUserData);
   return (
     <>
       <GymDetails
         GymSpecificData={GymSpecificData}
-        GymUserData={GymUserData}
+        GymUserData={paginationGym}
+        PaginationCount={countNumber}
         id={id}
       />
     </>

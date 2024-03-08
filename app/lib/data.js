@@ -286,3 +286,53 @@ export async function GetGymDataById(id) {
 
   return users;
 }
+
+//GymUsersPaginationSearch
+
+export async function GetGymUserPaginationData(page, name, number, status) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, name, number, status);
+
+  let queryStr = "SELECT * FROM users WHERE type = 'Gym'";
+
+  const values = [];
+
+  if (name) {
+    queryStr += " AND name LIKE ?";
+    values.push(`%${name}%`);
+  }
+
+  if (number) {
+    queryStr += " AND number LIKE ?";
+    values.push(`%${number}%`);
+  }
+
+  if (status) {
+    queryStr += " AND status = ?";
+    values.push(status);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationGym = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM users WHERE type = 'Gym'",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { paginationGym, countNumber };
+}

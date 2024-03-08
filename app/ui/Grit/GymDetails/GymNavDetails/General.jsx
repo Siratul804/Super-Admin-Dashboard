@@ -1,7 +1,8 @@
 const General = ({ GymSpecificData }) => {
   return (
     <>
-      <div className="general p-5">
+      <div className="py-2"></div>
+      <div className="general bg-white shadow-lg pl-5 pr-5 py-20  rounded-lg   ">
         {GymSpecificData.map((val) => (
           <>
             <section className="flex justify-between flex-wrap ">

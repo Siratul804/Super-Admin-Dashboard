@@ -7,7 +7,7 @@ import Users from "./GymNavDetails/Users";
 import Role from "./GymNavDetails/Role";
 import { FaUserLock } from "react-icons/fa";
 
-const GymDetails = ({ GymSpecificData, GymUserData, id }) => {
+const GymDetails = ({ GymSpecificData, GymUserData, id, PaginationCount }) => {
   const [selectedNav, setSelectedNav] = useState("general"); // State to track the selected navbar item
 
   const renderNavContent = () => {
@@ -16,7 +16,7 @@ const GymDetails = ({ GymSpecificData, GymUserData, id }) => {
         // Render General component
         return (
           <>
-            <section className="py-[8vh]">
+            <section className="py-[0vh]">
               <General GymSpecificData={GymSpecificData} />
             </section>
           </>
@@ -25,8 +25,12 @@ const GymDetails = ({ GymSpecificData, GymUserData, id }) => {
       case "users":
         return (
           <>
-            <section className="py-[8vh]">
-              <Users GymUserData={GymUserData} id={id} />
+            <section className="py-[0vh]">
+              <Users
+                GymUserData={GymUserData}
+                PaginationCount={PaginationCount}
+                id={id}
+              />
             </section>
           </>
         );
@@ -97,8 +101,8 @@ const GymDetails = ({ GymSpecificData, GymUserData, id }) => {
             <p className="pl-1">Role</p>
           </div>
         </section>
-        <section>{renderNavContent()}</section>
       </div>
+      <section>{renderNavContent()}</section>
     </>
   );
 };
