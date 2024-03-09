@@ -194,8 +194,13 @@ const UpdateUser = ({
                       >
                         {roleData.map((val) => (
                           <>
-                            {/* <option value={val.id}>{val.name}</option> */}
-                            <option value={val.id}>{val.name}</option>
+                            {val.type === "grit" ? (
+                              <>
+                                <option value={val.id}>{val.name}</option>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </>
                         ))}
                       </select>

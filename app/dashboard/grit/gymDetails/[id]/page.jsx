@@ -4,6 +4,7 @@ import { GetGymDataById } from "@/app/lib/data";
 
 import { GetGymUserPaginationData } from "@/app/lib/data";
 
+import { GetRoleData } from "@/app/lib/data";
 const GymInfoWithControl = async ({ params, searchParams }) => {
   const { id } = params;
   const GymSpecificData = await GetGymDataById(id);
@@ -20,6 +21,8 @@ const GymInfoWithControl = async ({ params, searchParams }) => {
     status
   );
 
+  const roleData = await GetRoleData();
+
   console.log(paginationGym);
   // console.log(GymUserData);
   return (
@@ -28,6 +31,7 @@ const GymInfoWithControl = async ({ params, searchParams }) => {
         GymSpecificData={GymSpecificData}
         GymUserData={paginationGym}
         PaginationCount={countNumber}
+        roleData={roleData}
         id={id}
       />
     </>

@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import toast from "react-hot-toast";
 import { useEffect, useRef } from "react";
 
-const AddUser = ({ id }) => {
+const AddUser = ({ id, roleData }) => {
   function Submit() {
     const { pending } = useFormStatus();
     return (
@@ -86,7 +86,7 @@ const AddUser = ({ id }) => {
                       </label>
                       <input
                         type="text"
-                        placeholder="name"
+                        placeholder="Enter Your Name"
                         name="name"
                         required
                         autocomplete="off"
@@ -167,14 +167,17 @@ const AddUser = ({ id }) => {
                         <option disabled selected>
                           Select Role
                         </option>
-                        {/* {roleData.map((val) => (
+                        {roleData.map((val) => (
                           <>
-                            <option value={val.id}>{val.name}</option>
+                            {val.type === "gym" ? (
+                              <>
+                                <option value={val.id}>{val.name}</option>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </>
-                        ))} */}
-
-                        {/* //role would be differnt // */}
-                        <option>Create</option>
+                        ))}
                       </select>
                     </main>
                   </div>

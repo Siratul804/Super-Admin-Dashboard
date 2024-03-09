@@ -88,7 +88,7 @@ const AddGrit = ({ roleData }) => {
                       </label>
                       <input
                         type="text"
-                        placeholder="name"
+                        placeholder="Enter Your Name"
                         name="name"
                         required
                         autocomplete="off"
@@ -171,7 +171,13 @@ const AddGrit = ({ roleData }) => {
                         </option>
                         {roleData.map((val) => (
                           <>
-                            <option value={val.id}>{val.name}</option>
+                            {val.type === "grit" ? (
+                              <>
+                                <option value={val.id}>{val.name}</option>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </>
                         ))}
                       </select>

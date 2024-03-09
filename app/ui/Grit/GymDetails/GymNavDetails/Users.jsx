@@ -4,7 +4,7 @@ import UpdateUser from "./UsersComponents/UpdateUser";
 import UpdatePass from "./UsersComponents/UpdatePass";
 import Pagination from "./UsersComponents/Pagination";
 
-const Users = ({ GymUserData, id, PaginationCount }) => {
+const Users = ({ GymUserData, id, PaginationCount, roleData }) => {
   // Extract gym_ids from GymUserData
   const gymIds = GymUserData.map((val) => val.gym_id);
 
@@ -24,7 +24,7 @@ const Users = ({ GymUserData, id, PaginationCount }) => {
         <div className="">
           <div className="p-3 flex justify-between  ">
             <h1 className="text-lg font-bold text-black ">Gym User List</h1>
-            <AddUser id={id} />
+            <AddUser id={id} roleData={roleData} />
           </div>
         </div>
 
@@ -100,7 +100,17 @@ const Users = ({ GymUserData, id, PaginationCount }) => {
                               </td>
                               <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
                                 <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                                  {val.role}
+                                  {roleData.map((role) => (
+                                    <>
+                                      {val.role_id === role.id ? (
+                                        <>
+                                          <span>{role.name}</span>
+                                        </>
+                                      ) : (
+                                        <></>
+                                      )}
+                                    </>
+                                  ))}
                                 </p>
                               </td>
 
@@ -134,6 +144,7 @@ const Users = ({ GymUserData, id, PaginationCount }) => {
                                       type={val.type}
                                       status={val.status}
                                       role_id={val.role_id}
+                                      roleData={roleData}
                                     />
                                   </div>
                                   <div className="">
