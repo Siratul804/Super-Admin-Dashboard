@@ -13,6 +13,9 @@ const GymDetails = ({
   id,
   PaginationCount,
   roleData,
+  // role & permission
+  RolePaginationData,
+  RolePaginationCount,
 }) => {
   const [selectedNav, setSelectedNav] = useState("general"); // State to track the selected navbar item
 
@@ -44,8 +47,13 @@ const GymDetails = ({
       case "role":
         return (
           <>
-            <section className="py-[8vh]">
-              <Role />;
+            <section className="py-[0vh]">
+              <Role
+                RolePaginationData={RolePaginationData}
+                RolePaginationCount={RolePaginationCount}
+                id={id}
+              />
+              ;
             </section>
           </>
         );

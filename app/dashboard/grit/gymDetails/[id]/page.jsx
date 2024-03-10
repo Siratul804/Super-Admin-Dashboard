@@ -4,7 +4,10 @@ import { GetGymDataById } from "@/app/lib/data";
 
 import { GetGymUserPaginationData } from "@/app/lib/data";
 
-import { GetRoleData } from "@/app/lib/data";
+import { GetRoleDataOfGym } from "@/app/lib/data";
+
+import { GetGritRolePaginationDataOfGym } from "@/app/lib/data";
+
 const GymInfoWithControl = async ({ params, searchParams }) => {
   const { id } = params;
   const GymSpecificData = await GetGymDataById(id);
@@ -13,7 +16,6 @@ const GymInfoWithControl = async ({ params, searchParams }) => {
   const name = searchParams?.name || "";
   const number = searchParams?.number || "";
   const status = searchParams?.status || "";
-
   const { paginationGym, countNumber } = await GetGymUserPaginationData(
     page,
     name,
@@ -21,7 +23,15 @@ const GymInfoWithControl = async ({ params, searchParams }) => {
     status
   );
 
-  const roleData = await GetRoleData();
+  //role & permission
+  const rolePage = searchParams?.rolePage || 1;
+  const roleName = searchParams?.roleName || "";
+  const roleStatus = searchParams?.roleStatus || "";
+
+  const { paginationGymRole, countNumberGymRole } =
+    await GetGritRolePaginationDataOfGym(rolePage, roleName, roleStatus);
+
+  const roleData = await GetRoleDataOfGym();
 
   console.log(paginationGym);
   // console.log(GymUserData);
@@ -33,6 +43,9 @@ const GymInfoWithControl = async ({ params, searchParams }) => {
         PaginationCount={countNumber}
         roleData={roleData}
         id={id}
+        //role & permission
+        RolePaginationData={paginationGymRole}
+        RolePaginationCount={countNumberGymRole}
       />
     </>
   );

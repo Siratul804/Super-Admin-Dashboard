@@ -107,11 +107,11 @@ export async function GetGritPaginationData(page, name, number, status) {
   return { paginationGrit, countNumber };
 }
 
-// permissions
+// permissions grit
 
 export async function GetPermissionData(request) {
   const permission = await query({
-    query: "SELECT * FROM permission",
+    query: "SELECT * FROM permission WHERE type = 'grit'",
     values: [],
   });
 
@@ -119,7 +119,7 @@ export async function GetPermissionData(request) {
 }
 export async function GetRoleData(request) {
   const role = await query({
-    query: "SELECT * FROM role",
+    query: "SELECT * FROM role WHERE type = 'grit'",
     values: [],
   });
 
@@ -135,7 +135,7 @@ export async function GetGritRolePaginationData(page, name, status) {
 
   console.log(page, name, status);
 
-  let queryStr = "SELECT * FROM role";
+  let queryStr = "SELECT * FROM role WHERE type = 'grit'";
 
   const values = [];
 
@@ -169,7 +169,7 @@ export async function GetGritRolePaginationData(page, name, status) {
   console.log(paginationGrit);
 
   const paginationCount = await query({
-    query: "SELECT COUNT(*) FROM role",
+    query: "SELECT COUNT(*) FROM role WHERE type = 'grit'",
     values: [],
   });
 
@@ -335,4 +335,98 @@ export async function GetGymUserPaginationData(page, name, number, status) {
   const countNumber = paginationCount[0]["COUNT(*)"];
 
   return { paginationGym, countNumber };
+}
+
+// permissions gym
+
+export async function GetPermissionDataOfGym(request) {
+  const permission = await query({
+    query: "SELECT * FROM permission WHERE type = 'gym'",
+    values: [],
+  });
+
+  return permission;
+}
+export async function GetRoleDataOfGym(request) {
+  const role = await query({
+    query: "SELECT * FROM role WHERE type = 'gym'",
+    values: [],
+  });
+
+  return role;
+}
+
+export async function GetGritRolePaginationDataOfGym(
+  rolePage,
+  roleName,
+  roleStatus
+) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (rolePage - 1) * ITEM_PER_PAGE;
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(rolePage, roleName, roleStatus);
+
+  let queryStr = "SELECT * FROM role WHERE type = 'gym'";
+
+  const values = [];
+
+  if (roleName || roleStatus) {
+    queryStr += " AND";
+  }
+
+  if (roleName) {
+    queryStr += " name LIKE ?";
+    values.push(`%${roleName}%`);
+  }
+
+  if (roleStatus) {
+    if (roleName) {
+      queryStr += " AND";
+    }
+    queryStr += " status = ?";
+    values.push(roleStatus);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationGymRole = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  console.log(paginationGymRole);
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM role WHERE type = 'gym'",
+    values: [],
+  });
+
+  const countNumberGymRole = paginationCount[0]["COUNT(*)"];
+
+  return { paginationGymRole, countNumberGymRole };
+}
+
+export async function GetRoleByIdToUpdateOfGym(id) {
+  console.log(id);
+  const members = await query({
+    query: "SELECT * FROM role WHERE id = ?",
+    values: [id],
+  });
+
+  return members[0];
+}
+
+export async function GetRolePermissionByIdToUpdateOfGym(id) {
+  console.log(id);
+  const users = await query({
+    query: "SELECT * FROM role_permission WHERE role_id = ?",
+    values: [id],
+  });
+
+  return users;
 }

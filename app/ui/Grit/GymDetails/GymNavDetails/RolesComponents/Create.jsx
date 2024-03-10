@@ -4,13 +4,11 @@ import { useState, useRef } from "react";
 import toast from "react-hot-toast";
 import Link from "next/link";
 
-const CreateRoleGrit = ({ permissionData }) => {
+const Create = ({ permissionData, gym_id }) => {
   const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
   const [loading, setLoading] = useState(false); // Initialize loading state
 
-  const [toggleCheckboxesManageRole, setToggleCheckboxesManageRole] =
-    useState(false); // State for toggle
-  const [toggleCheckboxesManageGuest, setToggleCheckboxesManageGuest] =
+  const [toggleCheckboxesManageMember, setToggleCheckboxesManageMember] =
     useState(false); // State for toggle
 
   const formRef = useRef();
@@ -33,8 +31,7 @@ const CreateRoleGrit = ({ permissionData }) => {
   //toggles_chnage_toggle
   const handleToggleChange = () => {
     setToggleCheckboxes(!toggleCheckboxes);
-    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
-    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
+    setToggleCheckboxesManageMember(!toggleCheckboxesManageMember);
 
     setCheckboxes(
       checkboxes.map((checkbox) => ({
@@ -43,30 +40,15 @@ const CreateRoleGrit = ({ permissionData }) => {
       }))
     );
   };
-  const handleToggleChangeManageRoles = () => {
-    setToggleCheckboxesManageRole(!toggleCheckboxesManageRole);
+  const handleToggleChangeManageMember = () => {
+    setToggleCheckboxesManageMember(!toggleCheckboxesManageMember);
 
     setCheckboxes(
       checkboxes.map((checkbox) => {
-        if (checkbox.module === "Manage User") {
+        if (checkbox.module === "Manage Member") {
           return {
             ...checkbox,
-            isChecked: !toggleCheckboxesManageRole,
-          };
-        }
-        return checkbox;
-      })
-    );
-  };
-  const handleToggleChangeManageGuest = () => {
-    setToggleCheckboxesManageGuest(!toggleCheckboxesManageGuest);
-
-    setCheckboxes(
-      checkboxes.map((checkbox) => {
-        if (checkbox.module === "Manage Role") {
-          return {
-            ...checkbox,
-            isChecked: !toggleCheckboxesManageGuest,
+            isChecked: !toggleCheckboxesManageMember,
           };
         }
         return checkbox;
@@ -149,15 +131,16 @@ const CreateRoleGrit = ({ permissionData }) => {
                 name="type"
                 className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
               >
-                <option value="grit">grit</option>
+                <option value="gym">gym</option>
               </select>
             </main>
             <main className="hidden">
               <label className="label">
                 <span className="text-[black] text-sm ">Gym Id</span>
               </label>
-              <input name="gym_id" value={0} />
+              <input name="gym_id" value={gym_id} />
             </main>
+
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -233,8 +216,8 @@ const CreateRoleGrit = ({ permissionData }) => {
                 <label className="flex items-center py-2 " htmlFor="checkbox">
                   <input
                     type="checkbox"
-                    checked={toggleCheckboxesManageRole}
-                    onChange={handleToggleChangeManageRoles}
+                    checked={toggleCheckboxesManageMember}
+                    onChange={handleToggleChangeManageMember}
                     className="toggle toggle-md toggle-primary "
                   />
                   <p className=" px-2 text-black font-bold "> Manage User</p>
@@ -242,7 +225,7 @@ const CreateRoleGrit = ({ permissionData }) => {
 
                 {checkboxes.map((checkbox) => (
                   <div key={checkbox.id}>
-                    {checkbox.module === "Manage User" ? (
+                    {checkbox.module === "Manage Member" ? (
                       <div className="flex py-1 ">
                         <input
                           className="checkbox bg-white "
@@ -262,48 +245,12 @@ const CreateRoleGrit = ({ permissionData }) => {
                   </div>
                 ))}
               </div>
-              <div className="py-1"></div>
-              <div className="manage_guest">
-                <label className="flex items-center py-2 " htmlFor="checkbox">
-                  <input
-                    type="checkbox"
-                    checked={toggleCheckboxesManageGuest}
-                    onChange={handleToggleChangeManageGuest}
-                    className="toggle toggle-md toggle-primary "
-                  />
-                  <p className=" px-2 text-black font-bold "> Manage Role</p>
-                </label>
-                <div className="py-1"></div>
-
-                {checkboxes.map((checkbox) => (
-                  <div key={checkbox.id}>
-                    {checkbox.module === "Manage Role" ? (
-                      <div className="flex py-1 ">
-                        <input
-                          className="checkbox bg-white "
-                          type="checkbox"
-                          id={`checkbox-${checkbox.id}`}
-                          checked={checkbox.isChecked}
-                          onChange={() => handleCheckboxChange(checkbox.id)}
-                        />
-                        <label
-                          className="px-2 text-md text-black "
-                          htmlFor={`checkbox-${checkbox.id}`}
-                        >
-                          {checkbox.name}
-                        </label>
-                      </div>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
-
               <div className="py-1"></div>
             </div>
             <div className="py-4 flex ">
               <Submit />
               <Link
-                href="/dashboard/grit/roleList"
+                href="/dashboard/grit/gymDetails"
                 className="bg-black rounded-lg text-white text-sm ml-3 "
               >
                 <button className="bg-black pl-3 pr-3 pt-2 pb-2 w-[100px] sm:w-[250px] text-sm rounded-md font-bold text-white">
@@ -318,4 +265,4 @@ const CreateRoleGrit = ({ permissionData }) => {
   );
 };
 
-export default CreateRoleGrit;
+export default Create;

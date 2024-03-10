@@ -408,13 +408,21 @@ export const resettPass = async (prevState, formData) => {
 
 // Permission
 
-export const addRole = async (checkedItems, username, description, status) => {
-  console.log(username, description, status);
+export const addRole = async (
+  checkedItems,
+  username,
+  description,
+  status,
+  type,
+  gym_id
+) => {
+  console.log(username, description, status, type, gym_id);
   console.log(checkedItems);
   try {
     const newRole = await query({
-      query: "INSERT INTO role (name, description, status) VALUES (?, ?, ?)",
-      values: [username, description, status],
+      query:
+        "INSERT INTO role (name, description, status, type, gym_id) VALUES (?, ?, ?, ?, ?)",
+      values: [username, description, status, type, gym_id],
     });
     console.log(newRole);
 
@@ -450,8 +458,8 @@ export const addRole = async (checkedItems, username, description, status) => {
     };
   }
 
-  revalidatePath("/dashboard/grit/roleList");
-  redirect("/dashboard/grit/roleList");
+  revalidatePath("/dashboard/grit");
+  redirect("/dashboard/grit");
 };
 
 export const updateRole = async (
