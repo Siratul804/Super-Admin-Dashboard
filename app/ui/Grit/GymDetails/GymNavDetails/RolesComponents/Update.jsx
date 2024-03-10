@@ -1,21 +1,22 @@
 "use client";
-import { addRole } from "@/app/lib/actions";
-import { useState, useRef } from "react";
-import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+
+import { updateRole } from "@/app/lib/actions";
+
 import Link from "next/link";
 
-const Create = ({ permissionData, gym_id }) => {
-  const [toggleCheckboxes, setToggleCheckboxes] = useState(false); // State for toggle
+import toast from "react-hot-toast";
+const Update = ({ roleData, permissionData, permissionActiveData }) => {
+  const [checkboxes, setCheckboxes] = useState(permissionData);
+  const [toggleCheckboxes, setToggleCheckboxes] = useState(false);
+
   const [loading, setLoading] = useState(false); // Initialize loading state
 
   const [toggleCheckboxesManageMember, setToggleCheckboxesManageMember] =
     useState(false); // State for toggle
 
-  const formRef = useRef();
-
-  // console.log(permissionData);
-
-  const [checkboxes, setCheckboxes] = useState(permissionData);
+  // Fetch ids from your separate table (assuming it's an array of ids)
+  const storedIds = permissionActiveData.map((item) => item.permission_id);
 
   //checkbox_chnage_input
   const handleCheckboxChange = (id) => {
@@ -56,6 +57,16 @@ const Create = ({ permissionData, gym_id }) => {
     );
   };
 
+  useEffect(() => {
+    setCheckboxes(
+      checkboxes.map((checkbox) => ({
+        ...checkbox,
+        isChecked: storedIds.includes(checkbox.id),
+      }))
+    );
+    console.log(roleData, storedIds);
+  }, [roleData]);
+
   const handleSubmit = async (event) => {
     const checkedItems = checkboxes.filter((checkbox) => checkbox.isChecked);
 
@@ -68,30 +79,27 @@ const Create = ({ permissionData, gym_id }) => {
     const username = formData.get("username");
     const description = formData.get("description");
     const status = formData.get("status");
-    const type = formData.get("type");
-    const gym_id = formData.get("gym_id");
+    const id = formData.get("id");
 
     setLoading(true); // Set loading to true while submitting
 
     try {
-      const response = await addRole(
+      const response = await updateRole(
         checkedItems,
         username,
         description,
         status,
-        type,
-        gym_id
+        id
       );
-      if (response?.message === "role Added") {
-        formRef.current.reset();
-        toast.success("Role Added Successfully", {
+      if (response?.message === "Role updated") {
+        toast.success("Role Updated Successfully", {
           style: {
             background: "#008000",
             color: "#fff",
           },
         });
-      } else if (response?.message === "role error") {
-        toast.error("Role Added Failed", {
+      } else if (response?.message === "Role error") {
+        toast.error("Role Updated Failed", {
           style: {
             background: "#FF0000",
             color: "#fff",
@@ -105,48 +113,29 @@ const Create = ({ permissionData, gym_id }) => {
     }
   };
 
-  //form state
   function Submit() {
     return (
       <button
         type="submit"
         disabled={loading}
-        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[200px] sm:w-[250px] text-sm rounded-md font-bold text-white "
+        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[250px] sm:w-[250px] text-sm rounded-md font-bold text-white "
       >
-        {loading ? "Creating..." : "Create Role & Permission"}
+        {loading ? "Updaing..." : "Update Role & Permissions"}
       </button>
     );
   }
-
   return (
     <>
       <section className="bg-white w-full shadow-lg rounded-lg">
         <div className="p-3">
-          <form onSubmit={handleSubmit} ref={formRef}>
-            <main className="hidden">
-              <label className="label">
-                <span className="text-[black] text-sm ">Type</span>
-              </label>
-              <select
-                name="type"
-                className="input  input-sm  bg-white text-black border-black focus:outline-black focus:border-black w-[35vh]"
-              >
-                <option value="gym">gym</option>
-              </select>
-            </main>
-            <main className="hidden">
-              <label className="label">
-                <span className="text-[black] text-sm ">Gym Id</span>
-              </label>
-              <input name="gym_id" value={gym_id} />
-            </main>
-
+          <form onSubmit={handleSubmit}>
+            <input type="hidden" name="id" value={roleData.id} />
             <div class="mb-4">
               <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="username"
               >
-                Role Name
+                Update Role Name
               </label>
               <input
                 // className="shadow appearance-none border rounded w-full bg-white py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -155,6 +144,7 @@ const Create = ({ permissionData, gym_id }) => {
                 name="username"
                 type="text"
                 placeholder="Role Name"
+                defaultValue={roleData.name}
                 required
               />
             </div>
@@ -163,16 +153,14 @@ const Create = ({ permissionData, gym_id }) => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="username"
               >
-                Role Status
+                Update Role Status
               </label>
               <main>
                 <select
                   name="status"
+                  defaultValue={roleData.status}
                   className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-full py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                 >
-                  <option disabled selected>
-                    Select Status
-                  </option>
                   <option>Active</option>
                   <option>Disable</option>
                 </select>
@@ -183,11 +171,12 @@ const Create = ({ permissionData, gym_id }) => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 htmlFor="description"
               >
-                Role Description
+                Update Role Description
               </label>
               <textarea
                 placeholder="Role Description"
                 id="description"
+                defaultValue={roleData.description}
                 name="description"
                 type="text"
                 required
@@ -197,11 +186,10 @@ const Create = ({ permissionData, gym_id }) => {
             </div>
             <div className="">
               <h1 className="text-xl  text-black ">
-                What permission do you like to include in this role?{" "}
+                What permission do you like to Edit in this role?
               </h1>
             </div>
             <div className="py-1"></div>
-
             <label className="flex items-center py-2 " htmlFor="checkbox">
               <input
                 type="checkbox"
@@ -210,7 +198,15 @@ const Create = ({ permissionData, gym_id }) => {
                 className="toggle toggle-md toggle-success "
               />
               <p className=" px-2 text-black "> Select All Permissions</p>
+              {/* <span className="text-red-500 font-bold ">
+                {permissionActiveData.permission_id === permissionData.id ? (
+                  <>
+                    <p>It's On</p>
+                  </>
+                ) : null}
+              </span> */}
             </label>
+
             <div className="flex justify-between">
               <div className="manage_role">
                 <label className="flex items-center py-2 " htmlFor="checkbox">
@@ -247,6 +243,7 @@ const Create = ({ permissionData, gym_id }) => {
               </div>
               <div className="py-1"></div>
             </div>
+
             <div className="py-4 flex ">
               <Submit />
               <Link
@@ -265,4 +262,4 @@ const Create = ({ permissionData, gym_id }) => {
   );
 };
 
-export default Create;
+export default Update;

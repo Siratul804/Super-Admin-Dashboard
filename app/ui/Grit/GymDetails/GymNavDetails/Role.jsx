@@ -117,7 +117,7 @@ const Role = ({ RolePaginationData, id, RolePaginationCount }) => {
 
                             <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 ">
                               <Link
-                                href={`/dashboard/grit/editRole/${val.id}`}
+                                href={`/dashboard/grit/editGymRole/${val.id}`}
                                 className="flex w-8 p-2 hover:bg-slate-100 rounded-full"
                               >
                                 <MdModeEdit size={16} color="black" />

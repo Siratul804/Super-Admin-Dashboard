@@ -145,6 +145,7 @@ const Users = ({ GymUserData, id, PaginationCount, roleData }) => {
                                       status={val.status}
                                       role_id={val.role_id}
                                       roleData={roleData}
+                                      gym_id={val.gym_id}
                                     />
                                   </div>
                                   <div className="">

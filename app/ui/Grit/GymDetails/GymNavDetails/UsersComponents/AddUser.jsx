@@ -6,6 +6,10 @@ import toast from "react-hot-toast";
 import { useEffect, useRef } from "react";
 
 const AddUser = ({ id, roleData }) => {
+  const id_num = parseInt(id);
+
+  console.log(id_num);
+
   function Submit() {
     const { pending } = useFormStatus();
     return (
@@ -169,7 +173,7 @@ const AddUser = ({ id, roleData }) => {
                         </option>
                         {roleData.map((val) => (
                           <>
-                            {val.type === "gym" ? (
+                            {val.gym_id === id_num ? (
                               <>
                                 <option value={val.id}>{val.name}</option>
                               </>

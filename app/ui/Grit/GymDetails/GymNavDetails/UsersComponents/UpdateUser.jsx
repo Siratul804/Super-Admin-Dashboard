@@ -14,11 +14,16 @@ const UpdateUser = ({
   status,
   role_id,
   roleData,
+  gym_id,
 }) => {
   const [formValues, setFormValues] = useState({});
 
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedRole, setSelectedRole] = useState("");
+
+  const id_num = parseInt(gym_id);
+
+  console.log(id_num);
 
   useEffect(() => {
     // Update the form values whenever props change
@@ -194,7 +199,7 @@ const UpdateUser = ({
                       >
                         {roleData.map((val) => (
                           <>
-                            {val.type === "gym" ? (
+                            {val.gym_id === id_num ? (
                               <>
                                 <option value={val.id}>{val.name}</option>
                               </>
