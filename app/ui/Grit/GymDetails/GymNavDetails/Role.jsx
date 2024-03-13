@@ -37,7 +37,7 @@ const Role = ({ RolePaginationData, id, RolePaginationCount }) => {
         </div>
 
         {/* Table */}
-        <div className="overflow-x-auto w-full h-auto ">
+        <div className="overflow-x-auto w-full h-[44vh] ">
           <table className="w-full border-collapse border border-slate-100">
             <thead>
               <tr>

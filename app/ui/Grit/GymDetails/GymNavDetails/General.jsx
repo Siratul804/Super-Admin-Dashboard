@@ -2,11 +2,11 @@ const General = ({ GymSpecificData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg pl-5 pr-5 py-20  rounded-lg   ">
+      <div className="general bg-white shadow-lg pl-5 pr-5 py-16  rounded-lg   ">
         {GymSpecificData.map((val) => (
           <>
             <section className="flex justify-between flex-wrap ">
-              <div className="general_left flex-initial w-[58vh]  rounded p-5 shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
+              <div className="general_left  w-[58vh]  ">
                 <div className="flex justify-center ">
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
@@ -16,10 +16,10 @@ const General = ({ GymSpecificData }) => {
                 </div>
 
                 <div className="flex justify-center ">
-                  <div className="pt-6 w-16  ">
+                  <div className="pt-6  w-16  ">
                     {val.status === "Active" ? (
                       <>
-                        <div className=" p-0.2 bg-[#22c55e29] text-center rounded-md">
+                        <div className=" p-1 bg-[#22c55e29] text-center rounded-md">
                           <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
                             Active
                           </p>
@@ -27,7 +27,7 @@ const General = ({ GymSpecificData }) => {
                       </>
                     ) : (
                       <>
-                        <div className=" p-0.2 bg-[#ff563029] text-center rounded-md">
+                        <div className=" p-1 bg-[#ff563029] text-center rounded-md">
                           <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
                             Disable
                           </p>

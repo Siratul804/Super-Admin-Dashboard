@@ -31,11 +31,15 @@ const EditUser = async ({
             </div>
           </div>
           {permission.includes(6) && (
-            <EditTable
-              permission={permission}
-              PaginationData={PaginationData}
-              roleData={roleData}
-            />
+            <>
+              <div className="overflow-x-auto h-[44vh]">
+                <EditTable
+                  permission={permission}
+                  PaginationData={PaginationData}
+                  roleData={roleData}
+                />
+              </div>
+            </>
           )}
 
           <Pagination PaginationCount={PaginationCount} />
