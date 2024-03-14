@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
+import { CgGym } from "react-icons/cg";
 
 const CollapsedSidebar = ({ data }) => {
   const pathname = usePathname();
@@ -53,7 +54,7 @@ const CollapsedSidebar = ({ data }) => {
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <FaListUl size={20} />
+                    <CgGym size={20} />
                   </span>
                 </span>
               </Link>

@@ -72,9 +72,9 @@ const GymDetails = ({
           </h1>
         ))}
         <div className="py-5"></div>
-        <section className="gym_details_nav flex flex-wrap">
+        <section className="gym_details_nav flex flex-wrap ">
           <div
-            className={` text-md flex cursor-pointer font-bold ${
+            className={`text-md flex cursor-pointer font-bold ${
               selectedNav === "general" &&
               "font-bold border-b-2 border-black text-black"
             }`}

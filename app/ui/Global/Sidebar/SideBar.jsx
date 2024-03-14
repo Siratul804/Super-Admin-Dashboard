@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
+import { CgGym } from "react-icons/cg";
 
 const SideBar = ({ data }) => {
   const pathname = usePathname();
@@ -24,7 +25,7 @@ const SideBar = ({ data }) => {
                 >
                   <span className="pl-1  text-sm flex ">
                     <FaUserEdit size={20} />
-                    <p className="px-3">User List</p>
+                    <p className="px-3">User</p>
                   </span>
                 </span>
               </Link>
@@ -40,7 +41,7 @@ const SideBar = ({ data }) => {
                 >
                   <span className="pl-1  text-sm flex ">
                     <FaUserCog size={20} />
-                    <p className="px-3">Role List</p>
+                    <p className="px-3">Role</p>
                   </span>
                 </span>
               </Link>
@@ -55,8 +56,8 @@ const SideBar = ({ data }) => {
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <FaListUl size={20} />
-                    <p className="px-3">List Of Gym </p>
+                    <CgGym size={20} />
+                    <p className="px-3">Gym</p>
                   </span>
                 </span>
               </Link>
