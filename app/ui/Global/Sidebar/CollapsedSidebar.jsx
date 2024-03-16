@@ -1,10 +1,15 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+//grit
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaListUl } from "react-icons/fa";
 import { CgGym } from "react-icons/cg";
+//gym
+import { FaPeopleGroup } from "react-icons/fa6";
+import { LuPackageCheck } from "react-icons/lu";
+import { TbSettings } from "react-icons/tb";
 
 const CollapsedSidebar = ({ data }) => {
   const pathname = usePathname();
@@ -62,54 +67,48 @@ const CollapsedSidebar = ({ data }) => {
           </>
         ) : (
           <>
-            <div className="py-[20px]"></div>
-            <div className="py-1"></div>
+            <div className="py-[10px]"></div>
             <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/gym/create">
+              <Link href="/dashboard/gym/member">
                 <span
                   className={
-                    pathname === "/dashboard/gym/create"
+                    pathname === "/dashboard/gym/member"
                       ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <FaUserEdit size={20} />
+                    <FaPeopleGroup size={20} />
                   </span>
                 </span>
               </Link>
             </li>
-
-            <div className="py-1"></div>
             <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/gym/edit">
+              <Link href="/dashboard/gym/package">
                 <span
                   className={
-                    pathname === "/dashboard/gym/edit"
+                    pathname === "/dashboard/gym/package"
                       ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <FaUserCog size={20} />
+                    <LuPackageCheck size={20} />
                   </span>
                 </span>
               </Link>
             </li>
-
-            <div className="py-1"></div>
-
             <li className="pl-3 pr-3 pt-3">
-              <Link href="/dashboard/gym/contact">
+              <Link href="/dashboard/gym/setting">
                 <span
                   className={
-                    pathname === "/dashboard/gym/contact"
+                    pathname === "/dashboard/gym/setting"
                       ? " font-bold p-3 bg-[#00a76f14] text-md rounded-lg text-[#00a76f] flex"
                       : " font-bold p-3 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex"
                   }
                 >
                   <span className="pl-1  text-sm flex ">
-                    <FaListUl size={20} />
+                    <TbSettings size={20} />
                   </span>
                 </span>
               </Link>
