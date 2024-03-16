@@ -33,7 +33,7 @@ const EditRole = ({ PaginationCount, PaginationData, permissionData }) => {
           </div>
           {permission.includes(9) && (
             <>
-              <div className="overflow-x-auto h-[44vh]">
+              <div className="overflow-x-auto h-[52vh]">
                 <EditTable
                   permission={permission}
                   PaginationData={PaginationData}

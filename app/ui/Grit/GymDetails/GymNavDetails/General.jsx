@@ -64,7 +64,15 @@ const General = ({ GymSpecificData }) => {
                     <div className="text-black py-2 text-left ">
                       <b>Website:</b>
                       <div>
-                        <a href={val.website}>{val.website}</a>
+                        {val.website === "" ? (
+                          <>
+                            <p>NaN</p>
+                          </>
+                        ) : (
+                          <>
+                            <a href={val.website}>{val.website}</a>
+                          </>
+                        )}
                       </div>
                     </div>
                     <div className="text-black py-2 text-left ">

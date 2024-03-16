@@ -16,7 +16,7 @@ const EditGym = ({ PaginationData, PaginationCount }) => {
           </div>
         </div>
 
-        <div className="overflow-x-auto h-[44vh]">
+        <div className="overflow-x-auto h-[52vh]">
           <EditGymTable PaginationData={PaginationData} />
         </div>
 
