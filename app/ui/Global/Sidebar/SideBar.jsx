@@ -125,7 +125,7 @@ const SideBar = ({ data }) => {
                   <span className="pl-1  text-sm flex ">
                     <TbSettings size={20} />
                     <p className="px-3">Setting</p>
-                    <div className="pt-1 ml-[14vh] ">
+                    <div className="pt-1 ml-[12vh] ">
                       <svg
                         className={`ml-auto w-4 h-4 transition-transform transform ${
                           open ? "rotate-180" : ""

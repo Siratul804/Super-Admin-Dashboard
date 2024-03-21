@@ -56,6 +56,7 @@ export const { signIn, signOut, auth } = NextAuth({
         token.type = user.type;
         token.status = user.status;
         token.role_id = user.role_id;
+        token.gym_id = user.gym_id;
       }
       return token;
     },
@@ -69,6 +70,7 @@ export const { signIn, signOut, auth } = NextAuth({
         session.user.type = token.type;
         session.user.status = token.status;
         session.user.role_id = token.role_id;
+        session.user.gym_id = token.gym_id;
       }
       return session;
     },
