@@ -2,11 +2,27 @@
 
 import { useState } from "react";
 import { addImg } from "@/app/lib/actions";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
+import { LuImagePlus } from "react-icons/lu";
+import { useEffect, useRef } from "react";
+import toast from "react-hot-toast";
 
 const ImageUploader = ({ id }) => {
   const [previewImage, setPreviewImage] = useState(null);
   const [state, formAction] = useFormState(addImg, undefined);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+    return (
+      <button
+        type="submit"
+        className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  "
+        disabled={pending}
+      >
+        {pending ? "Uploading..." : "Upload"}
+      </button>
+    );
+  }
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
@@ -22,17 +38,49 @@ const ImageUploader = ({ id }) => {
     }
   };
 
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (state?.message === "Uploaded") {
+      document.getElementById("my_modal_10").close();
+      formRef.current.reset();
+      toast.success("Image Upload Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Failed") {
+      toast.error("Failed to Upload !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "File Did't Match") {
+      toast.error("File size is large! (image has to be less then 1MB)", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
+    }
+  }, [state]);
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center mt-8 mb-4 ">
+      <div className="flex">
         {/* You can open the modal using document.getElementById('ID').showModal() method */}
         <button
-          className="btn  text-white bg-black hover:bg-black  btn-sm w-[200px] border-none shadow-md "
-          onClick={() => document.getElementById("my_modal_3").showModal()}
+          className="w-full"
+          onClick={() => document.getElementById("my_modal_10").showModal()}
         >
-          Change Image
+          <div className="hover:bg-slate-100 w-full p-1 rounded-md flex ">
+            <LuImagePlus size={22} />
+            <p className="pl-1 text-[15px] ">Change Image</p>
+          </div>
         </button>
-        <dialog id="my_modal_3" className="modal  ">
+        <dialog id="my_modal_10" className="modal  ">
           <div className="modal-box bg-white ">
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
@@ -42,7 +90,7 @@ const ImageUploader = ({ id }) => {
             </form>
             <h3 className="font-bold text-lg">Upload Your Image</h3>
             <b className="font-bold text-sm text-primary ">
-              ( select .png & less than 1MB file )
+              ( select png, jpg, jpeg, svg & less than 1MB file )
             </b>
             <div className="py-4">
               {/* //inside content// */}
@@ -58,7 +106,7 @@ const ImageUploader = ({ id }) => {
                   </div>
                 </div>
               )}
-              <form action={formAction}>
+              <form action={formAction} ref={formRef}>
                 <label className="flex flex-col items-center w-full p-10 bg-gray-100 border border-dashed rounded-lg cursor-pointer ">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -79,20 +127,24 @@ const ImageUploader = ({ id }) => {
                   <input
                     type="file"
                     className="hidden"
-                    accept="image/png"
                     name="file"
+                    accept="image/*"
                     onChange={handleImageChange}
                     required
                   />
                 </label>
                 <div className="pt-3"></div>
-                <button className="btn text-white bg-black hover:bg-black hover:text-white btn-sm w-full  ">
-                  Upload
-                </button>
-                <div className="toast">
-                  <span className="text-red-500 text-[13px] sm:text-[15px] pr-2 sm:pr-16 ">
-                    {state && state}
-                  </span>
+                <Submit />
+                <div className="flex justify-center pt-1 ">
+                  {state?.message === "File Did't Match" ? (
+                    <>
+                      <p className="text-red-500">
+                        File size is large! (image has to be less then 1MB)
+                      </p>
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </div>
               </form>
             </div>

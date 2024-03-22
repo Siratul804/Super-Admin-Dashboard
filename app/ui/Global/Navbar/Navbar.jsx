@@ -70,7 +70,7 @@ const Navbar = async ({ data, ImgNav }) => {
                       {val.type === "grit" && (
                         <Link href="/dashboard/grit/profile">
                           <span className=" font-bold p-2 hover:bg-[#00a76f14] text-md rounded-lg text-[black] flex">
-                            <span className="pl-1 text-slate-500 text-sm flex ">
+                            <span className="pl-1 text-black text-sm flex ">
                               <p className="px-2">Profile</p>
                             </span>
                           </span>
