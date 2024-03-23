@@ -224,118 +224,6 @@ export const addImg = async (prevState, formData) => {
   };
 };
 
-// gym
-export const addMember = async (prevState, formData) => {
-  const { name, email, number, file, status, userID } =
-    Object.fromEntries(formData);
-
-  console.log(file);
-
-  const user = await query({
-    query: "SELECT email FROM members WHERE email = (?)",
-    values: [email],
-  });
-
-  if (user[0]) {
-    return "Member Already Exits";
-  }
-
-  const FILE_SIZE = 1000000; // 1MB
-
-  if (file.size > FILE_SIZE) {
-    return "File size is large! (image has to be less then 1MB) ";
-  }
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = Date.now() + file.name.replaceAll(" ", "_");
-  console.log(filename);
-
-  await writeFile(
-    path.join(process.cwd(), "public/uploads/" + filename),
-    buffer
-  );
-
-  const newMember = await query({
-    query:
-      "INSERT INTO members (name, email, number, img, status, userID) VALUES (?, ?, ?, ?, ?, ?)",
-    values: [name, email, number, filename, status, userID],
-  });
-
-  if (newMember) {
-    console.log("Member Added");
-    redirect("/dashboard/gym/edit");
-  }
-  if (!newMember) {
-    return "Member Added Failed";
-  }
-};
-
-export const updateMember = async (formData) => {
-  const { id, name, email, number, status } = Object.fromEntries(formData);
-
-  const newMember = await query({
-    query:
-      "UPDATE members SET  name = ?, email = ?, number = ?, status = ? WHERE id = ?",
-    values: [name, email, number, status, id],
-  });
-
-  if (!newMember) {
-    throw new Error("Faile to update Member");
-  }
-  if (newMember) {
-    console.log("Member updated");
-    redirect("/dashboard/gym/edit");
-  }
-};
-
-export const deleteMember = async (formData) => {
-  const { id } = Object.fromEntries(formData);
-
-  const deleteMember = await query({
-    query: "DELETE FROM members WHERE id = (?)",
-    values: [id],
-  });
-
-  if (deleteMember) {
-    console.log("user deleted");
-    redirect("/dashboard/gym/edit");
-  }
-};
-
-export const updateImg = async (prevState, formData) => {
-  const { id, file } = Object.fromEntries(formData);
-
-  const FILE_SIZE = 1000000; // 1MB
-
-  if (file.size > FILE_SIZE) {
-    return "File size is large! (image has to be less then 1MB)";
-  }
-
-  console.log(file, id);
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filename = Date.now() + file.name.replaceAll(" ", "_");
-  console.log(filename);
-
-  await writeFile(
-    path.join(process.cwd(), "public/uploads/" + filename),
-    buffer
-  );
-
-  const newImg = await query({
-    query: "UPDATE members SET img = ? WHERE id = ?",
-    values: [filename, id],
-  });
-
-  if (newImg) {
-    console.log("Image Update");
-    redirect("/dashboard/gym/edit");
-  }
-  if (!newImg) {
-    return "Image update Failed ";
-  }
-};
-
 // Forgot Pass
 export const forgotPass = async (prevState, formData) => {
   const { email } = Object.fromEntries(formData);
@@ -641,6 +529,99 @@ export const updateGym = async (prevState, formData) => {
   }
 
   revalidatePath("/dashboard/grit/listOfGym");
+  return {
+    message: "Updated",
+  };
+};
+
+// gym package
+
+export const addPackage = async (prevState, formData) => {
+  const { Name, Description, Price, DurationValue, DurationUnit, gym_id } =
+    Object.fromEntries(formData);
+
+  const CreateDate = new Date().toISOString().split("T")[0];
+
+  console.log(
+    Name,
+    Description,
+    Price,
+    DurationValue,
+    DurationUnit,
+    CreateDate,
+    gym_id
+  );
+
+  try {
+    const newPackage = await query({
+      query:
+        "INSERT INTO Package (Name, Description, Price, DurationValue, DurationUnit, CreateDate, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      values: [
+        Name,
+        Description,
+        Price,
+        DurationValue,
+        DurationUnit,
+        CreateDate,
+        gym_id,
+      ],
+    });
+
+    console.log(newPackage);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "Already Exits",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/gym/package");
+  return {
+    message: "Added",
+  };
+};
+export const updatePackage = async (prevState, formData) => {
+  const { id, Name, Description, Price, DurationValue, DurationUnit } =
+    Object.fromEntries(formData);
+
+  const LastUpdateDate = new Date().toISOString().split("T")[0];
+
+  console.log(
+    id,
+    Name,
+    Description,
+    Price,
+    DurationValue,
+    DurationUnit,
+    LastUpdateDate
+  );
+
+  try {
+    const newPackage = await query({
+      query:
+        "UPDATE Package SET  Name = ?, Description = ?, Price = ?, DurationValue = ?, DurationUnit = ?, LastUpdateDate = ?  WHERE PackageID = ?",
+      values: [
+        Name,
+        Description,
+        Price,
+        DurationValue,
+        DurationUnit,
+        LastUpdateDate,
+        id,
+      ],
+    });
+
+    console.log(newPackage);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
+  }
+
+  revalidatePath("/dashboard/gym/package");
   return {
     message: "Updated",
   };

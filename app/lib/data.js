@@ -430,3 +430,57 @@ export async function GetRolePermissionByIdToUpdateOfGym(id) {
 
   return users;
 }
+
+// gym package
+
+export async function GetGymPackagePaginationData(page, name, price) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, name, price);
+
+  let queryStr = "SELECT * FROM Package";
+
+  const values = [];
+
+  if (name || price) {
+    queryStr += " WHERE";
+  }
+
+  if (name) {
+    queryStr += " name LIKE ?";
+    values.push(`%${name}%`);
+  }
+
+  if (name && price) {
+    queryStr += " AND";
+  }
+
+  if (price) {
+    queryStr += " Price = ?";
+    values.push(price);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationPackage = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  console.log(paginationPackage);
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM Package",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { paginationPackage, countNumber };
+}

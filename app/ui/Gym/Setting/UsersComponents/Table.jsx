@@ -1,6 +1,14 @@
 import UpdateUser from "../UsersComponents/UpdateUser";
 import UpdatePass from "../UsersComponents/UpdatePass";
-const Table = async ({ PaginationData }) => {
+const Table = async ({ PaginationData, user }) => {
+  const gym_id = user.gym_id;
+
+  const gymIds = PaginationData.map((val) => val.gym_id);
+
+  const isIdIncluded = gymIds.includes(gym_id);
+
+  console.log(isIdIncluded);
+
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">
