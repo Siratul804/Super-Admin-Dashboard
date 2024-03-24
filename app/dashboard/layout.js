@@ -1,6 +1,7 @@
 import Navbar from "../ui/Global/Navbar/Navbar";
 import { auth } from "@/app/auth";
 import { GetAllUserData } from "@/app/lib/data";
+import { GetGymListData } from "@/app/lib/data";
 import { signOut } from "@/app/auth";
 import LeftSideBarOpen from "../ui/Global/LeftSideBarOpen/LeftSideBarOpen";
 // import { GetUserData } from "@/app/lib/data";
@@ -10,6 +11,7 @@ const layout = async ({ children }) => {
   const { user } = await auth();
   const userData = await GetAllUserData();
   const ImgNav = await GetAllUserData();
+  const GetGym = await GetGymListData();
 
   return (
     <>
@@ -22,7 +24,7 @@ const layout = async ({ children }) => {
                   <>
                     <section className="profile">
                       <main className="flex  ">
-                        <LeftSideBarOpen data={user} />
+                        <LeftSideBarOpen data={user} GetGym={GetGym} />
 
                         <div className="w-full  ">
                           <Navbar data={user} ImgNav={ImgNav} />

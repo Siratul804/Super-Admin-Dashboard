@@ -277,6 +277,14 @@ export async function GetGListGymPaginationData(page, name, status) {
 
 //GymDetails
 
+export async function GetGymListData() {
+  const list_gym = await query({
+    query: "SELECT * FROM list_gym",
+    values: [],
+  });
+
+  return list_gym;
+}
 export async function GetGymDataById(id) {
   console.log(id);
   const users = await query({

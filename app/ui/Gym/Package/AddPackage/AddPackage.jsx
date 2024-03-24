@@ -42,7 +42,7 @@ const AddPackage = ({ user }) => {
         },
       });
     } else if (state?.message === "Already Exits") {
-      toast.error("Package Already Exits", {
+      toast.error("Package Already Exits !", {
         style: {
           background: "#FF0000",
           color: "#fff",
@@ -140,11 +140,13 @@ const AddPackage = ({ user }) => {
                       </label>
                       <select
                         name="DurationUnit"
+                        required
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
-                        <option disabled selected>
-                          Select Duration Unit
+                        <option value="" className="text-slate-400">
+                          Select
                         </option>
+                        <option>Daily</option>
                         <option>Week</option>
                         <option>Month</option>
                         <option>Year</option>
@@ -176,7 +178,7 @@ const AddPackage = ({ user }) => {
                   <div className="flex justify-end pt-1 ">
                     {state?.message === "Already Exits" ? (
                       <>
-                        <p className="text-red-500"> User Already Exits ! </p>
+                        <p className="text-red-500">Something Wrong ! </p>
                       </>
                     ) : (
                       <></>

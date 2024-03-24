@@ -148,9 +148,10 @@ const AddGrit = ({ roleData }) => {
                       </label>
                       <select
                         name="status"
+                        required
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
-                        <option disabled selected>
+                        <option value="" className="text-slate-400">
                           Select Status
                         </option>
                         <option>Active</option>
@@ -164,9 +165,10 @@ const AddGrit = ({ roleData }) => {
                       <select
                         itemType="number"
                         name="role"
+                        required
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
-                        <option disabled selected>
+                        <option value="" className="text-slate-400">
                           Select Role
                         </option>
                         {roleData.map((val) => (

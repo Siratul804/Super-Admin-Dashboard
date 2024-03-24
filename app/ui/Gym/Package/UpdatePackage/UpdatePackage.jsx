@@ -175,6 +175,7 @@ const UpdatePackage = ({
                         onChange={(e) => setSelectedStatus(e.target.value)}
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
+                        <option>Daily</option>
                         <option>Week</option>
                         <option>Month</option>
                         <option>Year</option>

@@ -6,8 +6,19 @@ import { Sidebar, Menu } from "react-pro-sidebar";
 import SideBar from "@/app/ui/Global/Sidebar/SideBar";
 import Link from "next/link";
 import CollapsedSidebar from "../Sidebar/CollapsedSidebar";
-const LeftSideBarOpen = ({ data }) => {
+const LeftSideBarOpen = ({ data, GetGym }) => {
   const [collapsed, setCollapsed] = useState(false);
+
+  const gymIds = GetGym.map((val) => val.id);
+
+  const gym_id_num = data.gym_id;
+
+  const isIdIncluded = gymIds.includes(gym_id_num);
+
+  console.log(gym_id_num);
+  console.log(gymIds);
+  console.log(isIdIncluded);
+
   return (
     <>
       <div className="sm:block hidden">
@@ -28,14 +39,45 @@ const LeftSideBarOpen = ({ data }) => {
                     <></>
                   ) : (
                     <>
-                      <Link href="/">
-                        <li className="flex">
-                          <img
-                            src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                            className="sm:h-6 sm:w-auto "
-                          />
-                        </li>
-                      </Link>
+                      {/* /////// */}
+
+                      {isIdIncluded ? (
+                        <>
+                          {GetGym.filter((val) => val.id === gym_id_num).map(
+                            (val) => (
+                              <>
+                                <li className="flex">
+                                  <img
+                                    src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
+                                    alt="No Img"
+                                    className=" h-auto w-[10vh] "
+                                  />
+                                  <p className=" text-black ml-2 mt-8 font-medium ">
+                                    {val.name}
+                                  </p>
+                                </li>
+                                <div className="pt-5">
+                                  {/* <hr className="w-[29vh]" /> */}
+                                  <div class="border-b-2 border-black w-auto "></div>
+                                </div>
+                              </>
+                            )
+                          )}
+                        </>
+                      ) : (
+                        <>
+                          <Link href="/">
+                            <li className="flex">
+                              <img
+                                src="https://grit.com.bd/assets/img/grit_logo-black.svg"
+                                className="sm:h-6 sm:w-auto "
+                              />
+                            </li>
+                          </Link>
+                        </>
+                      )}
+
+                      {/* /////// */}
                     </>
                   )}
                 </div>
