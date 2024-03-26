@@ -162,14 +162,16 @@ const LeftSideBarOpen = ({ data, GetGym }) => {
                 </>
               ) : (
                 <>
-                  <Link href="/">
-                    <li className="flex">
-                      <img
-                        src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                        className="sm:h-6 sm:w-auto "
-                      />
-                    </li>
-                  </Link>
+                  <div className="pt-[14vh] ml-5 pb-5 ">
+                    <Link href="/">
+                      <li className="flex">
+                        <img
+                          src="https://grit.com.bd/assets/img/grit_logo-black.svg"
+                          className="h-auto w-[12vh]"
+                        />
+                      </li>
+                    </Link>
+                  </div>
                 </>
               )}
               <SideBar data={data} />
