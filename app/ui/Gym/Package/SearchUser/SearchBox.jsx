@@ -48,7 +48,7 @@ const SearchBox = () => {
               onChange={(e) => setName(e.target.value)}
               onKeyPress={handleKeyPress}
               autoComplete="off"
-              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md sm:w-[47vh] w-[40vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
           <div>
@@ -62,7 +62,7 @@ const SearchBox = () => {
               onChange={(e) => setPrice(e.target.value)}
               onKeyPress={handleKeyPress}
               autoComplete="off"
-              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+              className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md sm:w-[47vh] w-[40vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
             />
           </div>
 

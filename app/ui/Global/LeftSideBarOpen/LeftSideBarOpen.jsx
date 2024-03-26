@@ -46,19 +46,21 @@ const LeftSideBarOpen = ({ data, GetGym }) => {
                           {GetGym.filter((val) => val.id === gym_id_num).map(
                             (val) => (
                               <>
-                                <li className="flex">
+                                <div className=" flex justify-center  ml-10">
                                   <img
                                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
                                     alt="No Img"
-                                    className=" h-auto w-[10vh] "
+                                    className=" h-auto w-[10vh] rounded-md "
                                   />
-                                  <p className=" text-black ml-2 mt-8 font-medium ">
+                                </div>
+                                <div className="flex justify-center ml-10 ">
+                                  <p className=" text-black mt-2 font-medium ">
                                     {val.name}
                                   </p>
-                                </li>
-                                <div className="pt-5">
+                                </div>
+                                <div className="pt-2 w-full ml-5 ">
                                   {/* <hr className="w-[29vh]" /> */}
-                                  <div class="border-b-2 border-black w-auto "></div>
+                                  <div class="border-b-2 border-black"></div>
                                 </div>
                               </>
                             )
@@ -134,14 +136,42 @@ const LeftSideBarOpen = ({ data, GetGym }) => {
               className="drawer-overlay"
             ></label>
             <ul className=" p-4 w-80 min-h-full bg-white">
-              <Link href="/">
-                <li className="flex pt-16 pl-8 ">
-                  <img
-                    src="https://grit.com.bd/assets/img/grit_logo-black.svg"
-                    className=" w-[100px] h-[100px] sm:h-6 sm:w-auto "
-                  />
-                </li>
-              </Link>
+              {isIdIncluded ? (
+                <>
+                  {GetGym.filter((val) => val.id === gym_id_num).map((val) => (
+                    <>
+                      <section className="pt-[12vh]">
+                        <div className=" flex justify-center">
+                          <img
+                            src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
+                            alt="No Img"
+                            className=" h-auto w-[10vh] rounded-md "
+                          />
+                        </div>
+                        <div className="flex justify-center  ">
+                          <p className=" text-black mt-2 font-medium ">
+                            {val.name}
+                          </p>
+                        </div>
+                        <div className="pt-2 w-auto ">
+                          <hr className="w-auto" />
+                        </div>
+                      </section>
+                    </>
+                  ))}
+                </>
+              ) : (
+                <>
+                  <Link href="/">
+                    <li className="flex">
+                      <img
+                        src="https://grit.com.bd/assets/img/grit_logo-black.svg"
+                        className="sm:h-6 sm:w-auto "
+                      />
+                    </li>
+                  </Link>
+                </>
+              )}
               <SideBar data={data} />
             </ul>
           </div>
