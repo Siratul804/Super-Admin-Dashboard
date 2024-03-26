@@ -71,7 +71,7 @@ const SearchBox = () => {
             <button
               onClick={handleSearch}
               disabled={isLoading}
-              className="btn btn-neutral btn-sm text-white h-[6vh] w-[35vh]"
+              className="btn btn-neutral btn-sm text-white h-[6vh] sm:w-[47vh] w-[40vh]"
             >
               {isLoading ? "Searching..." : "Search"}
             </button>
