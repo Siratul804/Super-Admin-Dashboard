@@ -626,3 +626,33 @@ export const updatePackage = async (prevState, formData) => {
     message: "Updated",
   };
 };
+
+//member
+export const addMember = async (prevState, formData) => {
+  const { package_id, name, cell_number, gender, blood_group, gym_id } =
+    Object.fromEntries(formData);
+
+  console.log(package_id, name, cell_number, gender, blood_group, gym_id);
+
+  try {
+    const newMember = await query({
+      query:
+        "INSERT INTO members ( package_id, name, cell_number, gender , blood_group, gym_id) VALUES (?, ?, ?, ?, ?, ?)",
+      values: [package_id, name, cell_number, gender, blood_group, gym_id],
+    });
+
+    console.log(newMember);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "Already Exits",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/gym/member");
+  return {
+    message: "Member Added",
+  };
+};
