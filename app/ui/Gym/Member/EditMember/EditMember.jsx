@@ -4,7 +4,7 @@ import AddMember from "../AddMember/AddMember";
 import EditTable from "../EditMember/EditTable";
 import Pagination from "../Pagination/Pagination";
 
-const EditMember = ({ user, packgaeData }) => {
+const EditMember = ({ user, packgaeData, MemberData, PaginationCount }) => {
   return (
     <>
       <div className="">
@@ -24,13 +24,14 @@ const EditMember = ({ user, packgaeData }) => {
             <div className="overflow-x-auto h-[52vh]">
               <EditTable
                 // permission={permission}
-
+                MemberData={MemberData}
                 user={user}
+                packgaeData={packgaeData}
               />
             </div>
           </>
 
-          <Pagination />
+          <Pagination PaginationCount={PaginationCount} />
         </section>
       </div>
     </>

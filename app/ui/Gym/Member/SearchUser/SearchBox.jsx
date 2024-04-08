@@ -8,7 +8,7 @@ const SearchBox = () => {
   const pathname = usePathname();
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
-  const [status, setStatus] = useState("");
+  const [memberId, setMemberId] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   const handleSearch = () => {
@@ -20,7 +20,7 @@ const SearchBox = () => {
     params.set("page", 1);
     params.set("name", name);
     params.set("number", number);
-    params.set("status", status);
+    params.set("memberId", memberId);
 
     // Simulating a delay (you can replace this with your actual search logic)
     setTimeout(() => {
@@ -54,7 +54,7 @@ const SearchBox = () => {
             />
           </div>
           <div>
-            <label className="text-sm text-black ">Number </label>
+            <label className="text-sm text-black ">Phone Number </label>
             <br />
             <input
               type="number"
@@ -68,20 +68,20 @@ const SearchBox = () => {
             />
           </div>
           <div>
-            <label className="text-sm text-black ">Status </label>
+            <label className="text-sm text-black ">Member Id</label>
             <br />
-            <select
-              name="status"
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+            <input
+              type="text"
+              placeholder="Enter Member Id "
+              name="memberId"
+              value={memberId}
+              onChange={(e) => setMemberId(e.target.value)}
               onKeyPress={handleKeyPress}
+              autoComplete="off"
               className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-            >
-              <option value="">Select</option>
-              <option value="Active">Active</option>
-              <option value="Disable">Disable</option>
-            </select>
+            />
           </div>
+
           <div>
             <br />
             <button

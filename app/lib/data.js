@@ -493,3 +493,50 @@ export async function GetAllPackages(request) {
 
   return packages;
 }
+export async function GetGymMemberPaginationData(page, name, number, memberId) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, name, number, memberId);
+
+  let queryStr = "SELECT * FROM members WHERE 1=1"; // Initial query string with WHERE 1=1
+
+  const values = [];
+
+  if (name) {
+    queryStr += " AND name LIKE ?";
+    values.push(`%${name}%`);
+  }
+
+  if (number) {
+    queryStr += " AND cell_number LIKE ?";
+    values.push(`%${number}%`);
+  }
+
+  if (memberId) {
+    queryStr += " AND member_id = ?";
+    values.push(memberId);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationMember = await query({
+    query: queryStr,
+    values: values,
+  });
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) AS count FROM members WHERE 1=1", // Add WHERE 1=1 for consistency
+    values: values, // Use values array for consistency in parameter passing
+  });
+
+  const countNumber = paginationCount[0]["count"]; // Access count using alias
+
+  return { paginationMember, countNumber };
+}
