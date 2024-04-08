@@ -653,6 +653,6 @@ export const addMember = async (prevState, formData) => {
 
   revalidatePath("/dashboard/gym/member");
   return {
-    message: "Member Added",
+    message: "Added",
   };
 };

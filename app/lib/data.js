@@ -38,16 +38,6 @@ export async function GetUserByIdToUpdate(id) {
   return users[0];
 }
 
-//members
-export async function GetMemberData(request) {
-  const members = await query({
-    query: "SELECT * FROM members",
-    values: [],
-  });
-
-  return members;
-}
-
 export async function GetMemberByIdToUpdate(id) {
   console.log(id);
   const members = await query({
@@ -491,4 +481,15 @@ export async function GetGymPackagePaginationData(page, name, price) {
   const countNumber = paginationCount[0]["COUNT(*)"];
 
   return { paginationPackage, countNumber };
+}
+
+// gym member
+
+export async function GetAllPackages(request) {
+  const packages = await query({
+    query: "SELECT * FROM Package",
+    values: [],
+  });
+
+  return packages;
 }
