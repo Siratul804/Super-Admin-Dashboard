@@ -634,21 +634,46 @@ export const addMember = async (prevState, formData) => {
 
   console.log(package_id, name, cell_number, gender, blood_group, gym_id);
 
+  const memberData = await query({
+    query:
+      "SELECT member_id FROM members WHERE gym_id = ? ORDER BY member_id DESC LIMIT 1",
+    values: [gym_id],
+  });
+
+  let nextMemberId;
+  if (memberData.length > 0) {
+    const lastMemberId = memberData[0].member_id;
+    const numericPart = lastMemberId.split("-")[1]; // Assuming the format is 'M-XX'
+    const nextNumericPart = parseInt(numericPart) + 1;
+    nextMemberId =
+      "M-" + nextNumericPart.toString().padStart(numericPart.length, "0"); // Formatting back to original format
+    console.log("Next member ID:", nextMemberId);
+  } else {
+    nextMemberId = "M-01"; // If no member found, insert M-01
+    console.log("Next member ID:", nextMemberId);
+  }
+
   try {
     const newMember = await query({
       query:
-        "INSERT INTO members ( package_id, name, cell_number, gender , blood_group, gym_id) VALUES (?, ?, ?, ?, ?, ?)",
-      values: [package_id, name, cell_number, gender, blood_group, gym_id],
+        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      values: [
+        package_id,
+        nextMemberId,
+        name,
+        cell_number,
+        gender,
+        blood_group,
+        gym_id,
+      ],
     });
 
-    console.log(newMember);
+    console.log("New member inserted:", newMember);
   } catch (err) {
-    if (err) {
-      console.log(err);
-      return {
-        message: "Already Exits",
-      };
-    }
+    console.log("Error inserting new member:", err);
+    return {
+      message: "Already Exists",
+    };
   }
 
   revalidatePath("/dashboard/gym/member");

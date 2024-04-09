@@ -21,7 +21,7 @@ const page = async ({ searchParams }) => {
 
   const packgaeData = await GetAllPackages();
 
-  console.log(paginationMember);
+  // console.log(paginationMember);
 
   return (
     <>
