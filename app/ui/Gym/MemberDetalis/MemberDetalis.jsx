@@ -2,21 +2,23 @@
 import { useState } from "react";
 import { BsFillPersonVcardFill } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
-import General from "./GymNavDetails/General";
-import Users from "./GymNavDetails/Users";
-import Role from "./GymNavDetails/Role";
+// import General from "./GymNavDetails/General";
+// import Users from "./GymNavDetails/Users";
+// import Role from "./GymNavDetails/Role";
 import { FaUserLock } from "react-icons/fa";
 
-const GymDetails = ({
-  GymSpecificData,
-  GymUserData,
-  id,
-  PaginationCount,
-  roleData,
-  // role & permission
-  RolePaginationData,
-  RolePaginationCount,
-}) => {
+const MemberDetalis = (
+  {
+    //   GymSpecificData,
+    //   GymUserData,
+    //   id,
+    //   PaginationCount,
+    //   roleData,
+    //   role & permission
+    //   RolePaginationData,
+    //   RolePaginationCount,
+  }
+) => {
   const [selectedNav, setSelectedNav] = useState("general"); // State to track the selected navbar item
 
   const renderNavContent = () => {
@@ -26,7 +28,8 @@ const GymDetails = ({
         return (
           <>
             <section className="py-[0vh]">
-              <General GymSpecificData={GymSpecificData} />
+              {/* <General GymSpecificData={GymSpecificData} /> */}
+              <h1>Hi</h1>
             </section>
           </>
         );
@@ -35,12 +38,14 @@ const GymDetails = ({
         return (
           <>
             <section className="py-[0vh]">
-              <Users
+              {/* <Users
                 GymUserData={GymUserData}
                 PaginationCount={PaginationCount}
                 roleData={roleData}
                 id={id}
-              />
+              /> */}
+
+              <h1>Hello</h1>
             </section>
           </>
         );
@@ -48,11 +53,13 @@ const GymDetails = ({
         return (
           <>
             <section className="py-[0vh]">
-              <Role
+              {/* <Role
                 RolePaginationData={RolePaginationData}
                 RolePaginationCount={RolePaginationCount}
                 id={id}
-              />
+              /> */}
+
+              <h1>Bye</h1>
             </section>
           </>
         );
@@ -65,11 +72,12 @@ const GymDetails = ({
     <>
       <div className="py-2"></div>
       <div className="p-3 bg-white shadow-lg rounded-lg">
-        {GymSpecificData.map((val) => (
+        {/* {GymSpecificData.map((val) => (
           <h1 key={val.id} className="text-black text-lg font-bold">
             {val.name}
           </h1>
-        ))}
+        ))} */}
+        kisu na
         <div className="py-5"></div>
         <section className="gym_details_nav flex flex-wrap ">
           <div
@@ -121,4 +129,4 @@ const GymDetails = ({
   );
 };
 
-export default GymDetails;
+export default MemberDetalis;

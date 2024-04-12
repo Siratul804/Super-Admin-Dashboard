@@ -1,4 +1,4 @@
-import UpdateMember from "../UpdateMember/UpdateMember";
+import Link from "next/link";
 const EditTable = async ({ MemberData, user, packgaeData }) => {
   const gym_id = user.gym_id;
 
@@ -26,15 +26,11 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Package
               </th>
-              {/* <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Gender
-              </th> */}
+              </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Blood Group
-              </th>
-
-              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Edit
               </th>
             </tr>
           </thead>
@@ -49,16 +45,24 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                           <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="flex ">
                               <div className="h-10 w-10">
-                                <img
-                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
-                                  alt="No Img"
-                                  className="rounded-full"
-                                />
+                                <Link
+                                  href={`/dashboard/gym/memberDetails/${val.Id}`}
+                                >
+                                  <img
+                                    src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
+                                    alt="No Img"
+                                    className="rounded-full"
+                                  />
+                                </Link>
                               </div>
                               <div className="px-2 py-3   ">
-                                <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                                  {val.name}
-                                </p>
+                                <Link
+                                  href={`/dashboard/gym/memberDetails/${val.Id}`}
+                                >
+                                  <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                    {val.name}
+                                  </p>
+                                </Link>
                               </div>
                             </div>
                           </td>
@@ -73,11 +77,7 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                               {val.cell_number}
                             </p>
                           </td>
-                          {/* <td className="px-[6vh] py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              {val.gender}
-                            </p>
-                          </td> */}
+
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {packgaeData.map((Package) => (
                               <>
@@ -93,26 +93,15 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                               </>
                             ))}
                           </td>
+                          <td className="px-[6vh] py-4 text-black whitespace-no-wrap border-b border-gray-200">
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                              {val.gender}
+                            </p>
+                          </td>
                           <td className="px-[10vh] py-4 text-black whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {val.blood_group}
                             </p>
-                          </td>
-
-                          <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <div className="flex">
-                              <div>
-                                <UpdateMember
-                                  id={val.Id}
-                                  Name={val.name}
-                                  gender={val.gender}
-                                  cell_number={val.cell_number}
-                                  package_id={val.package_id}
-                                  blood_group={val.blood_group}
-                                  // LastUpdateDate={val.LastUpdateDate}
-                                />
-                              </div>
-                            </div>
                           </td>
                         </tr>
                       </>
