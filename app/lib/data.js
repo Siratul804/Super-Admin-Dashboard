@@ -540,3 +540,13 @@ export async function GetGymMemberPaginationData(page, name, number, memberId) {
 
   return { paginationMember, countNumber };
 }
+
+export async function GetMemberDataById(id) {
+  console.log(id);
+  const users = await query({
+    query: "SELECT * FROM members WHERE id = ?",
+    values: [id],
+  });
+
+  return users;
+}

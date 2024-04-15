@@ -1,12 +1,17 @@
-const MemberDetails = async ({ params }) => {
+import MemberDetails from "@/app/ui/Gym/MemberDetalis/MemberDetalis";
+
+import { GetMemberDataById } from "@/app/lib/data";
+
+const page = async ({ params }) => {
   const { id } = params;
 
-  console.log(id);
+  const MemberSpecificData = await GetMemberDataById(id);
+
   return (
     <>
-      MemberDetails <b>{id}</b>{" "}
+      <MemberDetails MemberSpecificData={MemberSpecificData} id={id} />
     </>
   );
 };
 
-export default MemberDetails;
+export default page;

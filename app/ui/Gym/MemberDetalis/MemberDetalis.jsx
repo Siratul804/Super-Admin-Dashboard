@@ -1,65 +1,40 @@
 "use client";
 import { useState } from "react";
 import { BsFillPersonVcardFill } from "react-icons/bs";
-import { FaUserFriends } from "react-icons/fa";
-// import General from "./GymNavDetails/General";
-// import Users from "./GymNavDetails/Users";
-// import Role from "./GymNavDetails/Role";
-import { FaUserLock } from "react-icons/fa";
+import View from "./MemberNavDetails/View";
+import Edit from "./MemberNavDetails/Edit";
+import Photo from "./MemberNavDetails/Photo";
+import { FaUserEdit } from "react-icons/fa";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
-const MemberDetalis = (
-  {
-    //   GymSpecificData,
-    //   GymUserData,
-    //   id,
-    //   PaginationCount,
-    //   roleData,
-    //   role & permission
-    //   RolePaginationData,
-    //   RolePaginationCount,
-  }
-) => {
-  const [selectedNav, setSelectedNav] = useState("general"); // State to track the selected navbar item
+const MemberDetalis = ({ MemberSpecificData, id }) => {
+  const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
 
   const renderNavContent = () => {
     switch (selectedNav) {
-      case "general":
+      case "view_member":
         // Render General component
         return (
           <>
-            <section className="py-[0vh]">
-              {/* <General GymSpecificData={GymSpecificData} /> */}
-              <h1>Hi</h1>
+            <section className="p-[0vh]">
+              <View MemberSpecificData={MemberSpecificData} />
             </section>
           </>
         );
       // Add more cases for other navbar items as needed
-      case "users":
+      case "edit_member":
         return (
           <>
             <section className="py-[0vh]">
-              {/* <Users
-                GymUserData={GymUserData}
-                PaginationCount={PaginationCount}
-                roleData={roleData}
-                id={id}
-              /> */}
-
-              <h1>Hello</h1>
+              <Edit />
             </section>
           </>
         );
-      case "role":
+      case "member_photo":
         return (
           <>
             <section className="py-[0vh]">
-              {/* <Role
-                RolePaginationData={RolePaginationData}
-                RolePaginationCount={RolePaginationCount}
-                id={id}
-              /> */}
-
-              <h1>Bye</h1>
+              <Photo />
             </section>
           </>
         );
@@ -71,56 +46,50 @@ const MemberDetalis = (
   return (
     <>
       <div className="py-2"></div>
-      <div className="p-3 bg-white shadow-lg rounded-lg">
-        {/* {GymSpecificData.map((val) => (
-          <h1 key={val.id} className="text-black text-lg font-bold">
-            {val.name}
-          </h1>
-        ))} */}
-        kisu na
-        <div className="py-5"></div>
+      <div className="p-3 bg-white shadow-lg rounded-lg flex justify-between ">
+        <h1 className="font-bold text-black ">Member Details</h1>
         <section className="gym_details_nav flex flex-wrap ">
           <div
             className={`text-md flex cursor-pointer font-bold ${
-              selectedNav === "general" &&
+              selectedNav === "view_member" &&
               "font-bold border-b-2 border-black text-black"
             }`}
-            onClick={() => setSelectedNav("general")}
+            onClick={() => setSelectedNav("view_member")}
           >
             <p className="py-1 ">
               <BsFillPersonVcardFill />
             </p>
-            <p className="pl-1">General</p>
+            <p className="pl-1">View Member</p>
           </div>
           {/* Add more navbar items with similar structure */}
           <div className="pl-4"></div>
           {/* Add more navbar items with similar structure */}
           <div
             className={`text-md flex  cursor-pointer font-bold ${
-              selectedNav === "users" &&
+              selectedNav === "edit_member" &&
               "font-bold border-b-2 border-black text-black  "
             }`}
-            onClick={() => setSelectedNav("users")}
+            onClick={() => setSelectedNav("edit_member")}
           >
             <p className="py-1 ">
-              <FaUserFriends />
+              <FaUserEdit />
             </p>
-            <p className="pl-1">Users</p>
+            <p className="pl-1">Edit Member</p>
           </div>
           {/* Add more navbar items with similar structure */}
           <div className="pl-4"></div>
           {/* Add more navbar items with similar structure */}
           <div
             className={`text-md flex  cursor-pointer font-bold ${
-              selectedNav === "role" &&
+              selectedNav === "member_photo" &&
               "font-bold border-b-2 border-black text-black  "
             }`}
-            onClick={() => setSelectedNav("role")}
+            onClick={() => setSelectedNav("member_photo")}
           >
             <p className="py-1 ">
-              <FaUserLock />
+              <MdOutlineAddPhotoAlternate />
             </p>
-            <p className="pl-1">Role</p>
+            <p className="pl-1">Photo</p>
           </div>
         </section>
       </div>
