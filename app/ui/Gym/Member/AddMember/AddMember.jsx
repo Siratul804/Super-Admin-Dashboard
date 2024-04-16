@@ -133,7 +133,7 @@ const AddMember = ({ user, packgaeData }) => {
                             {val.gym_id === gym_id ? (
                               <>
                                 <option value={val.PackageID}>
-                                  {val.Name} - {val.DurationUnit} -{" "}
+                                  {val.Name} - {val.DurationUnit} -
                                   {parseFloat(val.Price).toFixed(0)} Taka
                                 </option>
                               </>

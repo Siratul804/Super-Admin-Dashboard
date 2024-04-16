@@ -7,7 +7,7 @@ import Photo from "./MemberNavDetails/Photo";
 import { FaUserEdit } from "react-icons/fa";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 
-const MemberDetalis = ({ MemberSpecificData, id }) => {
+const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
   const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
 
   const renderNavContent = () => {
@@ -17,7 +17,10 @@ const MemberDetalis = ({ MemberSpecificData, id }) => {
         return (
           <>
             <section className="p-[0vh]">
-              <View MemberSpecificData={MemberSpecificData} />
+              <View
+                MemberSpecificData={MemberSpecificData}
+                packgaeData={packgaeData}
+              />
             </section>
           </>
         );
