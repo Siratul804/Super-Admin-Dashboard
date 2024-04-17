@@ -2,12 +2,12 @@ const General = ({ GymSpecificData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg pl-5 pr-5 py-20   rounded-lg   ">
+      <div className="general bg-white shadow-lg p-5 rounded-lg">
         {GymSpecificData.map((val) => (
           <>
             <section className="flex justify-between flex-wrap  ">
               <div className="general_left  w-[45vh]  ">
-                <div className="flex justify-center ">
+                <div className="flex justify-center pt-5 ">
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
                     alt="No Img"
@@ -38,8 +38,8 @@ const General = ({ GymSpecificData }) => {
                 </div>
               </div>
               <div className="sm:py-0 py-4 "></div>
-              <div className="general_right  flex-0.7 flex-initial w-[84vh] rounded p-5  shadow-[rgba(99,_99,_99,_0.2)_0px_2px_8px_0px] ">
-                <section className="flex justify-between">
+              <div className="general_right  flex-0.7 flex-initial w-[84vh] rounded p-5 ">
+                <section className="flex justify-between flex-wrap ">
                   <main>
                     <div className="text-black py-2 text-left ">
                       <b>Name:</b>
@@ -55,7 +55,7 @@ const General = ({ GymSpecificData }) => {
                       <p>{val.email}</p>
                     </div>
                   </main>
-                  <div className="border-r-2 border-black"></div>
+
                   <main>
                     <div className="text-black py-2 text-left  ">
                       <b>Phone:</b>

@@ -653,10 +653,12 @@ export const addMember = async (prevState, formData) => {
     console.log("Next member ID:", nextMemberId);
   }
 
+  const RegDate = new Date().toISOString().split("T")[0];
+
   try {
     const newMember = await query({
       query:
-        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, reg_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         package_id,
         nextMemberId,
@@ -664,6 +666,7 @@ export const addMember = async (prevState, formData) => {
         cell_number,
         gender,
         blood_group,
+        RegDate,
         gym_id,
       ],
     });
@@ -679,5 +682,58 @@ export const addMember = async (prevState, formData) => {
   revalidatePath("/dashboard/gym/member");
   return {
     message: "Added",
+  };
+};
+
+export const updateMember = async (prevState, formData) => {
+  const {
+    id,
+    member_id,
+    name,
+    email,
+    phone,
+    gender,
+    country,
+    blood_group,
+    national_id,
+    height,
+    weight,
+    date_of_birth,
+  } = Object.fromEntries(formData);
+
+  const LastUpdateDate = new Date().toISOString().split("T")[0];
+
+  try {
+    const newMember = await query({
+      query:
+        "UPDATE members SET  member_id = ?, name = ?, email = ?, cell_number = ?, gender = ?, country = ?, blood_group = ?, national_id = ?, date_time = ?, weight = ?, height = ?, last_update = ?  WHERE Id = ?",
+      values: [
+        member_id,
+        name,
+        email,
+        country,
+        phone,
+        gender,
+        blood_group,
+        national_id,
+        date_of_birth,
+        weight,
+        height,
+        LastUpdateDate,
+        id,
+      ],
+    });
+
+    console.log(newMember);
+  } catch (err) {
+    console.log(err);
+    return {
+      message: "Failed",
+    };
+  }
+
+  revalidatePath("/dashboard/gym/member");
+  return {
+    message: "Updated",
   };
 };
