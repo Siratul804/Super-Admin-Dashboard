@@ -29,7 +29,10 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
         return (
           <>
             <section className="py-[0vh]">
-              <Edit />
+              <Edit
+                MemberSpecificData={MemberSpecificData}
+                packgaeData={packgaeData}
+              />
             </section>
           </>
         );

@@ -688,7 +688,6 @@ export const addMember = async (prevState, formData) => {
 export const updateMember = async (prevState, formData) => {
   const {
     id,
-    member_id,
     name,
     email,
     phone,
@@ -701,19 +700,32 @@ export const updateMember = async (prevState, formData) => {
     date_of_birth,
   } = Object.fromEntries(formData);
 
+  console.log(
+    id,
+    name,
+    email,
+    phone,
+    gender,
+    country,
+    blood_group,
+    national_id,
+    height,
+    weight,
+    date_of_birth
+  );
+
   const LastUpdateDate = new Date().toISOString().split("T")[0];
 
   try {
     const newMember = await query({
       query:
-        "UPDATE members SET  member_id = ?, name = ?, email = ?, cell_number = ?, gender = ?, country = ?, blood_group = ?, national_id = ?, date_time = ?, weight = ?, height = ?, last_update = ?  WHERE Id = ?",
+        "UPDATE members SET name = ?, email = ?, cell_number = ?, gender = ?, country = ?, blood_group = ?, national_id = ?, date_time = ?, weight = ?, height = ?, last_update = ?  WHERE Id = ?",
       values: [
-        member_id,
         name,
         email,
-        country,
         phone,
         gender,
+        country,
         blood_group,
         national_id,
         date_of_birth,
