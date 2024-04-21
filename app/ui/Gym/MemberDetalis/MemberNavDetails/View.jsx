@@ -11,7 +11,7 @@ const View = ({ MemberSpecificData, packgaeData }) => {
           <>
             <section className="flex justify-evenly flex-wrap    ">
               <div className="general_left  w-[45vh]  ">
-                <div className="flex justify-center pt-20">
+                <div className="flex justify-center pt-28 ">
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                     alt="No Img"
@@ -28,7 +28,7 @@ const View = ({ MemberSpecificData, packgaeData }) => {
                 </div> */}
               </div>
               <div className="sm:py-0 py-4 "></div>
-              <div className="general_right w-[88vh] rounded p-5 ">
+              <div className="general_right w-[78vh] rounded p-5 ">
                 <section className="flex justify-between flex-wrap ">
                   <main>
                     <div className="text-black py-2 text-left ">
@@ -82,7 +82,7 @@ const View = ({ MemberSpecificData, packgaeData }) => {
 
                     <div className="text-black py-2 text-left ">
                       <b className="pr-5">Renew Date:</b>
-                      <p>{val.renew_date}</p>
+                      <p>{val.renew_date ? val.renew_date : "#"}</p>
                     </div>
 
                     <div className="text-black py-2 text-left ">

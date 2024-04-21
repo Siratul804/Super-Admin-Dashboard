@@ -1,9 +1,24 @@
 "use client";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import { useEffect } from "react";
 import { updateMember } from "@/app/lib/actions";
 import toast from "react-hot-toast";
 const Edit = ({ MemberSpecificData }) => {
+  const [formValues, setFormValues] = useState({});
+
+  const [selectedGender, setSelectedGender] = useState("");
+  const [selectedBlood, setSelectedBlood] = useState("");
+
+  useEffect(() => {
+    if (MemberSpecificData.length > 0) {
+      setFormValues(MemberSpecificData[0]); // Assuming MemberSpecificData is an array with only one item
+    }
+  }, [MemberSpecificData]);
+
+  const handleChange = (e) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+  };
+
   const initialState = {
     message: "",
   };
@@ -34,7 +49,7 @@ const Edit = ({ MemberSpecificData }) => {
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white h-[6vh] w-full rounded-md "
+        className=" bg-black text-white h-[6vh] w-full rounded-md font-bold "
         disabled={pending}
       >
         {pending ? "Updating..." : "Update Member"}
@@ -51,7 +66,7 @@ const Edit = ({ MemberSpecificData }) => {
             <>
               <section className="flex justify-evenly flex-wrap  ">
                 <div className="general_left  w-[45vh]  ">
-                  <div className="flex justify-center pt-20 ">
+                  <div className="flex justify-center pt-28 ">
                     <img
                       src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                       alt="No Img"
@@ -65,7 +80,7 @@ const Edit = ({ MemberSpecificData }) => {
                   </div>
                 </div>
                 <div className="sm:py-0 py-4 "></div>
-                <div className="general_right  flex-0.7 flex-initial w-[88vh] rounded p-5 ">
+                <div className="general_right w-auto rounded p-5 ">
                   <form action={formAction}>
                     <section className="flex justify-between flex-wrap ">
                       <input type="hidden" name="id" value={val.Id} />
@@ -79,7 +94,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="name"
-                            defaultValue={val.name}
+                            value={formValues.name || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -93,7 +109,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="email"
-                            defaultValue={val.email}
+                            value={formValues.email || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -107,7 +124,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="phone"
-                            defaultValue={val.cell_number}
+                            value={formValues.cell_number || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -120,17 +138,12 @@ const Edit = ({ MemberSpecificData }) => {
                           </label>
                           <select
                             name="gender"
-                            defaultValue={val.gender}
+                            value={selectedGender || formValues.gender || ""}
+                            onChange={(e) => setSelectedGender(e.target.value)}
                             className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           >
                             <>
                               <>
-                                <option
-                                  value={val.gender}
-                                  className="text-slate-400"
-                                >
-                                  Select
-                                </option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                               </>
@@ -146,7 +159,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="country"
-                            defaultValue={val.country}
+                            value={formValues.country || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -162,15 +176,13 @@ const Edit = ({ MemberSpecificData }) => {
                           </label>
                           <select
                             name="blood_group"
+                            value={
+                              selectedBlood || formValues.blood_group || ""
+                            }
+                            onChange={(e) => setSelectedBlood(e.target.value)}
                             required
                             className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           >
-                            <option
-                              value={val.blood_group}
-                              className="text-slate-400"
-                            >
-                              Select
-                            </option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
                             <option value="B+">B+</option>
@@ -190,7 +202,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="national_id"
-                            defaultValue={val.national_id}
+                            value={formValues.national_id || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -205,7 +218,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="height"
-                            defaultValue={val.height}
+                            value={formValues.height || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -219,7 +233,8 @@ const Edit = ({ MemberSpecificData }) => {
                           <input
                             type="text"
                             name="weight"
-                            defaultValue={val.weight}
+                            value={formValues.weight || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -232,8 +247,9 @@ const Edit = ({ MemberSpecificData }) => {
                           </label>
                           <input
                             type="date"
-                            name="date_of_birth"
-                            defaultValue={val.date_of_birth}
+                            name="date_time"
+                            value={formValues.date_time || ""}
+                            onChange={handleChange}
                             required
                             className=" input  h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                           />
@@ -258,5 +274,3 @@ const Edit = ({ MemberSpecificData }) => {
 };
 
 export default Edit;
-
-// Gender select, Blood Group Select , Date of Birth I have to set the values with useState (this is my next task woudl be )

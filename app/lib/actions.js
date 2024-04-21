@@ -697,7 +697,7 @@ export const updateMember = async (prevState, formData) => {
     national_id,
     height,
     weight,
-    date_of_birth,
+    date_time,
   } = Object.fromEntries(formData);
 
   console.log(
@@ -711,7 +711,7 @@ export const updateMember = async (prevState, formData) => {
     national_id,
     height,
     weight,
-    date_of_birth
+    date_time
   );
 
   const LastUpdateDate = new Date().toISOString().split("T")[0];
@@ -728,7 +728,7 @@ export const updateMember = async (prevState, formData) => {
         country,
         blood_group,
         national_id,
-        date_of_birth,
+        date_time,
         weight,
         height,
         LastUpdateDate,
