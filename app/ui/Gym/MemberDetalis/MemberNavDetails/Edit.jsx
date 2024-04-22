@@ -61,7 +61,7 @@ const Edit = ({ MemberSpecificData }) => {
     <>
       <>
         <div className="py-2"></div>
-        <div className="general bg-white shadow-lg p-5 rounded-lg h-[80vh] ">
+        <div className="general bg-white shadow-lg rounded-lg h-[80vh] ">
           {MemberSpecificData.map((val) => (
             <>
               <section className="flex justify-evenly flex-wrap  ">
@@ -123,7 +123,7 @@ const Edit = ({ MemberSpecificData }) => {
                           </label>
                           <input
                             type="text"
-                            name="phone"
+                            name="cell_number"
                             value={formValues.cell_number || ""}
                             onChange={handleChange}
                             required

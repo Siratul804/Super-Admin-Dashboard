@@ -6,16 +6,36 @@ const View = ({ MemberSpecificData, packgaeData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg p-5 rounded-lg h-[80vh] ">
+      <div className="general bg-white shadow-lg rounded-lg h-[80vh] ">
         {MemberSpecificData.map((val) => (
           <>
             <section className="flex justify-evenly flex-wrap    ">
-              <div className="general_left  w-[45vh]  ">
-                <div className="flex justify-center pt-28 ">
+              <div className="general_left  w-[42vh]  ">
+                <div className="flex justify-center pt-10 flex-col  ">
+                  <div className="flex justify-left flex-col py-2 ">
+                    <b className="text-xl py-2 "> {val.name} </b>
+                    {val.active_status === "Active" ? (
+                      <>
+                        <div className=" bg-[#22c55e29] text-center rounded-md w-[22vh] ">
+                          <p className="text-sm  font-bold  text-[#118d57]">
+                            Active
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className=" bg-[#ff563029] text-center rounded-md w-[22vh] ">
+                          <p className="text-sm  font-bold  text-[#b71d18]">
+                            Disable
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </div>
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                     alt="No Img"
-                    className="rounded-md w-[35vh] h-auto"
+                    className="rounded-md w-[40vh] h-auto"
                   />
                 </div>
 
