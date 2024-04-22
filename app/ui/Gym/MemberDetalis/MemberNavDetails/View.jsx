@@ -6,7 +6,7 @@ const View = ({ MemberSpecificData, packgaeData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg p-5 rounded-lg">
+      <div className="general bg-white shadow-lg p-5 rounded-lg h-[83vh] ">
         {MemberSpecificData.map((val) => (
           <>
             <section className="flex justify-evenly flex-wrap    ">

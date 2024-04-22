@@ -33,10 +33,10 @@ const Photo = () => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg p-5 rounded-lg  ">
+      <div className="general bg-white shadow-lg pt-[12vh]  rounded-lg h-[83vh] ">
         <div className="flex flex-col items-center justify-center">
           <label htmlFor="imageInput" className="cursor-pointer">
-            <div className="relative overflow-hidden w-[45vh] h-[45vh] rounded-lg border-2 border-gray-300">
+            <div className="relative overflow-hidden sm:w-[45vh] sm:h-[45vh] w-[40vh] h-[40vh] rounded-lg border-2 border-gray-300">
               {image ? (
                 <img
                   src={image}
@@ -73,10 +73,10 @@ const Photo = () => {
                 onChange={handleImageChange}
               />
               <main>
-                <label className="label">
-                  <span className="text-[black] text-sm pt-2 pb-2 ">
-                    <b className="font-bold text-sm text-primary ">
-                      ( png, jpg, jpeg, svg & less than 1MB file )
+                <label className="label flex justify-center  ">
+                  <span className="text-[black] pt-2 pb-2">
+                    <b className="font-bold text-primary text-xs ">
+                      ( Select png, jpg, jpeg, svg & less than 1MB file )
                     </b>
                   </span>
                 </label>
