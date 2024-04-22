@@ -749,3 +749,48 @@ export const updateMember = async (prevState, formData) => {
     message: "Updated",
   };
 };
+
+export const addMemberPhoto = async (prevState, formData) => {
+  const { photo, id } = Object.fromEntries(formData);
+
+  console.log(photo, id);
+
+  try {
+    const FILE_SIZE = 1000000; // 1MB
+
+    if (photo.size > FILE_SIZE) {
+      return {
+        message: "File Did't Match",
+      };
+      // return "File size is large! (image has to be less then 1MB) ";
+    }
+
+    const buffer = Buffer.from(await photo.arrayBuffer());
+    const filename = Date.now() + photo.name.replaceAll(" ", "_");
+    console.log(filename);
+
+    await writeFile(
+      path.join(process.cwd(), "public/uploads/" + filename),
+      buffer
+    );
+
+    const newMemberPhoto = await query({
+      query: "UPDATE members SET  photo = ? WHERE id = ?",
+      values: [filename, id], // I have to include id
+    });
+
+    console.log(newMemberPhoto);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "Failed",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/gym/member");
+  return {
+    message: "Updated",
+  };
+};

@@ -40,7 +40,7 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
         return (
           <>
             <section className="py-[0vh]">
-              <Photo />
+              <Photo id={id} />
             </section>
           </>
         );

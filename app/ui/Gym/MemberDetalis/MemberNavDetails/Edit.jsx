@@ -61,7 +61,7 @@ const Edit = ({ MemberSpecificData }) => {
     <>
       <>
         <div className="py-2"></div>
-        <div className="general bg-white shadow-lg p-5 rounded-lg h-[83vh] ">
+        <div className="general bg-white shadow-lg p-5 rounded-lg h-[80vh] ">
           {MemberSpecificData.map((val) => (
             <>
               <section className="flex justify-evenly flex-wrap  ">
