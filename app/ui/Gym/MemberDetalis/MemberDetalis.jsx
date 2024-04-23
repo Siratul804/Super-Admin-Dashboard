@@ -6,6 +6,12 @@ import Edit from "./MemberNavDetails/Edit";
 import Photo from "./MemberNavDetails/Photo";
 import { FaUserEdit } from "react-icons/fa";
 import { MdOutlineAddPhotoAlternate } from "react-icons/md";
+import { AiFillDollarCircle } from "react-icons/ai";
+import Credit from "./MemberNavDetails/Credit";
+import Invoice from "./MemberNavDetails/Invoice";
+import Package from "./MemberNavDetails/Package";
+import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
+import { LuPackagePlus } from "react-icons/lu";
 
 const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
   const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
@@ -36,11 +42,35 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
             </section>
           </>
         );
+      case "member_credit":
+        return (
+          <>
+            <section className="py-[0vh]">
+              <Credit />
+            </section>
+          </>
+        );
       case "member_photo":
         return (
           <>
             <section className="py-[0vh]">
               <Photo id={id} />
+            </section>
+          </>
+        );
+      case "member_invoice":
+        return (
+          <>
+            <section className="py-[0vh]">
+              <Invoice />
+            </section>
+          </>
+        );
+      case "member_package":
+        return (
+          <>
+            <section className="py-[0vh]">
+              <Package id={id} />
             </section>
           </>
         );
@@ -82,7 +112,22 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
             </p>
             <p className="pl-1">Edit Member</p>
           </div>
+
           {/* Add more navbar items with similar structure */}
+          <div className="pl-4"></div>
+          {/* Add more navbar items with similar structure */}
+          <div
+            className={`text-md flex  cursor-pointer font-bold ${
+              selectedNav === "member_credit" &&
+              "font-bold border-b-2 border-black text-black  "
+            }`}
+            onClick={() => setSelectedNav("member_credit")}
+          >
+            <p className="py-1 ">
+              <AiFillDollarCircle />
+            </p>
+            <p className="pl-1">Credit</p>
+          </div>
           <div className="pl-4"></div>
           {/* Add more navbar items with similar structure */}
           <div
@@ -96,6 +141,38 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
               <MdOutlineAddPhotoAlternate />
             </p>
             <p className="pl-1">Photo</p>
+          </div>
+
+          {/* Add more navbar items with similar structure */}
+          <div className="pl-4"></div>
+          {/* Add more navbar items with similar structure */}
+          <div
+            className={`text-md flex  cursor-pointer font-bold ${
+              selectedNav === "member_invoice" &&
+              "font-bold border-b-2 border-black text-black  "
+            }`}
+            onClick={() => setSelectedNav("member_invoice")}
+          >
+            <p className="py-1 ">
+              <LiaFileInvoiceDollarSolid />
+            </p>
+            <p className="pl-1">Invoice List</p>
+          </div>
+
+          {/* Add more navbar items with similar structure */}
+          <div className="pl-4"></div>
+          {/* Add more navbar items with similar structure */}
+          <div
+            className={`text-md flex  cursor-pointer font-bold ${
+              selectedNav === "member_package" &&
+              "font-bold border-b-2 border-black text-black  "
+            }`}
+            onClick={() => setSelectedNav("member_package")}
+          >
+            <p className="py-1 ">
+              <LuPackagePlus />
+            </p>
+            <p className="pl-1">Change Package</p>
           </div>
         </section>
       </div>

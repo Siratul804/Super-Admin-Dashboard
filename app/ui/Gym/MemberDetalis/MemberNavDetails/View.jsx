@@ -6,14 +6,14 @@ const View = ({ MemberSpecificData, packgaeData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg rounded-lg h-[80vh] ">
+      <div className="general bg-white shadow-lg rounded-lg h-auto  sm:h-[80vh] ">
         {MemberSpecificData.map((val) => (
           <>
             <section className="flex justify-evenly flex-wrap    ">
               <div className="general_left  w-[42vh]  ">
-                <div className="flex justify-center pt-10 flex-col  ">
+                <div className="flex justify-center pt-0 sm:pt-10 flex-col  ">
                   <div className="flex justify-left flex-col py-2 ">
-                    <b className="text-xl py-2 "> {val.name} </b>
+                    <b className="text-xl py-2 text-black "> {val.name} </b>
                     {val.active_status === "Active" ? (
                       <>
                         <div className=" bg-[#22c55e29] text-center rounded-md w-[22vh] ">
@@ -35,7 +35,7 @@ const View = ({ MemberSpecificData, packgaeData }) => {
                   <img
                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                     alt="No Img"
-                    className="rounded-md w-[40vh] h-auto"
+                    className="rounded-md w-[42vh] h-auto"
                   />
                 </div>
 
