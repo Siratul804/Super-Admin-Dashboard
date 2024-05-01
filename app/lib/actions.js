@@ -674,6 +674,7 @@ export const addMember = async (prevState, formData) => {
     console.log("New member inserted:", newMember);
 
     // I have to findout how I can add invoice wtih add member (add_package actually)
+    // If package_id === package_id then Insert into invoice name , details ........ (need to see invoice database)
   } catch (err) {
     console.log("Error inserting new member:", err);
     return {

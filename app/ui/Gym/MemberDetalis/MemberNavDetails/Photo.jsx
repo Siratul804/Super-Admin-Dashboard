@@ -1,127 +1,105 @@
 "use client";
-
+import { useRef, useState } from "react";
+import Webcam from "react-webcam";
+import { MdOutlineFileUpload } from "react-icons/md";
 import { addMemberPhoto } from "@/app/lib/actions";
-import { useFormState, useFormStatus } from "react-dom";
-import { useState } from "react";
-import { useEffect, useRef } from "react";
-import toast from "react-hot-toast";
 
 const Photo = ({ id }) => {
-  const [image, setImage] = useState(null);
+  const webcamRef = useRef(null);
+  const formRef = useRef();
+  const [capturedImage, setCapturedImage] = useState(null);
+  const [file, setFile] = useState(null);
 
-  const [state, formAction] = useFormState(addMemberPhoto, undefined);
+  const captureSnapshot = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    // Convert the image data to a Blob object
+    const blob = dataURLtoBlob(imageSrc);
 
-  const handleImageChange = (e) => {
-    const selectedImage = e.target.files[0];
-    if (selectedImage) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setImage(event.target.result);
-      };
-      reader.readAsDataURL(selectedImage);
-    }
+    const capturedFile = new File([blob], "snapshot.jpeg", {
+      type: "image/jpeg",
+    }); // Create File object from Blob
+
+    console.log(capturedFile);
+
+    setFile(capturedFile); // Set the File object
+
+    // Set the captured image to display it
+    setCapturedImage(imageSrc);
   };
 
-  function Submit() {
-    const { pending } = useFormStatus();
-
-    return (
-      <button
-        type="submit"
-        className=" bg-black text-white h-[6vh] w-full rounded-md font-bold "
-        disabled={pending}
-      >
-        {pending ? "Updating..." : "Update Image"}
-      </button>
-    );
-  }
-
-  const formRef = useRef();
-
-  useEffect(() => {
-    if (state?.message === "Updated") {
-      formRef.current.reset();
-      toast.success("Image Update Successfully !", {
-        style: {
-          background: "#008000",
-          color: "#fff",
-        },
-      });
-    } else if (state?.message === "Failed") {
-      toast.error("Failed to Update !", {
-        style: {
-          background: "#FF0000",
-          color: "#fff",
-        },
-      });
-    } else if (state?.message === "File Did't Match") {
-      toast.error("File size is large! (image has to be less then 1MB)", {
-        style: {
-          background: "#FF0000",
-          color: "#fff",
-        },
-      });
+  // Function to convert data URL to Blob object
+  const dataURLtoBlob = (dataURL) => {
+    const byteString = atob(dataURL.split(",")[1]);
+    const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uintArray = new Uint8Array(arrayBuffer);
+    for (let i = 0; i < byteString.length; i++) {
+      uintArray[i] = byteString.charCodeAt(i);
     }
-  }, [state]);
+    return new Blob([arrayBuffer], { type: mimeString });
+  };
+
+  const handleSubmit = () => {
+    console.log("Alert");
+  };
 
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg pt-[10vh]  rounded-lg h-[80vh] ">
-        <div className="flex flex-col items-center justify-center">
-          <label htmlFor="imageInput" className="cursor-pointer">
-            <div className="relative overflow-hidden sm:w-[45vh] sm:h-[45vh] w-[40vh] h-[40vh] rounded-lg border-2 border-gray-300">
-              {image ? (
-                <img
-                  src={image}
-                  alt="Preview"
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <div className="flex items-center justify-center w-full h-full bg-gray-100">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-8 h-8 text-gray-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                  <span className="ml-2 text-gray-400">Select Image</span>
-                </div>
-              )}
+      <div className="general bg-white shadow-lg  rounded-lg h-[80vh] ">
+        <div className="flex justify-evenly flex-wrap ">
+          <div className=" sm:pt-4 pt-0 ">
+            <h2 className="text-xl py-1 text-black ">Camera:</h2>
+            <div className="p-2 border border-black rounded-md ">
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                screenshotFormat="image/jpeg"
+                className="w-[75vh] h-auto"
+              />
             </div>
+            <div className="py-2"></div>
+            <button
+              className=" bg-black text-white h-[6vh] w-full rounded-md font-bold "
+              onClick={captureSnapshot}
+            >
+              Take Snapshot
+            </button>
+          </div>
+          <div>
+            {/* ................ */}
 
-            <form action={formAction} ref={formRef}>
+            <form onSubmit={handleSubmit} ref={formRef}>
               <input type="hidden" name="id" value={id} />
 
-              <input
-                id="imageInput"
-                type="file"
-                name="photo"
-                accept="image/*"
-                className="hidden"
-                required
-                onChange={handleImageChange}
-              />
-              <main>
-                <label className="label flex justify-center  ">
-                  <span className="text-[black] pt-2 pb-2">
-                    <b className="font-bold text-primary text-xs ">
-                      ( Select png, jpg, jpeg, svg & less than 1MB file )
-                    </b>
-                  </span>
-                </label>
-                <Submit />
-              </main>
+              <input name="photo" type="file" className="hidden" />
+
+              <div className="sm:pt-28 pt-5 ">
+                <h2 className="text-md py-1 text-black ">
+                  Captured Image Apparels Here:
+                </h2>
+                {capturedImage && (
+                  <>
+                    <img
+                      src={capturedImage}
+                      className="w-[42vh] h-auto rounded-md "
+                      alt="Captured"
+                    />
+
+                    <div className="py-2"></div>
+                    <button
+                      className=" bg-black text-white h-[6vh] w-full rounded-md "
+                      type="submit"
+                    >
+                      <p className="flex justify-center font-bold ">
+                        <MdOutlineFileUpload size={25} /> Upload
+                      </p>
+                    </button>
+                  </>
+                )}
+              </div>
             </form>
-          </label>
+          </div>
         </div>
       </div>
     </>
