@@ -1,47 +1,73 @@
 "use client";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Webcam from "react-webcam";
 import { MdOutlineFileUpload } from "react-icons/md";
 import { addMemberPhoto } from "@/app/lib/actions";
+import { useFormState, useFormStatus } from "react-dom";
+import toast from "react-hot-toast";
 
 const Photo = ({ id }) => {
   const webcamRef = useRef(null);
-  const formRef = useRef();
   const [capturedImage, setCapturedImage] = useState(null);
-  const [file, setFile] = useState(null);
+  const [photo, setPhoto] = useState(null);
 
   const captureSnapshot = () => {
     const imageSrc = webcamRef.current.getScreenshot();
-    // Convert the image data to a Blob object
-    const blob = dataURLtoBlob(imageSrc);
 
-    const capturedFile = new File([blob], "snapshot.jpeg", {
-      type: "image/jpeg",
-    }); // Create File object from Blob
-
-    console.log(capturedFile);
-
-    setFile(capturedFile); // Set the File object
+    console.log(typeof imageSrc);
 
     // Set the captured image to display it
     setCapturedImage(imageSrc);
+    setPhoto(imageSrc);
   };
 
-  // Function to convert data URL to Blob object
-  const dataURLtoBlob = (dataURL) => {
-    const byteString = atob(dataURL.split(",")[1]);
-    const mimeString = dataURL.split(",")[0].split(":")[1].split(";")[0];
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const uintArray = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < byteString.length; i++) {
-      uintArray[i] = byteString.charCodeAt(i);
+  const initialState = {
+    message: "",
+  };
+
+  const [state, formAction] = useFormState(addMemberPhoto, initialState);
+
+  function Submit() {
+    const { pending } = useFormStatus();
+
+    return (
+      <button
+        type="submit"
+        className=" bg-black text-white h-[6vh] w-full rounded-md "
+        disabled={pending}
+      >
+        <p className="flex justify-center font-bold ">
+          {pending ? (
+            <>
+              <MdOutlineFileUpload size={25} /> Uploading
+            </>
+          ) : (
+            <>
+              <MdOutlineFileUpload size={25} /> Upload
+            </>
+          )}
+        </p>
+      </button>
+    );
+  }
+
+  useEffect(() => {
+    if (state?.message === "Updated") {
+      toast.success("Photo Update Successfully !", {
+        style: {
+          background: "#008000",
+          color: "#fff",
+        },
+      });
+    } else if (state?.message === "Failed") {
+      toast.error("Photo Update Failed !", {
+        style: {
+          background: "#FF0000",
+          color: "#fff",
+        },
+      });
     }
-    return new Blob([arrayBuffer], { type: mimeString });
-  };
-
-  const handleSubmit = () => {
-    console.log("Alert");
-  };
+  }, [state]);
 
   return (
     <>
@@ -69,10 +95,10 @@ const Photo = ({ id }) => {
           <div>
             {/* ................ */}
 
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form action={formAction}>
               <input type="hidden" name="id" value={id} />
 
-              <input name="photo" type="file" className="hidden" />
+              <input name="photo" type="hidden" value={photo} />
 
               <div className="sm:pt-28 pt-5 ">
                 <h2 className="text-md py-1 text-black ">
@@ -87,14 +113,7 @@ const Photo = ({ id }) => {
                     />
 
                     <div className="py-2"></div>
-                    <button
-                      className=" bg-black text-white h-[6vh] w-full rounded-md "
-                      type="submit"
-                    >
-                      <p className="flex justify-center font-bold ">
-                        <MdOutlineFileUpload size={25} /> Upload
-                      </p>
-                    </button>
+                    <Submit />
                   </>
                 )}
               </div>

@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { signIn } from "@/app/auth";
 import path from "path";
 import { writeFile } from "fs/promises";
+import fs from "fs/promises";
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
@@ -752,48 +753,60 @@ export const updateMember = async (prevState, formData) => {
     message: "Updated",
   };
 };
-
 export const addMemberPhoto = async (prevState, formData) => {
-  const { photo, id } = Object.fromEntries(formData);
+  const { id, photo } = Object.fromEntries(formData);
 
-  console.log(photo, id);
+  console.log(id, photo);
 
   try {
-    const FILE_SIZE = 1000000; // 1MB
+    const FILE_SIZE = 1024 * 1024; // 1MB
 
-    if (photo.size > FILE_SIZE) {
+    if (photo.length > FILE_SIZE) {
       return {
-        message: "File Did't Match",
+        message: "File size is too large",
       };
-      // return "File size is large! (image has to be less then 1MB) ";
     }
 
-    const buffer = Buffer.from(await photo.arrayBuffer());
-    const filename = Date.now() + photo.name.replaceAll(" ", "_");
-    console.log(filename);
+    // Remove header of base64 string if present
+    const base64Image = photo.replace(/^data:image\/\w+;base64,/, "");
 
-    await writeFile(
-      path.join(process.cwd(), "public/uploads/" + filename),
-      buffer
-    );
+    // Create buffer from base64 string
+    const imageBuffer = Buffer.from(base64Image, "base64");
 
-    const newMemberPhoto = await query({
-      query: "UPDATE members SET  photo = ? WHERE id = ?",
-      values: [filename, id], // I have to include id
-    });
+    const fileName = `image_${Date.now()}.png`;
 
-    console.log(newMemberPhoto);
+    console.log("Writing file:", fileName);
+
+    // Ensure the directory exists
+    const directory = path.join(process.cwd(), "public/uploads");
+    await fs.mkdir(directory, { recursive: true });
+
+    try {
+      // Write the file
+      await fs.writeFile(path.join(directory, fileName), imageBuffer);
+      console.log("File saved successfully:", fileName);
+
+      // Update the database with the filename
+      const newMemberPhoto = await query({
+        query: "UPDATE members SET photo = ? WHERE id = ?",
+        values: [fileName, id],
+      });
+
+      console.log(newMemberPhoto);
+    } catch (error) {
+      console.error("Error saving file:", error);
+    }
+
+    // Revalidate path (assuming revalidatePath is defined elsewhere)
+    revalidatePath("/dashboard/gym/member");
+
+    return {
+      message: "Updated",
+    };
   } catch (err) {
-    if (err) {
-      console.log(err);
-      return {
-        message: "Failed",
-      };
-    }
+    console.error(err);
+    return {
+      message: "Failed",
+    };
   }
-
-  revalidatePath("/dashboard/gym/member");
-  return {
-    message: "Updated",
-  };
 };

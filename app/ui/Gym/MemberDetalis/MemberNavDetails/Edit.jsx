@@ -90,7 +90,7 @@ const Edit = ({ MemberSpecificData }) => {
                     <img
                       src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                       alt="No Img"
-                      className="rounded-md w-[42vh] h-auto"
+                      className="rounded-md w-auto h-auto"
                     />
                   </div>
 

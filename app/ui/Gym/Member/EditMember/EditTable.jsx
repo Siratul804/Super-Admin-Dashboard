@@ -44,14 +44,14 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                         <tr>
                           <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="flex ">
-                              <div className="h-10 w-10">
+                              <div className="h-auto w-12">
                                 <Link
                                   href={`/dashboard/gym/memberDetails/${val.Id}`}
                                 >
                                   <img
                                     src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
                                     alt="No Img"
-                                    className="rounded-full"
+                                    className="rounded-md"
                                   />
                                 </Link>
                               </div>
