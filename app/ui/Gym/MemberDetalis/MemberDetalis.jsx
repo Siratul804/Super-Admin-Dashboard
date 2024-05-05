@@ -13,7 +13,7 @@ import Package from "./MemberNavDetails/Package";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { LuPackagePlus } from "react-icons/lu";
 
-const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
+const MemberDetalis = ({ MemberSpecificData, id, packgaeData, user }) => {
   const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
 
   const renderNavContent = () => {
@@ -70,7 +70,7 @@ const MemberDetalis = ({ MemberSpecificData, id, packgaeData }) => {
         return (
           <>
             <section className="py-[0vh]">
-              <Package id={id} />
+              <Package id={id} packgaeData={packgaeData} user={user} />
             </section>
           </>
         );

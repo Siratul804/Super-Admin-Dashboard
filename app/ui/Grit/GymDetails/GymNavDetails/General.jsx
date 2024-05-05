@@ -2,10 +2,10 @@ const General = ({ GymSpecificData }) => {
   return (
     <>
       <div className="py-2"></div>
-      <div className="general bg-white shadow-lg p-5 rounded-lg">
+      <div className="general bg-white shadow-lg p-5 rounded-lg h-auto  sm:h-[70vh] ">
         {GymSpecificData.map((val) => (
           <>
-            <section className="flex justify-between flex-wrap  ">
+            <section className="flex justify-between flex-wrap pt-0 sm:pt-16  ">
               <div className="general_left  w-[45vh]  ">
                 <div className="flex justify-center pt-5 ">
                   <img

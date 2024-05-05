@@ -810,3 +810,30 @@ export const addMemberPhoto = async (prevState, formData) => {
     };
   }
 };
+
+export const changePackage = async (prevState, formData) => {
+  const { id, package_id, status } = Object.fromEntries(formData);
+
+  console.log(id, package_id, status);
+
+  try {
+    const changePackage = await query({
+      query:
+        "UPDATE members SET package_id = ?, active_status = ?  WHERE id = ?",
+      values: [package_id, status, id],
+    });
+
+    console.log(changePackage);
+
+    revalidatePath("/dashboard/gym/member");
+
+    return {
+      message: "Updated",
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Failed",
+    };
+  }
+};
