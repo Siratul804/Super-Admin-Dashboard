@@ -131,7 +131,7 @@ const Edit = ({ MemberSpecificData }) => {
                             </span>
                           </label>
                           <input
-                            type="text"
+                            type="email"
                             name="email"
                             value={formValues.email || ""}
                             onChange={handleChange}
@@ -146,7 +146,7 @@ const Edit = ({ MemberSpecificData }) => {
                             </span>
                           </label>
                           <input
-                            type="text"
+                            type="number"
                             name="cell_number"
                             value={formValues.cell_number || ""}
                             onChange={handleChange}
