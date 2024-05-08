@@ -812,18 +812,45 @@ export const addMemberPhoto = async (prevState, formData) => {
 };
 
 export const changePackage = async (prevState, formData) => {
-  const { id, package_id, status } = Object.fromEntries(formData);
+  const { id, newPackage, activeStatus, credit, pin_number } =
+    Object.fromEntries(formData);
 
-  console.log(id, package_id, status);
+  console.log(id, newPackage, activeStatus, credit, pin_number);
 
   try {
     const changePackage = await query({
       query:
-        "UPDATE members SET package_id = ?, active_status = ?  WHERE id = ?",
-      values: [package_id, status, id],
+        "UPDATE members SET package_id = ?, active_status = ?, credit_balance = ?, CardNo = ?   WHERE id = ?",
+      values: [newPackage, activeStatus, credit, pin_number, id],
     });
 
     console.log(changePackage);
+
+    revalidatePath("/dashboard/gym/member");
+
+    return {
+      message: "Updated",
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      message: "Failed",
+    };
+  }
+};
+
+export const changeCycle = async (prevState, formData) => {
+  const { renew_date, id } = Object.fromEntries(formData);
+
+  console.log(renew_date, id);
+
+  try {
+    const changeRenewalDate = await query({
+      query: "UPDATE members SET renew_date = ?  WHERE id = ?",
+      values: [renew_date, id],
+    });
+
+    console.log(changeRenewalDate);
 
     revalidatePath("/dashboard/gym/member");
 
