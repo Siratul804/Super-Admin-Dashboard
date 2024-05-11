@@ -683,6 +683,20 @@ export const addMember = async (prevState, formData) => {
     };
   }
 
+  try {
+    const m_invoice = await query({
+      query: "INSERT INTO m_invoice (member_id, date_time) VALUES (?,?)",
+      values: [nextMemberId, RegDate],
+    });
+
+    console.log("New m_invoice:", m_invoice);
+  } catch (err) {
+    console.log("Error inserting new m_invoice:", err);
+    return {
+      message: "Already Exists",
+    };
+  }
+
   revalidatePath("/dashboard/gym/member");
   return {
     message: "Added",
