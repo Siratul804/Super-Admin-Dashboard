@@ -550,3 +550,12 @@ export async function GetMemberDataById(id) {
 
   return users;
 }
+export async function GetMemberInvoiceDataById(id) {
+  console.log(id);
+  const m_invoice = await query({
+    query: "SELECT * FROM m_invoice WHERE m_id = ?",
+    values: [id],
+  });
+
+  return m_invoice;
+}

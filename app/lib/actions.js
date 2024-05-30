@@ -684,9 +684,18 @@ export const addMember = async (prevState, formData) => {
   }
 
   try {
+    const lastMemberId = await query({
+      query:
+        "SELECT Id FROM members WHERE gym_id = ? ORDER BY member_id DESC LIMIT 1",
+      values: [gym_id],
+    });
+
+    console.log(lastMemberId[0].Id);
+
     const m_invoice = await query({
-      query: "INSERT INTO m_invoice (member_id, date_time) VALUES (?,?)",
-      values: [nextMemberId, RegDate],
+      query:
+        "INSERT INTO m_invoice (member_id, date_time, m_id) VALUES (?,?,?)",
+      values: [nextMemberId, RegDate, lastMemberId[0].Id],
     });
 
     console.log("New m_invoice:", m_invoice);
