@@ -12,6 +12,8 @@ import Invoice from "./MemberNavDetails/Invoice";
 import Package from "./MemberNavDetails/Package";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { LuPackagePlus } from "react-icons/lu";
+import { MdOutlinePayment } from "react-icons/md";
+import Payment from "./MemberNavDetails/Payment";
 
 const MemberDetalis = ({
   MemberSpecificData,
@@ -68,7 +70,24 @@ const MemberDetalis = ({
         return (
           <>
             <section className="py-[0vh]">
-              <Invoice MemberInvoiceSpecificData={MemberInvoiceSpecificData} />
+              <Invoice
+                MemberInvoiceSpecificData={MemberInvoiceSpecificData}
+                packgaeData={packgaeData}
+              />
+            </section>
+          </>
+        );
+      case "member_payment":
+        return (
+          <>
+            <section className="py-[0vh]">
+              <Payment
+                MemberInvoiceSpecificData={MemberInvoiceSpecificData}
+                id={id}
+                packgaeData={packgaeData}
+                user={user}
+                MemberSpecificData={MemberSpecificData}
+              />
             </section>
           </>
         );
@@ -184,6 +203,21 @@ const MemberDetalis = ({
               <LuPackagePlus />
             </p>
             <p className="pl-1">Change Package</p>
+          </div>
+          {/* Add more navbar items with similar structure */}
+          <div className="pl-4"></div>
+          {/* Add more navbar items with similar structure */}
+          <div
+            className={`text-md flex  cursor-pointer font-bold ${
+              selectedNav === "member_payment" &&
+              "font-bold border-b-2 border-black text-black  "
+            }`}
+            onClick={() => setSelectedNav("member_payment")}
+          >
+            <p className="py-1 ">
+              <MdOutlinePayment />
+            </p>
+            <p className="pl-1">Add Payment</p>
           </div>
         </section>
       </div>

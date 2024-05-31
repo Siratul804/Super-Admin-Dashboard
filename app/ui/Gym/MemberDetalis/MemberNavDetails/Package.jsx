@@ -1,4 +1,3 @@
-"use client";
 import { useEffect } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { changePackage } from "@/app/lib/actions";
