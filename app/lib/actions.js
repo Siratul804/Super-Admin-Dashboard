@@ -887,3 +887,58 @@ export const changeCycle = async (prevState, formData) => {
     };
   }
 };
+
+export const addPayment = async (prevState, formData) => {
+  const {
+    invoice_id,
+    collector_id,
+    collected_by,
+    amount,
+    amount_due,
+    pay_type,
+    discount,
+  } = Object.fromEntries(formData);
+
+  const pay_date = new Date().toISOString().split("T")[0];
+
+  console.log(
+    invoice_id,
+    collector_id,
+    collected_by,
+    pay_date,
+    amount,
+
+    pay_type,
+    discount
+  );
+
+  try {
+    const newPayment = await query({
+      query:
+        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, pay_type, discount) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      values: [
+        invoice_id,
+        collector_id,
+        collected_by,
+        pay_date,
+        amount,
+        pay_type,
+        discount,
+      ],
+    });
+
+    console.log(newPayment);
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      return {
+        message: "Already Exits",
+      };
+    }
+  }
+
+  revalidatePath("/dashboard/gym/package");
+  return {
+    message: "Added",
+  };
+};
