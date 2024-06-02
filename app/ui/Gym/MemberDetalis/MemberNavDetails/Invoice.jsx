@@ -1,10 +1,10 @@
 // import { useRef } from "react";
 // import { useReactToPrint } from "react-to-print";
 import Search from "./Invoice/Search";
-import AddPayment from "./Invoice/AddPayment";
+// import AddPayment from "./Invoice/AddPayment";
 import Table from "./Invoice/Table";
 import Pagination from "./Invoice/Pagination";
-const Invoice = () => {
+const Invoice = ({ paginationInvoice, id, MemberSpecificData }) => {
   // const printRef = useRef();
 
   // const handlePrint = useReactToPrint({
@@ -20,16 +20,18 @@ const Invoice = () => {
         {/* //start */}
         <section className="bg-white w-full shadow-lg rounded-lg">
           <div className="">
-            <div className="p-3 flex justify-between  ">
+            <div className="p-3">
               <h1 className="text-lg font-bold text-black ">Invoice List</h1>
-              {/* {permission.includes(3) && <AddUser roleData={roleData} />} */}
-              <AddPayment />
             </div>
           </div>
 
           <>
             <div className="overflow-x-auto h-[52vh]">
-              <Table />
+              <Table
+                paginationInvoiceData={paginationInvoice}
+                MemberSpecificData={MemberSpecificData}
+                id={id}
+              />
             </div>
           </>
 

@@ -69,7 +69,12 @@ const MemberDetalis = ({
         return (
           <>
             <section className="py-[0vh]">
-              <Invoice packgaeData={packgaeData} />
+              <Invoice
+                MemberSpecificData={MemberSpecificData}
+                id={id}
+                packgaeData={packgaeData}
+                paginationInvoice={paginationInvoice}
+              />
             </section>
           </>
         );

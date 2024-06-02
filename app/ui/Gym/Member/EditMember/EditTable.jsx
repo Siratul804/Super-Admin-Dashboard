@@ -9,6 +9,10 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
 
   console.log(isIdIncluded);
 
+  const filteredMemberData = MemberData.filter(
+    (val) => val.gym_id === gym_id
+  ).reverse();
+
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">
@@ -43,11 +47,12 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
           {isIdIncluded ? (
             <tbody className="bg-white  ">
               <>
-                {MemberData.filter((val) => val.gym_id === gym_id).map(
-                  (val) => (
+                {filteredMemberData
+                  .filter((val) => val.gym_id === gym_id)
+                  .map((val) => (
                     <>
                       <>
-                        <tr>
+                        <tr className="">
                           <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                             <div className="flex ">
                               <div className="h-auto w-12">
@@ -76,10 +81,10 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                             <Link
                               href={`/dashboard/gym/memberDetails/${val.Id}`}
                             >
-                              <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                              <div className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                                 #{val.member_id}
-                                <hr />
-                              </p>
+                                <p className="border-b-2 p-0.5 w-full  border-black "></p>
+                              </div>
                             </Link>
                           </td>
 
@@ -117,8 +122,7 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                         </tr>
                       </>
                     </>
-                  )
-                )}
+                  ))}
               </>
             </tbody>
           ) : (
