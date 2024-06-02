@@ -1,5 +1,5 @@
 import AddPayment from "./AddPayment";
-import { FiPrinter } from "react-icons/fi";
+import InvDetails from "./InvDetails";
 
 const Table = ({ paginationInvoiceData, id, MemberSpecificData }) => {
   const member_ids = paginationInvoiceData.map((val) => val.m_id);
@@ -43,10 +43,10 @@ const Table = ({ paginationInvoiceData, id, MemberSpecificData }) => {
               </th>
 
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Print
+                Pay
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Payment
+                Details
               </th>
             </tr>
           </thead>
@@ -111,14 +111,15 @@ const Table = ({ paginationInvoiceData, id, MemberSpecificData }) => {
                               {val.status}
                             </p>
                           </td>
-                          <td className="px-8 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              <FiPrinter size={20} />
-                            </p>
-                          </td>
-                          <td className="px-12 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-7 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               <AddPayment />
+                              {/* Need to work on payment which is connected with pay-date & status  */}
+                            </p>
+                          </td>
+                          <td className="px-9 py-4 whitespace-no-wrap border-b border-gray-200">
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                              <InvDetails />
                             </p>
                           </td>
                         </tr>
