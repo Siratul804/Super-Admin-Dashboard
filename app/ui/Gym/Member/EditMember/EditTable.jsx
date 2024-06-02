@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FaArrowUp } from "react-icons/fa6";
 const EditTable = async ({ MemberData, user, packgaeData }) => {
   const gym_id = user.gym_id;
 
@@ -18,7 +19,12 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                 Name
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Member Id
+                <div className="flex flex-wrap ">
+                  <p className="pr-1"> Member </p>
+                  <p className="pt-0.5">
+                    <FaArrowUp size={12} />
+                  </p>
+                </div>
               </th>
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Phone
@@ -67,9 +73,14 @@ const EditTable = async ({ MemberData, user, packgaeData }) => {
                             </div>
                           </td>
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              {val.member_id}
-                            </p>
+                            <Link
+                              href={`/dashboard/gym/memberDetails/${val.Id}`}
+                            >
+                              <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                #{val.member_id}
+                                <hr />
+                              </p>
+                            </Link>
                           </td>
 
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">

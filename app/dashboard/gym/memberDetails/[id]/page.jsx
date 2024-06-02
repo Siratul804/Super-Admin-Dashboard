@@ -2,20 +2,28 @@ import MemberDetails from "@/app/ui/Gym/MemberDetalis/MemberDetalis";
 
 import { GetMemberDataById } from "@/app/lib/data";
 
-import { GetMemberInvoiceDataById } from "@/app/lib/data";
-
 import { GetAllPackages } from "@/app/lib/data";
 
 import { auth } from "@/app/auth";
 
-const page = async ({ params }) => {
+import { GetMemberInvoiceDataBy } from "@/app/lib/data";
+
+const page = async ({ params, searchParams }) => {
   const { id } = params;
   const { user } = await auth();
   const packgaeData = await GetAllPackages();
 
   const MemberSpecificData = await GetMemberDataById(id);
 
-  const MemberInvoiceSpecificData = await GetMemberInvoiceDataById(id);
+  const page = searchParams?.page || 1;
+  const month = searchParams?.month || "";
+  const date = searchParams?.date || "";
+
+  const { paginationInvoice, countNumber } = await GetMemberInvoiceDataBy(
+    page,
+    month,
+    date
+  );
 
   return (
     <>
@@ -23,8 +31,9 @@ const page = async ({ params }) => {
         user={user}
         MemberSpecificData={MemberSpecificData}
         id={id}
-        MemberInvoiceSpecificData={MemberInvoiceSpecificData}
         packgaeData={packgaeData}
+        paginationInvoice={paginationInvoice}
+        countNumber={countNumber}
       />
     </>
   );

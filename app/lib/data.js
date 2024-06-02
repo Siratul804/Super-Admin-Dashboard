@@ -550,12 +550,55 @@ export async function GetMemberDataById(id) {
 
   return users;
 }
-export async function GetMemberInvoiceDataById(id) {
-  console.log(id);
-  const m_invoice = await query({
-    query: "SELECT * FROM m_invoice WHERE m_id = ?",
-    values: [id],
+
+export async function GetMemberInvoiceDataBy(page, month, date) {
+  const ITEM_PER_PAGE = 10;
+  const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
+
+  const offset = (page - 1) * ITEM_PER_PAGE;
+  const OFF_SET_PAGE = offset.toString();
+
+  console.log(page, month, date);
+
+  let queryStr = "SELECT * FROM m_invoice";
+
+  const values = [];
+
+  if (month || date) {
+    queryStr += " WHERE";
+  }
+
+  if (month) {
+    queryStr += "billing_month LIKE ?";
+    values.push(`%${month}%`);
+  }
+
+  if (month && date) {
+    queryStr += " AND";
+  }
+
+  if (date) {
+    queryStr += " invoice_date = ?";
+    values.push(date);
+  }
+
+  queryStr += " LIMIT ? OFFSET ?";
+
+  values.push(ITEM_PER_PAGE_STRING, OFF_SET_PAGE);
+
+  const paginationInvoice = await query({
+    query: queryStr,
+    values: values,
   });
 
-  return m_invoice;
+  console.log(paginationInvoice);
+
+  const paginationCount = await query({
+    query: "SELECT COUNT(*) FROM m_invoice",
+    values: [],
+  });
+
+  const countNumber = paginationCount[0]["COUNT(*)"];
+
+  return { paginationInvoice, countNumber };
 }

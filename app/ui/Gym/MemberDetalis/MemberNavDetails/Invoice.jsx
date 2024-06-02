@@ -1,39 +1,46 @@
-import { useRef } from "react";
-import { useReactToPrint } from "react-to-print";
-const Invoice = ({ MemberInvoiceSpecificData }) => {
-  const printRef = useRef();
+// import { useRef } from "react";
+// import { useReactToPrint } from "react-to-print";
+import Search from "./Invoice/Search";
+import AddPayment from "./Invoice/AddPayment";
+import Table from "./Invoice/Table";
+import Pagination from "./Invoice/Pagination";
+const Invoice = () => {
+  // const printRef = useRef();
 
-  const handlePrint = useReactToPrint({
-    content: () => printRef.current,
-  });
+  // const handlePrint = useReactToPrint({
+  //   content: () => printRef.current,
+  // });
 
   return (
     <>
       <div className="py-2"></div>
-      <div className="package bg-white shadow-lg rounded-lg h-auto py-16  sm:h-[80vh] ">
-        <div className="pt-5"></div>
-        <div className="p-6 max-w-2xl mx-auto bg-slate-50 shadow-md rounded-lg">
+      <Search />
+      <div className="py-5"></div>
+      <div className="package bg-white shadow-lg rounded-lg h-auto py-2 sm:h-[35vh] ">
+        {/* //start */}
+        <section className="bg-white w-full shadow-lg rounded-lg">
+          <div className="">
+            <div className="p-3 flex justify-between  ">
+              <h1 className="text-lg font-bold text-black ">Invoice List</h1>
+              {/* {permission.includes(3) && <AddUser roleData={roleData} />} */}
+              <AddPayment />
+            </div>
+          </div>
+
+          <>
+            <div className="overflow-x-auto h-[52vh]">
+              <Table />
+            </div>
+          </>
+
+          <Pagination />
+        </section>
+        {/* //end */}
+        {/* <div className="p-6 max-w-2xl mx-auto bg-slate-50 shadow-md rounded-lg">
           <section ref={printRef} className="p-5">
             <h1 className="text-2xl font-bold text-center mb-4 text-black ">
               Invoice
             </h1>
-            {MemberInvoiceSpecificData.map((val) => (
-              <div
-                key={val.id}
-                className="grid grid-cols-4 gap-4 mb-4 border-b pb-4"
-              >
-                <div className="text-left">
-                  <p className="font-semibold text-black ">Invoice ID:</p>
-                  <p className="font-semibold text-black ">Member ID:</p>
-                  <p className="font-semibold text-black ">Date Time:</p>
-                </div>
-                <div className="text-left">
-                  <p className="text-black">{val.id}</p>
-                  <p className="text-black">{val.member_id}</p>
-                  <p className="text-black">{val.date_time}</p>
-                </div>
-              </div>
-            ))}
           </section>
           <div className="text-center mt-4 flex justify-evenly ">
             <button
@@ -43,7 +50,7 @@ const Invoice = ({ MemberInvoiceSpecificData }) => {
               Print
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
