@@ -1,10 +1,14 @@
 // import { useRef } from "react";
 // import { useReactToPrint } from "react-to-print";
 import Search from "./Invoice/Search";
-// import AddPayment from "./Invoice/AddPayment";
 import Table from "./Invoice/Table";
 import Pagination from "./Invoice/Pagination";
-const Invoice = ({ paginationInvoice, id, MemberSpecificData }) => {
+const Invoice = ({
+  paginationInvoice,
+  id,
+  MemberSpecificData,
+  countNumber,
+}) => {
   // const printRef = useRef();
 
   // const handlePrint = useReactToPrint({
@@ -16,9 +20,9 @@ const Invoice = ({ paginationInvoice, id, MemberSpecificData }) => {
       <div className="py-2"></div>
       <Search />
       <div className="py-5"></div>
-      <div className="package bg-white shadow-lg rounded-lg h-auto py-2 sm:h-[35vh] ">
+      <div className="package bg-white shadow-lg rounded-lg h-auto py-2  ">
         {/* //start */}
-        <section className="bg-white w-full shadow-lg rounded-lg">
+        <section className="">
           <div className="">
             <div className="p-3">
               <h1 className="text-lg font-bold text-black ">Invoice List</h1>
@@ -35,7 +39,7 @@ const Invoice = ({ paginationInvoice, id, MemberSpecificData }) => {
             </div>
           </>
 
-          <Pagination />
+          <Pagination PaginationCount={countNumber} />
         </section>
         {/* //end */}
         {/* <div className="p-6 max-w-2xl mx-auto bg-slate-50 shadow-md rounded-lg">

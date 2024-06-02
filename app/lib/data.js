@@ -551,34 +551,34 @@ export async function GetMemberDataById(id) {
   return users;
 }
 
-export async function GetMemberInvoiceDataBy(page, month, date) {
+export async function GetMemberInvoiceDataBy(page, status, date) {
   const ITEM_PER_PAGE = 10;
   const ITEM_PER_PAGE_STRING = ITEM_PER_PAGE.toString();
 
   const offset = (page - 1) * ITEM_PER_PAGE;
   const OFF_SET_PAGE = offset.toString();
 
-  console.log(page, month, date);
+  console.log(page, status, date);
 
   let queryStr = "SELECT * FROM m_invoice";
 
   const values = [];
 
-  if (month || date) {
+  if (status || date) {
     queryStr += " WHERE";
   }
 
-  if (month) {
-    queryStr += "billing_month LIKE ?";
-    values.push(`%${month}%`);
+  if (status) {
+    queryStr += " status LIKE ?";
+    values.push(`%${status}%`);
   }
 
-  if (month && date) {
+  if (status && date) {
     queryStr += " AND";
   }
 
   if (date) {
-    queryStr += " invoice_date = ?";
+    queryStr += " invoice_duedate = ?";
     values.push(date);
   }
 

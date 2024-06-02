@@ -74,6 +74,7 @@ const MemberDetalis = ({
                 id={id}
                 packgaeData={packgaeData}
                 paginationInvoice={paginationInvoice}
+                countNumber={countNumber}
               />
             </section>
           </>

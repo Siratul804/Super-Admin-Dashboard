@@ -1,5 +1,12 @@
+import { FaMoneyCheckDollar } from "react-icons/fa6";
+
 const AddPayment = () => {
-  return <>Payment</>;
+  return (
+    <>
+      {" "}
+      <FaMoneyCheckDollar size={20} />
+    </>
+  );
 };
 
 export default AddPayment;

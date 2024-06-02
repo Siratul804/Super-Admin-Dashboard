@@ -6,18 +6,18 @@ const SearchBox = () => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
-  const [month, setMonth] = useState("");
+  const [status, setStatus] = useState("");
   const [date, setDate] = useState("");
   const [isLoading, setIsLoading] = useState(false); // Added loading state
 
   const handleSearch = () => {
     setIsLoading(true); // Set loading to true before search starts
 
-    console.log(month, date);
+    console.log(status, date);
 
     const params = new URLSearchParams(searchParams);
     params.set("page", 1);
-    params.set("month", month);
+    params.set("status", status);
     params.set("date", date);
 
     // Simulating a delay (you can replace this with your actual search logic)
@@ -40,22 +40,24 @@ const SearchBox = () => {
           <div>
             <label className="text-sm text-black ">Month </label>
             <br />
-            <input
-              type="text"
-              placeholder="Enter Month Name "
-              name="month"
-              value={month}
-              onChange={(e) => setMonth(e.target.value)}
+            <select
+              name="status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
               onKeyPress={handleKeyPress}
-              autoComplete="off"
               className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md sm:w-[47vh] w-[40vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-            />
+            >
+              <option value="">Select</option>
+              <option value="Paid">Paid</option>
+              <option value="Unpaid">Unpaid</option>
+              <option value="Partial Paid">Partial Paid</option>
+            </select>
           </div>
           <div>
-            <label className="text-sm text-black ">Date </label>
+            <label className="text-sm text-black ">Valid Date </label>
             <br />
             <input
-              type="text"
+              type="date"
               placeholder="Enter The Date "
               name="date"
               value={date}

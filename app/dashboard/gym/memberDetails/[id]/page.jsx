@@ -16,12 +16,12 @@ const page = async ({ params, searchParams }) => {
   const MemberSpecificData = await GetMemberDataById(id);
 
   const page = searchParams?.page || 1;
-  const month = searchParams?.month || "";
+  const status = searchParams?.status || "";
   const date = searchParams?.date || "";
 
   const { paginationInvoice, countNumber } = await GetMemberInvoiceDataBy(
     page,
-    month,
+    status,
     date
   );
 
