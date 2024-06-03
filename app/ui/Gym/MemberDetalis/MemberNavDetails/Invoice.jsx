@@ -8,7 +8,10 @@ const Invoice = ({
   id,
   MemberSpecificData,
   countNumber,
+  user,
 }) => {
+  console.log(user.id);
+
   // const printRef = useRef();
 
   // const handlePrint = useReactToPrint({
@@ -35,6 +38,7 @@ const Invoice = ({
                 paginationInvoiceData={paginationInvoice}
                 MemberSpecificData={MemberSpecificData}
                 id={id}
+                user={user}
               />
             </div>
           </>

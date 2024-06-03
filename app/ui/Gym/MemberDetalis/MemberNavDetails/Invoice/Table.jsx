@@ -1,7 +1,7 @@
 import AddPayment from "./AddPayment";
 import InvDetails from "./InvDetails";
 
-const Table = ({ paginationInvoiceData, id, MemberSpecificData }) => {
+const Table = ({ paginationInvoiceData, id, MemberSpecificData, user }) => {
   const member_ids = paginationInvoiceData.map((val) => val.m_id);
 
   var memberId = parseInt(id);
@@ -111,9 +111,13 @@ const Table = ({ paginationInvoiceData, id, MemberSpecificData }) => {
                               {val.status}
                             </p>
                           </td>
-                          <td className="px-7 py-4 whitespace-no-wrap border-b border-gray-200">
+                          <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              <AddPayment />
+                              <AddPayment
+                                inv_id={val.id}
+                                user={user}
+                                inv_amount={val.invoice_amount}
+                              />
                               {/* Need to work on payment which is connected with pay-date & status  */}
                             </p>
                           </td>

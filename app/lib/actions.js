@@ -907,7 +907,7 @@ export const addPayment = async (prevState, formData) => {
     collected_by,
     pay_date,
     amount,
-
+    amount_due,
     pay_type,
     discount
   );
@@ -915,13 +915,14 @@ export const addPayment = async (prevState, formData) => {
   try {
     const newPayment = await query({
       query:
-        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, pay_type, discount) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, amount_due, pay_type, discount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         invoice_id,
         collector_id,
         collected_by,
         pay_date,
         amount,
+        amount_due,
         pay_type,
         discount,
       ],

@@ -73,6 +73,7 @@ const MemberDetalis = ({
                 MemberSpecificData={MemberSpecificData}
                 id={id}
                 packgaeData={packgaeData}
+                user={user}
                 paginationInvoice={paginationInvoice}
                 countNumber={countNumber}
               />
