@@ -9,6 +9,7 @@ const Invoice = ({
   MemberSpecificData,
   countNumber,
   user,
+  PaymentSpecificData,
 }) => {
   console.log(user.id);
 
@@ -39,6 +40,7 @@ const Invoice = ({
                 MemberSpecificData={MemberSpecificData}
                 id={id}
                 user={user}
+                PaymentSpecificData={PaymentSpecificData}
               />
             </div>
           </>

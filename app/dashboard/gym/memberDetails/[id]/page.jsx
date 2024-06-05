@@ -8,12 +8,16 @@ import { auth } from "@/app/auth";
 
 import { GetMemberInvoiceDataBy } from "@/app/lib/data";
 
+import { GetPaymentDataById } from "@/app/lib/data";
+
 const page = async ({ params, searchParams }) => {
   const { id } = params;
   const { user } = await auth();
   const packgaeData = await GetAllPackages();
 
   const MemberSpecificData = await GetMemberDataById(id);
+
+  const PaymentSpecificData = await GetPaymentDataById(id);
 
   const page = searchParams?.page || 1;
   const status = searchParams?.status || "";
@@ -34,6 +38,7 @@ const page = async ({ params, searchParams }) => {
         packgaeData={packgaeData}
         paginationInvoice={paginationInvoice}
         countNumber={countNumber}
+        PaymentSpecificData={PaymentSpecificData}
       />
     </>
   );

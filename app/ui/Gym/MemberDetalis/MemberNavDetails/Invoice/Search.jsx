@@ -38,7 +38,7 @@ const SearchBox = () => {
       <div className="flex justify-center">
         <div className="bg-white w-full shadow-lg p-3 rounded-lg flex justify-center sm:justify-between flex-wrap">
           <div>
-            <label className="text-sm text-black ">Month </label>
+            <label className="text-sm text-black ">Status </label>
             <br />
             <select
               name="status"

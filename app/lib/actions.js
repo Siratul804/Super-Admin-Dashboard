@@ -889,6 +889,7 @@ export const changeCycle = async (prevState, formData) => {
 };
 
 export const addPayment = async (prevState, formData) => {
+  // In addPayment I have to include m_invoice like I have to UPDATE m_invoice where I need to updaet specificlly payAmount / invoice_amount , invoice discount , status, payDate
   const {
     invoice_id,
     collector_id,
@@ -897,9 +898,13 @@ export const addPayment = async (prevState, formData) => {
     amount_due,
     pay_type,
     discount,
+    m_id,
   } = Object.fromEntries(formData);
 
   const pay_date = new Date().toISOString().split("T")[0];
+
+  // Calculate the new amount due
+  const newAmountDue = amount_due - amount;
 
   console.log(
     invoice_id,
@@ -907,7 +912,7 @@ export const addPayment = async (prevState, formData) => {
     collected_by,
     pay_date,
     amount,
-    amount_due,
+    newAmountDue,
     pay_type,
     discount
   );
@@ -915,16 +920,17 @@ export const addPayment = async (prevState, formData) => {
   try {
     const newPayment = await query({
       query:
-        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, amount_due, pay_type, discount) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, amount_due, pay_type, discount, m_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         invoice_id,
         collector_id,
         collected_by,
         pay_date,
         amount,
-        amount_due,
+        newAmountDue,
         pay_type,
         discount,
+        m_id,
       ],
     });
 

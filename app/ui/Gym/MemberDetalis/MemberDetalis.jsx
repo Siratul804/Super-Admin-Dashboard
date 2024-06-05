@@ -20,6 +20,7 @@ const MemberDetalis = ({
   user,
   paginationInvoice,
   countNumber,
+  PaymentSpecificData,
 }) => {
   const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
 
@@ -76,6 +77,7 @@ const MemberDetalis = ({
                 user={user}
                 paginationInvoice={paginationInvoice}
                 countNumber={countNumber}
+                PaymentSpecificData={PaymentSpecificData}
               />
             </section>
           </>

@@ -5,10 +5,22 @@ import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 
-const AddPayment = ({ inv_id, user, inv_amount }) => {
+const AddPayment = ({
+  inv_id,
+  user,
+  inv_amount,
+  m_id,
+  PaymentSpecificData,
+}) => {
   const [discount, setDiscount] = useState(0);
-  const [discountType, setDiscountType] = useState("amount"); // 'amount' or 'percentage'
+  const [discountType, setDiscountType] = useState("amount");
   const [amountToPay, setAmountToPay] = useState(0);
+
+  // const updateDueAmount = PaymentSpecificData.map((val) => val.amount_due);
+  // console.log(typeof updateDueAmount[0]);
+
+  //Need to work on due amount // like after payment due amount would show as well calculate
+  // I would do that in backend with m_invoice section
 
   function Submit() {
     const { pending } = useFormStatus();
@@ -63,7 +75,7 @@ const AddPayment = ({ inv_id, user, inv_amount }) => {
         finalAmount = dueAmount - dueAmount * (discount / 100);
       }
 
-      setAmountToPay(finalAmount > 0 ? finalAmount : 0); // Ensure amount to pay is not negative
+      setAmountToPay(finalAmount > 0 ? finalAmount : 0);
     };
 
     calculateDiscount();
@@ -79,138 +91,128 @@ const AddPayment = ({ inv_id, user, inv_amount }) => {
           <FaMoneyCheckDollar size={20} />
         </button>
       </div>
-      {/* .....add modal data....... */}
       <dialog id={inv_id} className="modal">
         <div className="modal-box bg-white max-w-[80vh]">
           <div className="">
-            {/* //inside content// */}
-            <div className="">
-              <div className="flex justify-between">
-                <h1 className="text-xl text-black">Make Payment</h1>
-                <div>
-                  <form method="dialog">
-                    {/* if there is a button in form, it will close the modal */}
-                    <button className="btn btn-sm btn-circle btn-ghost absolute right-4 text-black">
-                      ✕
-                    </button>
-                  </form>
-                </div>
-              </div>
-              <div className="py-3">
-                <hr />
-              </div>
-              <section className="flex justify-center">
-                <form action={formAction} ref={formRef}>
-                  <div className="would_be_hidden">
-                    <input type="hidden" name="invoice_id" value={inv_id} />
-                    <input type="hidden" name="collector_id" value={user.id} />
-                    <input
-                      type="hidden"
-                      name="collected_by"
-                      value={user.name}
-                    />
-                  </div>
-                  <div className="flex justify-between sm:flex-row flex-col">
-                    <main className="pr-1">
-                      <label className="label">
-                        <span className="text-[black] text-sm">
-                          Payment Due
-                        </span>
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="Due Amount"
-                        name="amount_due"
-                        required
-                        autoComplete="off"
-                        value={dueAmount}
-                        className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                        readOnly
-                      />
-                    </main>
-                    <main className="pr-1">
-                      <label className="label">
-                        <span className="text-[black] text-sm">
-                          Discount Type
-                        </span>
-                      </label>
-                      <select
-                        name="dis_type"
-                        value={discountType}
-                        onChange={(e) => setDiscountType(e.target.value)}
-                        className="h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                      >
-                        <option disabled value="">
-                          Select
-                        </option>
-                        <option value="amount">Amount</option>
-                        <option value="percentage">Percentage</option>
-                      </select>
-                    </main>
-                  </div>
-
-                  <div className="flex justify-between sm:flex-row flex-col">
-                    <main>
-                      <label className="label">
-                        <span className="text-[black] text-sm">Discount</span>
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="Discount"
-                        name="discount"
-                        value={discount}
-                        onChange={(e) =>
-                          setDiscount(parseFloat(e.target.value))
-                        }
-                        autoComplete="off"
-                        className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                      />
-                    </main>
-                    <main className="pr-1">
-                      <label className="label">
-                        <span className="text-[black] text-sm">Pay Type</span>
-                      </label>
-                      <select
-                        name="pay_type"
-                        className="h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                      >
-                        <option disabled value="">
-                          Select
-                        </option>
-                        <option>Cash</option>
-                        <option>bKash</option>
-                        <option>Credit/Debit Card</option>
-                      </select>
-                    </main>
-                  </div>
-                  <div className="flex justify-between sm:flex-row flex-col">
-                    <main className="pr-1">
-                      <label className="label">
-                        <span className="text-[black] text-sm">
-                          Amount to pay
-                        </span>
-                      </label>
-                      <input
-                        type="number"
-                        placeholder="Amount"
-                        name="amount"
-                        required
-                        autoComplete="off"
-                        value={amountToPay.toFixed(2)}
-                        className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                        readOnly
-                      />
-                    </main>
-                    <main>
-                      <label className="label">
-                        <span className="text-[black] text-sm pt-5"></span>
-                      </label>
-                      <Submit />
-                    </main>
-                  </div>
+            <div className="flex justify-between">
+              <h1 className="text-xl text-black">Make Payment</h1>
+              <div>
+                <form method="dialog">
+                  <button className="btn btn-sm btn-circle btn-ghost absolute right-4 text-black">
+                    ✕
+                  </button>
                 </form>
-              </section>
+              </div>
             </div>
+            <div className="py-3">
+              <hr />
+            </div>
+            <section className="flex justify-center">
+              <form action={formAction} ref={formRef}>
+                <div className="would_be_hidden">
+                  <input type="hidden" name="invoice_id" value={inv_id} />
+                  <input type="hidden" name="collector_id" value={user.id} />
+                  <input type="hidden" name="collected_by" value={user.name} />
+                  <input type="hidden" name="m_id" value={m_id} />
+                </div>
+                <div className="flex justify-between sm:flex-row flex-col">
+                  <main className="pr-1">
+                    <label className="label">
+                      <span className="text-[black] text-sm">Payment Due</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Due Amount"
+                      name="amount_due"
+                      required
+                      autoComplete="off"
+                      value={dueAmount}
+                      className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                      readOnly
+                    />
+                  </main>
+                  <main className="pr-1">
+                    <label className="label">
+                      <span className="text-[black] text-sm">
+                        Discount Type
+                      </span>
+                    </label>
+                    <select
+                      name="dis_type"
+                      value={discountType}
+                      onChange={(e) => setDiscountType(e.target.value)}
+                      className="h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                    >
+                      <option disabled value="">
+                        Select
+                      </option>
+                      <option value="amount">Amount</option>
+                      <option value="percentage">Percentage</option>
+                    </select>
+                  </main>
+                </div>
+
+                <div className="flex justify-between sm:flex-row flex-col">
+                  <main>
+                    <label className="label">
+                      <span className="text-[black] text-sm">Discount</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Discount"
+                      name="discount"
+                      value={discount}
+                      onChange={(e) => setDiscount(parseFloat(e.target.value))}
+                      autoComplete="off"
+                      className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                    />
+                  </main>
+                  <main className="pr-1">
+                    <label className="label">
+                      <span className="text-[black] text-sm">Pay Type</span>
+                    </label>
+                    <select
+                      name="pay_type"
+                      className="h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                    >
+                      <option disabled value="">
+                        Select
+                      </option>
+                      <option>Cash</option>
+                      <option>bKash</option>
+                      <option>Credit/Debit Card</option>
+                    </select>
+                  </main>
+                </div>
+                <div className="flex justify-between sm:flex-row flex-col">
+                  <main className="pr-1">
+                    <label className="label">
+                      <span className="text-[black] text-sm">
+                        Amount to pay
+                      </span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Amount"
+                      name="amount"
+                      required
+                      autoComplete="off"
+                      value={amountToPay.toFixed(2)}
+                      onChange={(e) =>
+                        setAmountToPay(parseFloat(e.target.value))
+                      }
+                      className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
+                    />
+                  </main>
+                  <main>
+                    <label className="label">
+                      <span className="text-[black] text-sm pt-5"></span>
+                    </label>
+                    <Submit />
+                  </main>
+                </div>
+              </form>
+            </section>
           </div>
         </div>
       </dialog>

@@ -602,3 +602,13 @@ export async function GetMemberInvoiceDataBy(page, status, date) {
 
   return { paginationInvoice, countNumber };
 }
+
+export async function GetPaymentDataById(id) {
+  console.log(id);
+  const m_payment = await query({
+    query: "SELECT * FROM m_payment WHERE m_id = ?",
+    values: [id],
+  });
+
+  return m_payment;
+}

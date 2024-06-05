@@ -1,7 +1,13 @@
 import AddPayment from "./AddPayment";
 import InvDetails from "./InvDetails";
 
-const Table = ({ paginationInvoiceData, id, MemberSpecificData, user }) => {
+const Table = ({
+  paginationInvoiceData,
+  id,
+  MemberSpecificData,
+  user,
+  PaymentSpecificData,
+}) => {
   const member_ids = paginationInvoiceData.map((val) => val.m_id);
 
   var memberId = parseInt(id);
@@ -117,6 +123,8 @@ const Table = ({ paginationInvoiceData, id, MemberSpecificData, user }) => {
                                 inv_id={val.id}
                                 user={user}
                                 inv_amount={val.invoice_amount}
+                                m_id={id}
+                                PaymentSpecificData={PaymentSpecificData}
                               />
                               {/* Need to work on payment which is connected with pay-date & status  */}
                             </p>
