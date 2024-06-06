@@ -673,9 +673,6 @@ export const addMember = async (prevState, formData) => {
     });
 
     console.log("New member inserted:", newMember);
-
-    // I have to findout how I can add invoice wtih add member (add_package actually)
-    // If package_id === package_id then Insert into invoice name , details ........ (need to see invoice database)
   } catch (err) {
     console.log("Error inserting new member:", err);
     return {
@@ -692,10 +689,24 @@ export const addMember = async (prevState, formData) => {
 
     console.log(lastMemberId[0].Id);
 
+    const package_price = await query({
+      query: "SELECT Price FROM Package WHERE PackageID = ?",
+      values: [package_id],
+    });
+
+    console.log(package_price[0].Price);
+
+    //need to invlude many things as well many funtionalities
+
     const m_invoice = await query({
       query:
-        "INSERT INTO m_invoice (member_id, date_time, m_id) VALUES (?,?,?)",
-      values: [nextMemberId, RegDate, lastMemberId[0].Id],
+        "INSERT INTO m_invoice (member_id, invoice_amount, date_time, m_id) VALUES (?,?,?,?)",
+      values: [
+        nextMemberId,
+        package_price[0].Price,
+        RegDate,
+        lastMemberId[0].Id,
+      ],
     });
 
     console.log("New m_invoice:", m_invoice);
@@ -935,6 +946,16 @@ export const addPayment = async (prevState, formData) => {
     });
 
     console.log(newPayment);
+
+    const status = "Paid";
+
+    const updateInv = await query({
+      query:
+        "UPDATE m_invoice SET invoice_paydate = ?, invoice_pay_amount = ?, invoice_discount = ?, invoice_due_amount = ?, status = ?   WHERE m_id = ?",
+      values: [pay_date, amount, discount, newAmountDue, status, m_id],
+    });
+
+    console.log(updateInv);
   } catch (err) {
     if (err) {
       console.log(err);
@@ -944,7 +965,7 @@ export const addPayment = async (prevState, formData) => {
     }
   }
 
-  revalidatePath("/dashboard/gym/package");
+  revalidatePath("/dashboard/gym/memberDetails");
   return {
     message: "Added",
   };

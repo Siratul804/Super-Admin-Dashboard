@@ -16,18 +16,14 @@ const AddPayment = ({
   const [discountType, setDiscountType] = useState("amount");
   const [amountToPay, setAmountToPay] = useState(0);
 
-  // const updateDueAmount = PaymentSpecificData.map((val) => val.amount_due);
-  // console.log(typeof updateDueAmount[0]);
-
-  //Need to work on due amount // like after payment due amount would show as well calculate
-  // I would do that in backend with m_invoice section
+  // Need to show  due amount dynamic as well need to make due amount editable
 
   function Submit() {
     const { pending } = useFormStatus();
     return (
       <button
         type="submit"
-        className="btn btn-sm btn-neutral text-white h-[6vh] w-[35vh] rounded-md"
+        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[35vh] h-[6vh] text-sm rounded-md font-bold text-white "
         disabled={pending}
       >
         {pending ? "Saving..." : "Make Payment"}
