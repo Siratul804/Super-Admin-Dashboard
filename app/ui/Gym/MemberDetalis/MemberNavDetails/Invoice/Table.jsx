@@ -113,9 +113,32 @@ const Table = ({
                             </p>
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              {val.status}
-                            </p>
+                            {val.invoice_due_amount === val.zero ? (
+                              <>
+                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
+                                  <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                    Paid
+                                  </p>
+                                </div>
+                              </>
+                            ) : val.invoice_due_amount ===
+                              val.invoice_amount ? (
+                              <>
+                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
+                                  <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                    Unpaid
+                                  </p>
+                                </div>
+                              </>
+                            ) : (
+                              <>
+                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
+                                  <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
+                                    Prepaid
+                                  </p>
+                                </div>
+                              </>
+                            )}
                           </td>
                           <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
