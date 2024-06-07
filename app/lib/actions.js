@@ -10,6 +10,7 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 import { signOut } from "@/app/auth";
+import generateInvoices from "./cronJobs";
 // .......................
 //testing
 
@@ -629,6 +630,7 @@ export const updatePackage = async (prevState, formData) => {
 };
 
 //member
+
 export const addMember = async (prevState, formData) => {
   const { package_id, name, cell_number, gender, blood_group, gym_id } =
     Object.fromEntries(formData);
@@ -659,7 +661,7 @@ export const addMember = async (prevState, formData) => {
   try {
     const newMember = await query({
       query:
-        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, reg_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, reg_date, start_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         package_id,
         nextMemberId,
@@ -667,6 +669,7 @@ export const addMember = async (prevState, formData) => {
         cell_number,
         gender,
         blood_group,
+        RegDate,
         RegDate,
         gym_id,
       ],
@@ -696,11 +699,9 @@ export const addMember = async (prevState, formData) => {
 
     console.log(package_price[0].Price);
 
-    //need to invlude many things as well many funtionalities
-
     const m_invoice = await query({
       query:
-        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, date_time, m_id) VALUES (?,?,?,?,?)",
+        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, m_id) VALUES (?,?,?,?,?)",
       values: [
         nextMemberId,
         package_price[0].Price,
@@ -711,6 +712,9 @@ export const addMember = async (prevState, formData) => {
     });
 
     console.log("New m_invoice:", m_invoice);
+
+    // Pass necessary data to the generateInvoices function
+    await generateInvoices(nextMemberId, package_price, lastMemberId);
   } catch (err) {
     console.log("Error inserting new m_invoice:", err);
     return {
