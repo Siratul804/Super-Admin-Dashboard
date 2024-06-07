@@ -700,9 +700,10 @@ export const addMember = async (prevState, formData) => {
 
     const m_invoice = await query({
       query:
-        "INSERT INTO m_invoice (member_id, invoice_amount, date_time, m_id) VALUES (?,?,?,?)",
+        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, date_time, m_id) VALUES (?,?,?,?,?)",
       values: [
         nextMemberId,
+        package_price[0].Price,
         package_price[0].Price,
         RegDate,
         lastMemberId[0].Id,

@@ -5,25 +5,18 @@ import toast from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 
-const AddPayment = ({
-  inv_id,
-  user,
-  inv_amount,
-  m_id,
-  PaymentSpecificData,
-}) => {
+const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
   const [discount, setDiscount] = useState(0);
   const [discountType, setDiscountType] = useState("amount");
   const [amountToPay, setAmountToPay] = useState(0);
-
-  // Need to show  due amount dynamic as well need to make due amount editable
+  const [payDue, setPayDue] = useState(Number(inv_due_amount)); // Initialize with inv_due_amount
 
   function Submit() {
     const { pending } = useFormStatus();
     return (
       <button
         type="submit"
-        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[35vh] h-[6vh] text-sm rounded-md font-bold text-white "
+        className="bg-black pl-3 pr-3 pt-2 pb-2 w-[35vh] h-[6vh] text-sm rounded-md font-bold text-white"
         disabled={pending}
       >
         {pending ? "Saving..." : "Make Payment"}
@@ -59,23 +52,21 @@ const AddPayment = ({
     }
   }, [state]);
 
-  const dueAmount = inv_amount;
-
   useEffect(() => {
     const calculateDiscount = () => {
       let finalAmount = 0;
 
       if (discountType === "amount") {
-        finalAmount = dueAmount - discount;
+        finalAmount = payDue - discount;
       } else if (discountType === "percentage") {
-        finalAmount = dueAmount - dueAmount * (discount / 100);
+        finalAmount = payDue - payDue * (discount / 100);
       }
 
       setAmountToPay(finalAmount > 0 ? finalAmount : 0);
     };
 
     calculateDiscount();
-  }, [dueAmount, discount, discountType]);
+  }, [payDue, discount, discountType]);
 
   return (
     <div>
@@ -122,9 +113,9 @@ const AddPayment = ({
                       name="amount_due"
                       required
                       autoComplete="off"
-                      value={dueAmount}
+                      onChange={(e) => setPayDue(parseFloat(e.target.value))}
+                      value={payDue.toFixed(2)}
                       className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
-                      readOnly
                     />
                   </main>
                   <main className="pr-1">
