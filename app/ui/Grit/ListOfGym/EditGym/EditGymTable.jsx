@@ -1,16 +1,28 @@
 import Link from "next/link";
 import UpdateGym from "../UpdateGym/UpdateGym";
 import { CgWebsite } from "react-icons/cg";
+import { FaArrowUp } from "react-icons/fa6";
 const EditGymTable = async ({ PaginationData }) => {
+  const filteredPaginationData = PaginationData.reverse();
+
   return (
     <>
       <div className="overflow-x-auto w-full sm:w-full h-auto ">
         <table className="w-full  border-collapse border border-slate-100">
           <thead>
             <tr>
+              <th className="px-4 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                <div className="flex  ">
+                  <p className="pr-1"> Id </p>
+                  <p className="pt-0.5">
+                    <FaArrowUp size={12} />
+                  </p>
+                </div>
+              </th>
               <th className="px-1 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Name
               </th>
+
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Address
               </th>
@@ -37,10 +49,20 @@ const EditGymTable = async ({ PaginationData }) => {
           </thead>
           <tbody className="bg-white  ">
             <>
-              {PaginationData.map((val) => (
+              {filteredPaginationData.map((val) => (
                 <>
                   <>
                     <tr>
+                      <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
+                        <div className="px-3 py-3   ">
+                          <Link href={`/dashboard/grit/gymDetails/${val.id}`}>
+                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                              #{val.id}
+                              <p className="border-b-2 p-0.5 w-full  border-black "></p>
+                            </p>
+                          </Link>
+                        </div>
+                      </td>
                       <td className="px-1 py-4 whitespace-no-wrap border-b border-gray-200">
                         <div className="flex ">
                           <div className="h-10 w-10">
@@ -52,6 +74,7 @@ const EditGymTable = async ({ PaginationData }) => {
                               />
                             </Link>
                           </div>
+
                           <div className="px-3 py-3   ">
                             <Link href={`/dashboard/grit/gymDetails/${val.id}`}>
                               <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">

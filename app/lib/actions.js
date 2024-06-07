@@ -347,8 +347,8 @@ export const addRole = async (
     };
   }
 
-  revalidatePath("/dashboard/grit");
-  redirect("/dashboard/grit");
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 };
 
 export const updateRole = async (

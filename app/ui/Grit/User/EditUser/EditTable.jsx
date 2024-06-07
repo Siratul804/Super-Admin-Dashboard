@@ -1,6 +1,8 @@
 import UpdateUser from "../UpdateUser/UpdateUser";
 import UpdatePass from "../UpdateUser/UpdatePass";
 const EditTable = async ({ PaginationData, roleData, permission }) => {
+  const filteredPaginationData = PaginationData.reverse();
+
   return (
     <>
       <div className="overflow-x-auto w-full h-auto ">
@@ -37,7 +39,7 @@ const EditTable = async ({ PaginationData, roleData, permission }) => {
           </thead>
           <tbody className="bg-white  ">
             <>
-              {PaginationData.map((val) => (
+              {filteredPaginationData.map((val) => (
                 <>
                   <>
                     <tr>
