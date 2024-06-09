@@ -155,7 +155,7 @@ const Table = ({
                           <td className="px-9 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {/* In invoice details I would show this invoice_id is paying total payment data (this would help me to find out the specific transation the member has) */}
-                              <InvDetails m_id={val.m_id} />
+                              <InvDetails inv_id={val.id} />
                             </p>
                           </td>
                         </tr>

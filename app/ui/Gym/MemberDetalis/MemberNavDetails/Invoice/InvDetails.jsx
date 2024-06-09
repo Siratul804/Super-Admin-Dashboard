@@ -2,24 +2,26 @@ import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { MdReadMore } from "react-icons/md";
 
-const InvDetails = ({ m_id }) => {
+const InvDetails = ({ inv_id }) => {
   const printRef = useRef();
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
   });
 
+  const inv_id_plus = inv_id + 1;
+
   return (
     <div>
       <div className="flex justify-start">
         <button
           className="p-2 hover:bg-slate-100 rounded-full"
-          onClick={() => document.getElementById(m_id).showModal()}
+          onClick={() => document.getElementById(inv_id_plus).showModal()}
         >
           <MdReadMore size={20} />
         </button>
       </div>
-      <dialog id={m_id} className="modal">
+      <dialog id={inv_id_plus} className="modal">
         <div className="modal-box bg-white max-w-[80vh]">
           <div className="">
             <div className="flex justify-between">
@@ -36,7 +38,7 @@ const InvDetails = ({ m_id }) => {
               <hr />
             </div>
             <section ref={printRef} className="flex justify-center">
-              Hello I am Inv Details {m_id}
+              Hello I am Inv Details {inv_id_plus}
             </section>
             <button
               onClick={handlePrint}
