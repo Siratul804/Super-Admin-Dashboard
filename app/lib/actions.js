@@ -10,7 +10,7 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 import { signOut } from "@/app/auth";
-import generateInvoices from "./cronJobs";
+// import generateInvoices from "./cronJobs";
 // .......................
 //testing
 
@@ -692,21 +692,31 @@ export const addMember = async (prevState, formData) => {
 
     console.log(lastMemberId[0].Id);
 
-    const package_price = await query({
-      query: "SELECT Price FROM Package WHERE PackageID = ?",
+    const packageDetails = await query({
+      query:
+        "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = ?",
       values: [package_id],
     });
 
-    console.log(package_price[0].Price);
+    const { Price, DurationValue, DurationUnit } = packageDetails[0];
+
+    console.log("Package details:", packageDetails[0]);
+
+    const invoiceDueDate = calculateDueDate(
+      RegDate,
+      DurationValue,
+      DurationUnit
+    );
 
     const m_invoice = await query({
       query:
-        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, m_id) VALUES (?,?,?,?,?)",
+        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
       values: [
         nextMemberId,
-        package_price[0].Price,
-        package_price[0].Price,
+        Price,
+        Price,
         RegDate,
+        invoiceDueDate,
         lastMemberId[0].Id,
       ],
     });
@@ -714,7 +724,7 @@ export const addMember = async (prevState, formData) => {
     console.log("New m_invoice:", m_invoice);
 
     // Pass necessary data to the generateInvoices function
-    await generateInvoices(nextMemberId, package_price, lastMemberId);
+    // await generateInvoices(nextMemberId, Price, lastMemberId[0].Id);
   } catch (err) {
     console.log("Error inserting new m_invoice:", err);
     return {
@@ -726,6 +736,27 @@ export const addMember = async (prevState, formData) => {
   return {
     message: "Added",
   };
+};
+
+const calculateDueDate = (startDate, durationValue, durationUnit) => {
+  let date = new Date(startDate);
+  switch (durationUnit) {
+    case "Days":
+      date.setDate(date.getDate() + durationValue);
+      break;
+    case "Weeks":
+      date.setDate(date.getDate() + durationValue * 7);
+      break;
+    case "Months":
+      date.setMonth(date.getMonth() + durationValue);
+      break;
+    case "Years":
+      date.setFullYear(date.getFullYear() + durationValue);
+      break;
+    default:
+      throw new Error("Invalid duration unit");
+  }
+  return date.toISOString().split("T")[0];
 };
 
 export const updateMember = async (prevState, formData) => {

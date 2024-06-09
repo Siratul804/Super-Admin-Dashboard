@@ -146,7 +146,7 @@ const AddPackage = ({ user }) => {
                         <option value="" className="text-slate-400">
                           Select
                         </option>
-                        <option>Daily</option>
+                        <option>Days</option>
                         <option>Week</option>
                         <option>Month</option>
                         <option>Year</option>
