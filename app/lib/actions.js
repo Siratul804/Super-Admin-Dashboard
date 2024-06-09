@@ -10,6 +10,8 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 import { signOut } from "@/app/auth";
+import cron from "node-cron";
+
 // import generateInvoices from "./cronJobs";
 // .......................
 //testing
@@ -630,7 +632,7 @@ export const updatePackage = async (prevState, formData) => {
 };
 
 //member
-
+// START //
 export const addMember = async (prevState, formData) => {
   const { package_id, name, cell_number, gender, blood_group, gym_id } =
     Object.fromEntries(formData);
@@ -722,9 +724,6 @@ export const addMember = async (prevState, formData) => {
     });
 
     console.log("New m_invoice:", m_invoice);
-
-    // Pass necessary data to the generateInvoices function
-    // await generateInvoices(nextMemberId, Price, lastMemberId[0].Id);
   } catch (err) {
     console.log("Error inserting new m_invoice:", err);
     return {
@@ -758,6 +757,61 @@ const calculateDueDate = (startDate, durationValue, durationUnit) => {
   }
   return date.toISOString().split("T")[0];
 };
+
+const generateInvoicesForDueDate = async () => {
+  const today = new Date().toISOString().split("T")[0];
+
+  // Fetch invoices due today
+  const dueInvoices = await query({
+    query: "SELECT * FROM m_invoice WHERE invoice_duedate = ?",
+    values: [today],
+  });
+
+  if (dueInvoices.length === 0) {
+    console.log("No invoices due today");
+    return;
+  }
+
+  for (const invoice of dueInvoices) {
+    const { member_id, invoice_amount, m_id } = invoice;
+
+    // Fetch package details
+    const packageDetails = await query({
+      query:
+        "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = (SELECT package_id FROM members WHERE member_id = ?)",
+      values: [member_id],
+    });
+
+    if (packageDetails.length === 0) {
+      console.log(`No package details found for member_id: ${member_id}`);
+      continue;
+    }
+
+    const { Price, DurationValue, DurationUnit } = packageDetails[0];
+    const newInvoiceDueDate = calculateDueDate(
+      today,
+      DurationValue,
+      DurationUnit
+    );
+
+    // Insert new invoice
+    await query({
+      query:
+        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
+      values: [member_id, Price, Price, today, newInvoiceDueDate, m_id],
+    });
+
+    console.log(`New invoice created for member_id: ${member_id}`);
+  }
+};
+
+// Schedule the task to run daily at midnight
+cron.schedule("0 0 * * *", () => {
+  console.log("Running cron job to generate invoices for due dates");
+  generateInvoicesForDueDate();
+});
+
+// END //
 
 export const updateMember = async (prevState, formData) => {
   const {
