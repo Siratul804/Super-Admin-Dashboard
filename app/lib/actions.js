@@ -768,6 +768,7 @@ const generateInvoicesForDueDate = async () => {
   });
 
   if (dueInvoices.length === 0) {
+    console.log(dueInvoices.length);
     console.log("No invoices due today");
     return;
   }
@@ -810,6 +811,8 @@ cron.schedule("0 0 * * *", () => {
   console.log("Running cron job to generate invoices for due dates");
   generateInvoicesForDueDate();
 });
+
+// ..........................................................
 
 // END //
 

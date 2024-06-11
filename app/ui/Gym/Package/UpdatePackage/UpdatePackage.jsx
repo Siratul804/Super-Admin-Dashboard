@@ -176,9 +176,9 @@ const UpdatePackage = ({
                         className=" h-[6vh] bg-[#FFFFFF] appearance-none border-[1px] border-[#8d94b0] rounded-md w-[35vh] py-1 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                       >
                         <option>Days</option>
-                        <option>Week</option>
-                        <option>Month</option>
-                        <option>Year</option>
+                        <option>Weeks</option>
+                        <option>Months</option>
+                        <option>Years</option>
                       </select>
                     </main>
                   </div>

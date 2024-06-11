@@ -147,9 +147,9 @@ const AddPackage = ({ user }) => {
                           Select
                         </option>
                         <option>Days</option>
-                        <option>Week</option>
-                        <option>Month</option>
-                        <option>Year</option>
+                        <option>Weeks</option>
+                        <option>Months</option>
+                        <option>Years</option>
                       </select>
                     </main>
                   </div>
