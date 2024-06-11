@@ -7,6 +7,8 @@ const Table = ({
   MemberSpecificData,
   user,
   PaymentSpecificData,
+  GetGymData,
+  packgaeData,
 }) => {
   const member_ids = paginationInvoiceData.map((val) => val.m_id);
 
@@ -61,30 +63,31 @@ const Table = ({
               <>
                 {paginationInvoiceData
                   .filter((val) => val.m_id === memberId)
+                  .reverse() // Reverse the array to get the latest data first
                   .map((val) => (
                     <>
                       <>
-                        <tr>
+                        <tr key={val.id}>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                            {MemberSpecificData.map((val) => (
-                              <>
-                                <img
-                                  src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.photo}`}
-                                  alt="No Img"
-                                  className="rounded-md w-16 h-auto"
-                                />
-                              </>
+                            {MemberSpecificData.map((member) => (
+                              <img
+                                key={member.photo}
+                                src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${member.photo}`}
+                                alt="No Img"
+                                className="rounded-md w-16 h-auto"
+                              />
                             ))}
 
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider"></p>
                           </td>
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
-                            {MemberSpecificData.map((val) => (
-                              <>
-                                <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                                  {val.name}
-                                </p>
-                              </>
+                            {MemberSpecificData.map((member) => (
+                              <p
+                                key={member.name}
+                                className="text-left text-sm leading-4 font-medium text-black  tracking-wider"
+                              >
+                                {member.name}
+                              </p>
                             ))}
                           </td>
                           <td className="px-6 py-4 text-black whitespace-no-wrap border-b border-gray-200">
@@ -114,30 +117,24 @@ const Table = ({
                           </td>
                           <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                             {val.invoice_due_amount === val.zero ? (
-                              <>
-                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
-                                  <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                    Paid
-                                  </p>
-                                </div>
-                              </>
+                              <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
+                                <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
+                                  Paid
+                                </p>
+                              </div>
                             ) : val.invoice_due_amount ===
                               val.invoice_amount ? (
-                              <>
-                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
-                                  <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                    Unpaid
-                                  </p>
-                                </div>
-                              </>
+                              <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
+                                <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
+                                  Unpaid
+                                </p>
+                              </div>
                             ) : (
-                              <>
-                                <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
-                                  <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
-                                    Prepaid
-                                  </p>
-                                </div>
-                              </>
+                              <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
+                                <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
+                                  Prepaid
+                                </p>
+                              </div>
                             )}
                           </td>
                           <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -155,7 +152,16 @@ const Table = ({
                           <td className="px-9 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {/* In invoice details I would show this invoice_id is paying total payment data (this would help me to find out the specific transation the member has) */}
-                              <InvDetails inv_id={val.id} />
+                              <InvDetails
+                                inv_id={val.id}
+                                user={user}
+                                GetGymData={GetGymData}
+                                MemberSpecificData={MemberSpecificData}
+                                InvoiceData={paginationInvoiceData}
+                                id={id}
+                                packgaeData={packgaeData}
+                                PaymentSpecificData={PaymentSpecificData}
+                              />
                             </p>
                           </td>
                         </tr>

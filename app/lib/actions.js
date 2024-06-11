@@ -1037,12 +1037,12 @@ export const addPayment = async (prevState, formData) => {
 
     console.log(newPayment);
 
-    const status = "Paid";
+    const status = "Paid/Unpaid/PatialPaid";
 
     const updateInv = await query({
       query:
-        "UPDATE m_invoice SET invoice_paydate = ?, invoice_pay_amount = ?, invoice_discount = ?, invoice_due_amount = ?, status = ?   WHERE m_id = ?",
-      values: [pay_date, amount, discount, newAmountDue, status, m_id],
+        "UPDATE m_invoice SET invoice_paydate = ?, invoice_pay_amount = ?, invoice_discount = ?, invoice_due_amount = ?, status = ?   WHERE id = ?",
+      values: [pay_date, amount, discount, newAmountDue, status, invoice_id],
     });
 
     console.log(updateInv);

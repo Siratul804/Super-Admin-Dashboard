@@ -8,6 +8,8 @@ const Invoice = ({
   countNumber,
   user,
   PaymentSpecificData,
+  GetGymData,
+  packgaeData,
 }) => {
   console.log(user.id);
 
@@ -33,6 +35,8 @@ const Invoice = ({
                 id={id}
                 user={user}
                 PaymentSpecificData={PaymentSpecificData}
+                GetGymData={GetGymData}
+                packgaeData={packgaeData}
               />
             </div>
           </>

@@ -10,6 +10,8 @@ import { GetMemberInvoiceDataBy } from "@/app/lib/data";
 
 import { GetPaymentDataById } from "@/app/lib/data";
 
+import { GetGymListData } from "@/app/lib/data";
+
 const page = async ({ params, searchParams }) => {
   const { id } = params;
   const { user } = await auth();
@@ -22,6 +24,7 @@ const page = async ({ params, searchParams }) => {
   const page = searchParams?.page || 1;
   const status = searchParams?.status || "";
   const date = searchParams?.date || "";
+  const GetGym = await GetGymListData();
 
   const { paginationInvoice, countNumber } = await GetMemberInvoiceDataBy(
     page,
@@ -39,6 +42,7 @@ const page = async ({ params, searchParams }) => {
         paginationInvoice={paginationInvoice}
         countNumber={countNumber}
         PaymentSpecificData={PaymentSpecificData}
+        GetGymData={GetGym}
       />
     </>
   );

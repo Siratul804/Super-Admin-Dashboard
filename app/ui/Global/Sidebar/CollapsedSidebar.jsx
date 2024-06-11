@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 //grit
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
-import { FaListUl } from "react-icons/fa";
 import { CgGym } from "react-icons/cg";
 import { FaUserLock } from "react-icons/fa";
 import { FaUserFriends } from "react-icons/fa";
