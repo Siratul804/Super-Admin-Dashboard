@@ -30,9 +30,9 @@ const InvDetails = ({
 
   const inv_ids = InvoiceData.map((val) => val.id);
 
-  var inv_id = parseInt(inv_id);
+  const inv_id_num = parseInt(inv_id);
 
-  const isIdIncludedInvoice = inv_ids.includes(inv_id);
+  const isIdIncludedInvoice = inv_ids.includes(inv_id_num);
 
   console.log(isIdIncluded);
 
@@ -68,21 +68,21 @@ const InvDetails = ({
                   <section className="gym_info">
                     {GetGymData.filter((val) => val.id === gym_id_num).map(
                       (val) => (
-                        <>
+                        <div key={val.id}>
                           <img
                             src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
                             alt="No Img"
-                            className=" h-auto w-[10vh] rounded-md "
+                            className="h-auto w-[10vh] rounded-md"
                           />
                           {val.name}
-                        </>
+                        </div>
                       )
                     )}
                   </section>
                   <div className="py-2">
                     <hr />
                   </div>
-                  <div className="main_payment_details flex justify-between ">
+                  <div className="main_payment_details flex justify-between">
                     <div className="one_payment_details">
                       <section className="py-2">
                         <b>Invoice</b>
@@ -91,12 +91,12 @@ const InvDetails = ({
                           {isIdIncludedInvoice ? (
                             <>
                               {InvoiceData.filter(
-                                (val) => val.id === inv_id
+                                (val) => val.id === inv_id_num
                               ).map((val) => (
-                                <>
-                                  <p> Date of issue : {val.created_date}</p>
-                                  <p> Due Date : {val.invoice_duedate}</p>
-                                </>
+                                <div key={val.id}>
+                                  <p>Date of issue: {val.created_date}</p>
+                                  <p>Due Date: {val.invoice_duedate}</p>
+                                </div>
                               ))}
                             </>
                           ) : (
@@ -105,14 +105,14 @@ const InvDetails = ({
                         </div>
                       </section>
                       <section>
-                        <b>Bill To </b>
+                        <b>Bill To</b>
                         <div className="py-2">
                           {MemberSpecificData.map((val) => (
-                            <>
-                              <p>Member Name : {val.name}</p>
-                              <p>Member ID : {val.member_id}</p>
-                              <p>Member Cotact : {val.cell_number}</p>
-                            </>
+                            <div key={val.member_id}>
+                              <p>Member Name: {val.name}</p>
+                              <p>Member ID: {val.member_id}</p>
+                              <p>Member Contact: {val.cell_number}</p>
+                            </div>
                           ))}
                         </div>
                       </section>
@@ -123,20 +123,17 @@ const InvDetails = ({
                             packgaeData.map(
                               (Package) =>
                                 val.package_id === Package.PackageID && (
-                                  <>
-                                    <p>Package Name : {Package.Name}</p>
+                                  <div key={Package.PackageID}>
+                                    <p>Package Name: {Package.Name}</p>
                                     <p>
-                                      Package Description :{" "}
-                                      {Package.Description}
+                                      Package Description: {Package.Description}
                                     </p>
-                                    <p>Package Price : {Package.Price}</p>
+                                    <p>Package Price: {Package.Price}</p>
                                     <p>
-                                      Duration Value : {Package.DurationValue}
+                                      Duration Value: {Package.DurationValue}
                                     </p>
-                                    <p>
-                                      Duration Unit : {Package.DurationUnit}
-                                    </p>
-                                  </>
+                                    <p>Duration Unit: {Package.DurationUnit}</p>
+                                  </div>
                                 )
                             )
                           )}
@@ -150,48 +147,44 @@ const InvDetails = ({
                         <div className="py-2">
                           {PaymentSpecificData.map(
                             (val) =>
-                              val.invoice_id === inv_id && (
-                                <>
-                                  <div className="py-3">
-                                    <p>Pay Date : {val.pay_date} </p>
-                                    <p>Amount Pay : {val.amount} </p>
-                                    <p>Amount Due : {val.amount_due} </p>
-                                    <p>Amount Discound : {val.discount} </p>
-                                    <p>Amount type : {val.pay_type} </p>
-                                  </div>
-                                </>
+                              val.invoice_id === inv_id_num && (
+                                <div key={val.id} className="py-3">
+                                  <p>Pay Date: {val.pay_date}</p>
+                                  <p>Amount Paid: {val.amount}</p>
+                                  <p>Amount Due: {val.amount_due}</p>
+                                  <p>Amount Discount: {val.discount}</p>
+                                  <p>Payment Type: {val.pay_type}</p>
+                                </div>
                               )
                           )}
                           {isIdIncludedInvoice ? (
                             <>
                               {InvoiceData.filter(
-                                (val) => val.id === inv_id
+                                (val) => val.id === inv_id_num
                               ).map((val) => (
-                                <>
-                                  <div className="py-1">
-                                    <p className="py-1">Payment Status :</p>
-                                    {val.invoice_due_amount === val.zero ? (
-                                      <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
-                                        <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                          Paid
-                                        </p>
-                                      </div>
-                                    ) : val.invoice_due_amount ===
-                                      val.invoice_amount ? (
-                                      <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
-                                        <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                          Unpaid
-                                        </p>
-                                      </div>
-                                    ) : (
-                                      <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
-                                        <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
-                                          Prepaid
-                                        </p>
-                                      </div>
-                                    )}
-                                  </div>
-                                </>
+                                <div key={val.id} className="py-1">
+                                  <p className="py-1">Payment Status:</p>
+                                  {val.invoice_due_amount === 0 ? (
+                                    <div className="pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
+                                      <p className="text-center text-sm leading-4 font-bold text-[#118d57] tracking-wider">
+                                        Paid
+                                      </p>
+                                    </div>
+                                  ) : val.invoice_due_amount ===
+                                    val.invoice_amount ? (
+                                    <div className="pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
+                                      <p className="text-center text-sm leading-4 font-bold text-[#b71d18] tracking-wider">
+                                        Unpaid
+                                      </p>
+                                    </div>
+                                  ) : (
+                                    <div className="pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
+                                      <p className="text-center text-sm leading-4 font-bold text-[#8d8b11] tracking-wider">
+                                        Prepaid
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
                               ))}
                             </>
                           ) : (
@@ -209,21 +202,19 @@ const InvDetails = ({
                 <hr />
               </div>
               <div className="py-1">
-                <div>Thanks For Your Membership !</div>
+                <div>Thanks For Your Membership!</div>
                 {GetGymData.filter((val) => val.id === gym_id_num).map(
                   (val) => (
-                    <>
-                      <i>{val.name}</i>
-                    </>
+                    <i key={val.id}>{val.name}</i>
                   )
                 )}
               </div>
             </section>
 
-            <div className="flex justify-center ">
+            <div className="flex justify-center">
               <button
                 onClick={handlePrint}
-                className=" bg-black text-white h-[6vh] w-auto p-4 sm:p-0 sm:w-[35vh] rounded-md font-bold "
+                className="bg-black text-white h-[6vh] w-auto p-4 sm:p-0 sm:w-[35vh] rounded-md font-bold"
               >
                 Print
               </button>
