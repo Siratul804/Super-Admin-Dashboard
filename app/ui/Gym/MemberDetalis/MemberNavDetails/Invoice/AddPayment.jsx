@@ -30,12 +30,19 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
 
   const [state, formAction] = useFormState(addPayment, initialState);
 
-  const formRef = useRef();
+  const formRef = useRef(null);
 
   useEffect(() => {
     if (state?.message === "Added") {
       document.getElementById(inv_id).close();
-      formRef.current.reset();
+      formRef.current.reset(); // Reset the form
+
+      // Reset all the state variables
+      setDiscount(0);
+      setDiscountType("amount");
+      setAmountToPay(0);
+      setPayDue(Number(inv_due_amount));
+
       toast.success("Payment Added Successfully !", {
         style: {
           background: "#008000",
@@ -50,7 +57,7 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
         },
       });
     }
-  }, [state]);
+  }, [state, inv_id, inv_due_amount]);
 
   useEffect(() => {
     const calculateDiscount = () => {
@@ -101,6 +108,11 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
                   <input type="hidden" name="collector_id" value={user.id} />
                   <input type="hidden" name="collected_by" value={user.name} />
                   <input type="hidden" name="m_id" value={m_id} />
+                  <input
+                    type="hidden"
+                    name="main_due_amount"
+                    value={inv_due_amount}
+                  />
                 </div>
                 <div className="flex justify-between sm:flex-row flex-col">
                   <main className="pr-1">
@@ -114,7 +126,7 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
                       required
                       autoComplete="off"
                       onChange={(e) => setPayDue(parseFloat(e.target.value))}
-                      value={payDue.toFixed(2)}
+                      value={payDue}
                       className="input h-[6vh] bg-[#FFFFFF] appearance-none border-1 border-[#8d94b0] rounded-md w-[35vh] py-2 px-4 text-black leading-tight focus:outline-none focus:bg-white focus:border-black"
                     />
                   </main>
@@ -184,7 +196,7 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
                       name="amount"
                       required
                       autoComplete="off"
-                      value={amountToPay.toFixed(2)}
+                      value={amountToPay}
                       onChange={(e) =>
                         setAmountToPay(parseFloat(e.target.value))
                       }

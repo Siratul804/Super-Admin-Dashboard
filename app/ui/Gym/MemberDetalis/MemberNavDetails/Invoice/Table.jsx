@@ -132,7 +132,7 @@ const Table = ({
                             ) : (
                               <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
                                 <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
-                                  Prepaid
+                                  PartialPaid
                                 </p>
                               </div>
                             )}

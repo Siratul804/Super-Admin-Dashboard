@@ -637,7 +637,17 @@ export const addMember = async (prevState, formData) => {
   const { package_id, name, cell_number, gender, blood_group, gym_id } =
     Object.fromEntries(formData);
 
-  console.log(package_id, name, cell_number, gender, blood_group, gym_id);
+  const photo = "img.png";
+
+  console.log(
+    package_id,
+    name,
+    cell_number,
+    gender,
+    blood_group,
+    photo,
+    gym_id
+  );
 
   const memberData = await query({
     query:
@@ -663,7 +673,7 @@ export const addMember = async (prevState, formData) => {
   try {
     const newMember = await query({
       query:
-        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, reg_date, start_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, photo, reg_date, start_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         package_id,
         nextMemberId,
@@ -671,6 +681,7 @@ export const addMember = async (prevState, formData) => {
         cell_number,
         gender,
         blood_group,
+        photo,
         RegDate,
         RegDate,
         gym_id,
@@ -993,22 +1004,38 @@ export const changeCycle = async (prevState, formData) => {
 };
 
 export const addPayment = async (prevState, formData) => {
-  // In addPayment I have to include m_invoice like I have to UPDATE m_invoice where I need to updaet specificlly payAmount / invoice_amount , invoice discount , status, payDate
   const {
     invoice_id,
     collector_id,
     collected_by,
     amount,
     amount_due,
+    main_due_amount,
     pay_type,
     discount,
+    dis_type, // Added this to retrieve the discount type
     m_id,
   } = Object.fromEntries(formData);
 
   const pay_date = new Date().toISOString().split("T")[0];
 
-  // Calculate the new amount due
-  const newAmountDue = amount_due - amount;
+  // Convert amount_due and discount to numbers
+  const amountDue = parseFloat(amount_due);
+  const discountValue = parseFloat(discount);
+  const main_due_amount_float = parseFloat(main_due_amount);
+
+  // Calculate the new amount due based on the discount type
+  let newAmountDue = amountDue;
+
+  if (dis_type === "amount") {
+    newAmountDue = main_due_amount_float - amount - discountValue;
+  } else if (dis_type === "percentage") {
+    newAmountDue =
+      main_due_amount_float - amount - amountDue * (discountValue / 100);
+  }
+
+  // Ensure the new amount due is not less than zero
+  newAmountDue = Math.max(newAmountDue, 0);
 
   console.log(
     invoice_id,
@@ -1018,13 +1045,14 @@ export const addPayment = async (prevState, formData) => {
     amount,
     newAmountDue,
     pay_type,
-    discount
+    discount,
+    dis_type
   );
 
   try {
     const newPayment = await query({
       query:
-        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, amount_due, pay_type, discount, m_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO m_payment (invoice_id, collector_id, collected_by, pay_date, amount, amount_due, pay_type, discount, m_id, invoice_discount_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         invoice_id,
         collector_id,
@@ -1035,27 +1063,40 @@ export const addPayment = async (prevState, formData) => {
         pay_type,
         discount,
         m_id,
+        dis_type,
       ],
     });
 
     console.log(newPayment);
 
-    const status = "Paid/Unpaid/PatialPaid";
+    // Determine the status based on the new amount due
+    let status = "PartialPaid";
+    if (newAmountDue === 0) {
+      status = "Paid";
+    } else if (newAmountDue === amountDue) {
+      status = "Unpaid";
+    }
 
     const updateInv = await query({
       query:
-        "UPDATE m_invoice SET invoice_paydate = ?, invoice_pay_amount = ?, invoice_discount = ?, invoice_due_amount = ?, status = ?   WHERE id = ?",
-      values: [pay_date, amount, discount, newAmountDue, status, invoice_id],
+        "UPDATE m_invoice SET invoice_paydate = ?, invoice_pay_amount = ?, invoice_discount = ?, invoice_discount_type = ?, invoice_due_amount = ?, status = ? WHERE id = ?",
+      values: [
+        pay_date,
+        amount,
+        discount,
+        dis_type,
+        newAmountDue,
+        status,
+        invoice_id,
+      ],
     });
 
     console.log(updateInv);
   } catch (err) {
-    if (err) {
-      console.log(err);
-      return {
-        message: "Already Exits",
-      };
-    }
+    console.log(err);
+    return {
+      message: "Already Exists",
+    };
   }
 
   revalidatePath("/dashboard/gym/memberDetails");
