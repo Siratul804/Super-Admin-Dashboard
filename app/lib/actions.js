@@ -10,11 +10,10 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import { revalidatePath } from "next/cache";
 import { signOut } from "@/app/auth";
-import cron from "node-cron";
 
-// import generateInvoices from "./cronJobs";
-// .......................
-//testing
+// import schedule from "node-schedule";
+
+const schedule = require("node-schedule");
 
 export const test = async (checkedItems, username, description) => {
   // console.log(checkedItems);
@@ -633,6 +632,7 @@ export const updatePackage = async (prevState, formData) => {
 
 //member
 // START //
+
 export const addMember = async (prevState, formData) => {
   const { package_id, name, cell_number, gender, blood_group, gym_id } =
     Object.fromEntries(formData);
@@ -649,28 +649,28 @@ export const addMember = async (prevState, formData) => {
     gym_id
   );
 
-  const memberData = await query({
-    query:
-      "SELECT member_id FROM members WHERE gym_id = ? ORDER BY member_id DESC LIMIT 1",
-    values: [gym_id],
-  });
-
   let nextMemberId;
-  if (memberData.length > 0) {
-    const lastMemberId = memberData[0].member_id;
-    const numericPart = lastMemberId.split("-")[1]; // Assuming the format is 'M-XX'
-    const nextNumericPart = parseInt(numericPart) + 1;
-    nextMemberId =
-      "M-" + nextNumericPart.toString().padStart(numericPart.length, "0"); // Formatting back to original format
-    console.log("Next member ID:", nextMemberId);
-  } else {
-    nextMemberId = "M-01"; // If no member found, insert M-01
-    console.log("Next member ID:", nextMemberId);
-  }
-
-  const RegDate = new Date().toISOString().split("T")[0];
-
   try {
+    const memberData = await query({
+      query:
+        "SELECT member_id FROM members WHERE gym_id = ? ORDER BY member_id DESC LIMIT 1",
+      values: [gym_id],
+    });
+
+    if (memberData.length > 0) {
+      const lastMemberId = memberData[0].member_id;
+      const numericPart = lastMemberId.split("-")[1]; // Assuming the format is 'M-XX'
+      const nextNumericPart = parseInt(numericPart) + 1;
+      nextMemberId =
+        "M-" + nextNumericPart.toString().padStart(numericPart.length, "0"); // Formatting back to original format
+      console.log("Next member ID:", nextMemberId);
+    } else {
+      nextMemberId = "M-01"; // If no member found, insert M-01
+      console.log("Next member ID:", nextMemberId);
+    }
+
+    const RegDate = new Date().toISOString().split("T")[0];
+
     const newMember = await query({
       query:
         "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, photo, reg_date, start_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -690,9 +690,9 @@ export const addMember = async (prevState, formData) => {
 
     console.log("New member inserted:", newMember);
   } catch (err) {
-    console.log("Error inserting new member:", err);
+    console.error("Error inserting new member:", err);
     return {
-      message: "Already Exists",
+      message: "Error inserting new member",
     };
   }
 
@@ -716,7 +716,7 @@ export const addMember = async (prevState, formData) => {
     console.log("Package details:", packageDetails[0]);
 
     const invoiceDueDate = calculateDueDate(
-      RegDate,
+      new Date(),
       DurationValue,
       DurationUnit
     );
@@ -728,7 +728,7 @@ export const addMember = async (prevState, formData) => {
         nextMemberId,
         Price,
         Price,
-        RegDate,
+        new Date().toISOString().split("T")[0],
         invoiceDueDate,
         lastMemberId[0].Id,
       ],
@@ -736,9 +736,9 @@ export const addMember = async (prevState, formData) => {
 
     console.log("New m_invoice:", m_invoice);
   } catch (err) {
-    console.log("Error inserting new m_invoice:", err);
+    console.error("Error inserting new m_invoice:", err);
     return {
-      message: "Already Exists",
+      message: "Error inserting new m_invoice",
     };
   }
 
@@ -748,8 +748,8 @@ export const addMember = async (prevState, formData) => {
   };
 };
 
-const calculateDueDate = (startDate, durationValue, durationUnit) => {
-  let date = new Date(startDate);
+const calculateDueDate = (regDate, durationValue, durationUnit) => {
+  let date = new Date(regDate);
   switch (durationUnit) {
     case "Days":
       date.setDate(date.getDate() + durationValue);
@@ -768,60 +768,83 @@ const calculateDueDate = (startDate, durationValue, durationUnit) => {
   }
   return date.toISOString().split("T")[0];
 };
+///////////////////////////
+// Need to work on this
+////////////////////////////
+const newDateGene = new Date(calculateDueDate(new Date(), 1, "Days")); // Example usage
 
-const generateInvoicesForDueDate = async () => {
-  const today = new Date().toISOString().split("T")[0];
+console.log(newDateGene);
 
-  // Fetch invoices due today
-  const dueInvoices = await query({
-    query: "SELECT * FROM m_invoice WHERE invoice_duedate = ?",
-    values: [today],
-  });
+schedule.scheduleJob(newDateGene, async function () {
+  const member_id = "M-01";
 
-  if (dueInvoices.length === 0) {
-    console.log(dueInvoices.length);
-    console.log("No invoices due today");
-    return;
-  }
-
-  for (const invoice of dueInvoices) {
-    const { member_id, invoice_amount, m_id } = invoice;
-
-    // Fetch package details
-    const packageDetails = await query({
-      query:
-        "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = (SELECT package_id FROM members WHERE member_id = ?)",
+  try {
+    const m_invoice = await query({
+      query: "INSERT INTO m_invoice (member_id) VALUES (?)",
       values: [member_id],
     });
 
-    if (packageDetails.length === 0) {
-      console.log(`No package details found for member_id: ${member_id}`);
-      continue;
-    }
-
-    const { Price, DurationValue, DurationUnit } = packageDetails[0];
-    const newInvoiceDueDate = calculateDueDate(
-      today,
-      DurationValue,
-      DurationUnit
-    );
-
-    // Insert new invoice
-    await query({
-      query:
-        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
-      values: [member_id, Price, Price, today, newInvoiceDueDate, m_id],
-    });
-
-    console.log(`New invoice created for member_id: ${member_id}`);
+    console.log("New Invoice Generated !", m_invoice);
+  } catch (err) {
+    console.error("Error generating new invoice:", err);
   }
-};
-
-// Schedule the task to run daily at midnight
-cron.schedule("0 0 * * *", () => {
-  console.log("Running cron job to generate invoices for due dates");
-  generateInvoicesForDueDate();
 });
+////////////////////////
+// ..........................................................
+
+// const generateInvoicesForDueDate = async () => {
+//   const today = new Date().toISOString().split("T")[0];
+
+//   // Fetch invoices due today
+//   const dueInvoices = await query({
+//     query: "SELECT * FROM m_invoice WHERE invoice_duedate = ?",
+//     values: [today],
+//   });
+
+//   if (dueInvoices.length === 0) {
+//     console.log(dueInvoices.length);
+//     console.log("No invoices due today");
+//     return;
+//   }
+
+//   for (const invoice of dueInvoices) {
+//     const { member_id, invoice_amount, m_id } = invoice;
+
+//     // Fetch package details
+//     const packageDetails = await query({
+//       query:
+//         "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = (SELECT package_id FROM members WHERE member_id = ?)",
+//       values: [member_id],
+//     });
+
+//     if (packageDetails.length === 0) {
+//       console.log(`No package details found for member_id: ${member_id}`);
+//       continue;
+//     }
+
+//     const { Price, DurationValue, DurationUnit } = packageDetails[0];
+//     const newInvoiceDueDate = calculateDueDate(
+//       today,
+//       DurationValue,
+//       DurationUnit
+//     );
+
+//     // Insert new invoice
+//     await query({
+//       query:
+//         "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
+//       values: [member_id, Price, Price, today, newInvoiceDueDate, m_id],
+//     });
+
+//     console.log(`New invoice created for member_id: ${member_id}`);
+//   }
+// };
+
+// // Schedule the task to run daily at midnight
+// cron.schedule("0 0 * * *", () => {
+//   console.log("Running cron job to generate invoices for due dates");
+//   generateInvoicesForDueDate();
+// });
 
 // ..........................................................
 

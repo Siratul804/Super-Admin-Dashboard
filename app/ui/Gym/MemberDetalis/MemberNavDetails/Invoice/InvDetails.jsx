@@ -53,175 +53,277 @@ const InvDetails = ({
               <h1 className="text-xl text-black">Invoice Details</h1>
               <div>
                 <form method="dialog">
-                  <button className="btn btn-sm btn-circle btn-ghost absolute right-4 text-black">
-                    ✕
-                  </button>
+                  <button className="btn btn-sm btn-circle btn-ghost">✕</button>
                 </form>
               </div>
             </div>
-            <div className="py-3">
-              <hr />
-            </div>
-            <section ref={printRef} className="p-3">
-              {isIdIncluded ? (
-                <>
-                  <section className="gym_info">
-                    {GetGymData.filter((val) => val.id === gym_id_num).map(
-                      (val) => (
-                        <div key={val.id}>
-                          <img
-                            src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
-                            alt="No Img"
-                            className="h-auto w-[10vh] rounded-md"
-                          />
+          </div>
+
+          <section ref={printRef} className="p-3">
+            {isIdIncluded ? (
+              <>
+                <section className="gym_info mb-3">
+                  {GetGymData.filter((val) => val.id === gym_id_num).map(
+                    (val) => (
+                      <div
+                        key={val.id}
+                        className="flex justify-center items-center space-x-4"
+                      >
+                        <img
+                          src={`${process.env.NEXT_PUBLIC_IMG_API_URL}/${val.logo}`}
+                          alt="No Img"
+                          className="h-auto w-20 rounded-md"
+                        />
+                        <span className="font-semibold text-lg">
                           {val.name}
-                        </div>
-                      )
-                    )}
-                  </section>
-                  <div className="py-2">
-                    <hr />
-                  </div>
-                  <div className="main_payment_details flex justify-between">
-                    <div className="one_payment_details">
-                      <section className="py-2">
-                        <b>Invoice</b>
-                        <div className="py-2">
-                          <p>Invoice No: {inv_id} </p>
-                          {isIdIncludedInvoice ? (
-                            <>
-                              {InvoiceData.filter(
-                                (val) => val.id === inv_id_num
-                              ).map((val) => (
-                                <div key={val.id}>
-                                  <p>Date of issue: {val.created_date}</p>
-                                  <p>Due Date: {val.invoice_duedate}</p>
-                                </div>
-                              ))}
-                            </>
-                          ) : (
-                            <>no data</>
-                          )}
-                        </div>
-                      </section>
-                      <section>
-                        <b>Bill To</b>
-                        <div className="py-2">
-                          {MemberSpecificData.map((val) => (
-                            <div key={val.member_id}>
-                              <p>Member Name: {val.name}</p>
-                              <p>Member ID: {val.member_id}</p>
-                              <p>Member Contact: {val.cell_number}</p>
+                        </span>
+                      </div>
+                    )
+                  )}
+                </section>
+
+                <div className="flex flex-col space-y-4">
+                  <section className="one_payment_details w-full">
+                    <h2 className="text-2xl font-bold mb-4">Invoice Details</h2>
+                    <table className="min-w-full bg-white border">
+                      <tbody>
+                        <tr>
+                          <td className="border px-4 py-2 font-semibold">
+                            Invoice No:
+                          </td>
+                          <td className="border px-4 py-2">{inv_id}</td>
+                        </tr>
+                        {isIdIncludedInvoice &&
+                          InvoiceData.filter(
+                            (val) => val.id === inv_id_num
+                          ).map((val) => (
+                            <div key={val.id}>
+                              <tr>
+                                <td className="border px-4 py-2 font-semibold">
+                                  Date of issue:
+                                </td>
+                                <td className="border px-4 py-2">
+                                  {val.created_date}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td className="border px-4 py-2 font-semibold">
+                                  Due Date:
+                                </td>
+                                <td className="border px-4 py-2">
+                                  {val.invoice_duedate}
+                                </td>
+                              </tr>
                             </div>
                           ))}
-                        </div>
-                      </section>
-                      <section>
-                        <b>Description of Service</b>
-                        <div className="py-2">
-                          {MemberSpecificData.map((val) =>
-                            packgaeData.map(
-                              (Package) =>
-                                val.package_id === Package.PackageID && (
-                                  <div key={Package.PackageID}>
-                                    <p>Package Name: {Package.Name}</p>
-                                    <p>
-                                      Package Description: {Package.Description}
-                                    </p>
-                                    <p>Package Price: {Package.Price}</p>
-                                    <p>
-                                      Duration Value: {Package.DurationValue}
-                                    </p>
-                                    <p>Duration Unit: {Package.DurationUnit}</p>
-                                  </div>
-                                )
-                            )
-                          )}
-                        </div>
-                      </section>
-                    </div>
+                      </tbody>
+                    </table>
+                  </section>
 
-                    <div className="two_payment_details">
-                      <section>
-                        <b>Payment Details</b>
-                        <div className="py-2">
-                          {PaymentSpecificData.map(
-                            (val) =>
-                              val.invoice_id === inv_id_num && (
-                                <div key={val.id} className="py-3">
-                                  <p>Pay Date: {val.pay_date}</p>
-                                  <p>Amount Paid: {val.amount}</p>
-                                  <p>Amount Due: {val.amount_due}</p>
-                                  <p>Amount Discount: {val.discount}</p>
-                                  <p>
-                                    Discount Type: {val.invoice_discount_type}
-                                  </p>
-                                  <p>Payment Type: {val.pay_type}</p>
+                  <section className="bill_to w-full">
+                    <h2 className="text-2xl font-bold mb-4">Bill To</h2>
+                    <table className="min-w-full bg-white border">
+                      <tbody>
+                        {MemberSpecificData.map((val) => (
+                          <div key={val.member_id}>
+                            <tr>
+                              <td className="border px-4 py-2 font-semibold">
+                                Member Name:
+                              </td>
+                              <td className="border px-4 py-2">{val.name}</td>
+                            </tr>
+                            <tr>
+                              <td className="border px-4 py-2 font-semibold">
+                                Member ID:
+                              </td>
+                              <td className="border px-4 py-2">
+                                {val.member_id}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="border px-4 py-2 font-semibold">
+                                Member Contact:
+                              </td>
+                              <td className="border px-4 py-2">
+                                {val.cell_number}
+                              </td>
+                            </tr>
+                          </div>
+                        ))}
+                      </tbody>
+                    </table>
+                  </section>
+
+                  <section className="service_description w-full">
+                    <h2 className="text-2xl font-bold mb-4">
+                      Description of Service
+                    </h2>
+                    <table className="min-w-full bg-white border">
+                      <tbody>
+                        {MemberSpecificData.map((val) =>
+                          packgaeData.map(
+                            (Package) =>
+                              val.package_id === Package.PackageID && (
+                                <div key={Package.PackageID}>
+                                  <tr>
+                                    <td className="border px-4 py-2 font-semibold">
+                                      Package Name:
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {Package.Name}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border px-4 py-2 font-semibold">
+                                      Package Description:
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {Package.Description}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border px-4 py-2 font-semibold">
+                                      Package Price:
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {Package.Price}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border px-4 py-2 font-semibold">
+                                      Duration Value:
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {Package.DurationValue}
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="border px-4 py-2 font-semibold">
+                                      Duration Unit:
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                      {Package.DurationUnit}
+                                    </td>
+                                  </tr>
                                 </div>
                               )
-                          )}
-                          {isIdIncludedInvoice ? (
-                            <>
-                              {InvoiceData.filter(
-                                (val) => val.id === inv_id_num
-                              ).map((val) => (
-                                <div key={val.id} className="py-1">
-                                  <p className="py-1">Payment Status:</p>
-                                  {val.invoice_due_amount === val.zero ? (
-                                    <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#22c55e29] text-center rounded-md">
-                                      <p className="text-center text-sm leading-4  font-bold  text-[#118d57]  tracking-wider">
-                                        Paid
-                                      </p>
-                                    </div>
-                                  ) : val.invoice_due_amount ===
-                                    val.invoice_amount ? (
-                                    <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#ff563029] text-center rounded-md">
-                                      <p className="text-center text-sm leading-4  font-bold  text-[#b71d18]  tracking-wider">
-                                        Unpaid
-                                      </p>
-                                    </div>
-                                  ) : (
-                                    <div className=" pl-2 pr-2 pt-1 pb-1 bg-[#f1ff30fa] text-center rounded-md">
-                                      <p className="text-center text-sm leading-4  font-bold  text-[#8d8b11]  tracking-wider">
-                                        PartialPaid
-                                      </p>
-                                    </div>
-                                  )}
-                                </div>
-                              ))}
-                            </>
-                          ) : (
-                            <>no data</>
-                          )}
-                        </div>
-                      </section>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>no data</>
-              )}
-              <div className="py-1">
-                <hr />
-              </div>
-              <div className="py-1">
-                <div>Thanks For Your Membership!</div>
-                {GetGymData.filter((val) => val.id === gym_id_num).map(
-                  (val) => (
-                    <i key={val.id}>{val.name}</i>
-                  )
-                )}
-              </div>
-            </section>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  </section>
 
-            <div className="flex justify-center">
-              <button
-                onClick={handlePrint}
-                className="bg-black text-white h-[6vh] w-auto p-4 sm:p-0 sm:w-[35vh] rounded-md font-bold"
-              >
-                Print
-              </button>
+                  <section className="payment_details w-full">
+                    <h2 className="text-2xl font-bold mb-4">Payment Details</h2>
+                    <table className="min-w-full bg-white border">
+                      <tbody>
+                        {PaymentSpecificData.map(
+                          (val) =>
+                            val.invoice_id === inv_id_num && (
+                              <div key={val.id}>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Pay Date:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.pay_date}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Amount Paid:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.amount}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Amount Due:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.amount_due}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Amount Discount:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.discount}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Discount Type:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.invoice_discount_type}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td className="border px-4 py-2 font-semibold">
+                                    Payment Type:
+                                  </td>
+                                  <td className="border px-4 py-2">
+                                    {val.pay_type}
+                                  </td>
+                                </tr>
+                              </div>
+                            )
+                        )}
+                        {isIdIncludedInvoice &&
+                          InvoiceData.filter(
+                            (val) => val.id === inv_id_num
+                          ).map((val) => (
+                            <tr key={val.id}>
+                              <td className="border px-4 py-2 font-semibold">
+                                Payment Status:
+                              </td>
+                              <td className="border px-4 py-2">
+                                {val.invoice_due_amount === val.zero ? (
+                                  <span className="block bg-green-200 text-green-700 text-center rounded-md py-1">
+                                    Paid
+                                  </span>
+                                ) : val.invoice_due_amount ===
+                                  val.invoice_amount ? (
+                                  <span className="block bg-red-200 text-red-700 text-center rounded-md py-1">
+                                    Unpaid
+                                  </span>
+                                ) : (
+                                  <span className="block bg-yellow-200 text-yellow-700 text-center rounded-md py-1">
+                                    Partial Paid
+                                  </span>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
+                    </table>
+                  </section>
+                </div>
+              </>
+            ) : (
+              <>no data</>
+            )}
+
+            <div className="pt-2 text-center">
+              <div>Thanks For Your Membership!</div>
+              {GetGymData.filter((val) => val.id === gym_id_num).map((val) => (
+                <i key={val.id} className="italic">
+                  {val.name}
+                </i>
+              ))}
             </div>
+          </section>
+
+          <div className="flex justify-center py-0">
+            <button
+              onClick={handlePrint}
+              className="bg-black text-white h-[6vh]  w-[35vh] sm:w-44 rounded-md font-bold transition-transform transform hover:scale-105"
+            >
+              Print
+            </button>
           </div>
         </div>
       </dialog>
