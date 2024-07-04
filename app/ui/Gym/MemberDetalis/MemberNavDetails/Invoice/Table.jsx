@@ -50,9 +50,23 @@ const Table = ({
                 Status
               </th>
 
-              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
-                Pay
-              </th>
+              {paginationInvoiceData
+                .filter((val) => val.m_id === memberId)
+                .reverse()
+                .map((val) => (
+                  <>
+                    {val.invoice_due_amount === val.zero ? (
+                      <></>
+                    ) : (
+                      <>
+                        <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                          Pay
+                        </th>
+                      </>
+                    )}
+                  </>
+                ))}
+
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Details
               </th>
@@ -137,18 +151,26 @@ const Table = ({
                               </div>
                             )}
                           </td>
-                          <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
-                            <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
-                              <AddPayment
-                                inv_id={val.id}
-                                user={user}
-                                inv_due_amount={val.invoice_due_amount}
-                                m_id={id}
-                                PaymentSpecificData={PaymentSpecificData}
-                              />
-                              {/* Need to work on payment which is connected with pay-date & status  */}
-                            </p>
-                          </td>
+
+                          {val.invoice_due_amount === val.zero ? (
+                            <></>
+                          ) : (
+                            <>
+                              <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
+                                  <AddPayment
+                                    inv_id={val.id}
+                                    user={user}
+                                    inv_due_amount={val.invoice_due_amount}
+                                    m_id={id}
+                                    PaymentSpecificData={PaymentSpecificData}
+                                  />
+                                  {/* Need to work on payment which is connected with pay-date & status  */}
+                                </p>
+                              </td>
+                            </>
+                          )}
+
                           <td className="px-9 py-4 whitespace-no-wrap border-b border-gray-200">
                             <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider">
                               {/* In invoice details I would show this invoice_id is paying total payment data (this would help me to find out the specific transation the member has) */}
