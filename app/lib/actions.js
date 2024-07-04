@@ -769,7 +769,7 @@ const calculateDueDate = (regDate, durationValue, durationUnit) => {
   return date.toISOString().split("T")[0];
 };
 ///////////////////////////
-// Need to work on this
+// Need to work on  (invoice generate adil's idea like click button then req in the backend)
 ////////////////////////////
 const newDateGene = new Date(calculateDueDate(new Date(), 1, "Days")); // Example usage
 

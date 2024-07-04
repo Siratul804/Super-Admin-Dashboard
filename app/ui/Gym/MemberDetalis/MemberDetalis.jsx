@@ -174,7 +174,7 @@ const MemberDetalis = ({
               selectedNav === "member_invoice" &&
               "font-bold border-b-2 border-black text-black  "
             }`}
-            onClick={() => setSelectedNav("member_invoice")}
+            onClick={() => setSelectedNav("member_invoice")} // need to add route funtion to check date with renew date
           >
             <p className="py-1 ">
               <LiaFileInvoiceDollarSolid />

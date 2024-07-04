@@ -90,6 +90,9 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
           <div className="">
             <div className="flex justify-between">
               <h1 className="text-xl text-black">Make Payment</h1>
+              <p className="text-red-500 text-sm font-bold flex items-center">
+                Payment Due : {payDue} Taka Only
+              </p>
               <div>
                 <form method="dialog">
                   <button className="btn btn-sm btn-circle btn-ghost absolute right-4 text-black">
@@ -115,9 +118,12 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
                   />
                 </div>
                 <div className="flex justify-between sm:flex-row flex-col">
-                  <main className="pr-1">
+                  <main className="pr-1  ">
                     <label className="label">
-                      <span className="text-[black] text-sm">Payment Due</span>
+                      <span className="text-[black] text-sm">
+                        Amount
+                        <span className="text-[12px]"> (can be modified) </span>
+                      </span>
                     </label>
                     <input
                       type="number"
@@ -187,7 +193,8 @@ const AddPayment = ({ inv_id, user, inv_due_amount, m_id }) => {
                   <main className="pr-1">
                     <label className="label">
                       <span className="text-[black] text-sm">
-                        Amount to pay
+                        Final Amount{" "}
+                        <span className="text-[12px]">(include discount)</span>
                       </span>
                     </label>
                     <input
