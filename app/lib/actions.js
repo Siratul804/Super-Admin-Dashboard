@@ -13,7 +13,7 @@ import { signOut } from "@/app/auth";
 
 // import schedule from "node-schedule";
 
-const schedule = require("node-schedule");
+// const schedule = require("node-schedule");
 
 export const test = async (checkedItems, username, description) => {
   // console.log(checkedItems);
@@ -671,9 +671,25 @@ export const addMember = async (prevState, formData) => {
 
     const RegDate = new Date().toISOString().split("T")[0];
 
+    const packageDetails = await query({
+      query:
+        "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = ?",
+      values: [package_id],
+    });
+
+    const { DurationValue, DurationUnit } = packageDetails[0];
+
+    console.log("Package details:", packageDetails[0]);
+
+    const invoiceDueDate = calculateDueDate(
+      new Date(),
+      DurationValue,
+      DurationUnit
+    );
+
     const newMember = await query({
       query:
-        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, photo, reg_date, start_date, gym_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        "INSERT INTO members (package_id, member_id, name, cell_number, gender, blood_group, photo, reg_date, start_date, gym_id, renew_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       values: [
         package_id,
         nextMemberId,
@@ -685,6 +701,7 @@ export const addMember = async (prevState, formData) => {
         RegDate,
         RegDate,
         gym_id,
+        invoiceDueDate,
       ],
     });
 
@@ -771,82 +788,60 @@ const calculateDueDate = (regDate, durationValue, durationUnit) => {
 ///////////////////////////
 // Need to work on  (invoice generate adil's idea like click button then req in the backend)
 ////////////////////////////
-const newDateGene = new Date(calculateDueDate(new Date(), 1, "Days")); // Example usage
 
-console.log(newDateGene);
-
-schedule.scheduleJob(newDateGene, async function () {
-  const member_id = "M-01";
+export const InvGenReq = async (gym_id, member_id, m_id, package_id) => {
+  console.log(gym_id, member_id, m_id, package_id);
 
   try {
-    const m_invoice = await query({
-      query: "INSERT INTO m_invoice (member_id) VALUES (?)",
-      values: [member_id],
+    const packageDetails = await query({
+      query:
+        "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = ?",
+      values: [package_id],
     });
 
-    console.log("New Invoice Generated !", m_invoice);
+    const { Price, DurationValue, DurationUnit } = packageDetails[0];
+
+    console.log("Package details:", packageDetails[0]);
+
+    const invoiceDueDate = calculateDueDate(
+      new Date(),
+      DurationValue,
+      DurationUnit
+    );
+
+    const m_invoice = await query({
+      query:
+        "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
+      values: [
+        member_id,
+        Price,
+        Price,
+        new Date().toISOString().split("T")[0],
+        invoiceDueDate,
+        m_id,
+      ],
+    });
+
+    const updateRenewDate = await query({
+      query: "UPDATE members SET  renew_date = ? WHERE Id = ?",
+      values: [invoiceDueDate, m_id],
+    });
+
+    console.log(updateRenewDate);
+
+    console.log("New m_invoice:", m_invoice);
   } catch (err) {
-    console.error("Error generating new invoice:", err);
+    console.error("Error inserting new m_invoice:", err);
+    return {
+      message: "Error inserting new m_invoice",
+    };
   }
-});
-////////////////////////
-// ..........................................................
 
-// const generateInvoicesForDueDate = async () => {
-//   const today = new Date().toISOString().split("T")[0];
-
-//   // Fetch invoices due today
-//   const dueInvoices = await query({
-//     query: "SELECT * FROM m_invoice WHERE invoice_duedate = ?",
-//     values: [today],
-//   });
-
-//   if (dueInvoices.length === 0) {
-//     console.log(dueInvoices.length);
-//     console.log("No invoices due today");
-//     return;
-//   }
-
-//   for (const invoice of dueInvoices) {
-//     const { member_id, invoice_amount, m_id } = invoice;
-
-//     // Fetch package details
-//     const packageDetails = await query({
-//       query:
-//         "SELECT Price, DurationValue, DurationUnit FROM Package WHERE PackageID = (SELECT package_id FROM members WHERE member_id = ?)",
-//       values: [member_id],
-//     });
-
-//     if (packageDetails.length === 0) {
-//       console.log(`No package details found for member_id: ${member_id}`);
-//       continue;
-//     }
-
-//     const { Price, DurationValue, DurationUnit } = packageDetails[0];
-//     const newInvoiceDueDate = calculateDueDate(
-//       today,
-//       DurationValue,
-//       DurationUnit
-//     );
-
-//     // Insert new invoice
-//     await query({
-//       query:
-//         "INSERT INTO m_invoice (member_id, invoice_amount, invoice_due_amount, created_date, invoice_duedate, m_id) VALUES (?,?,?,?,?,?)",
-//       values: [member_id, Price, Price, today, newInvoiceDueDate, m_id],
-//     });
-
-//     console.log(`New invoice created for member_id: ${member_id}`);
-//   }
-// };
-
-// // Schedule the task to run daily at midnight
-// cron.schedule("0 0 * * *", () => {
-//   console.log("Running cron job to generate invoices for due dates");
-//   generateInvoicesForDueDate();
-// });
-
-// ..........................................................
+  revalidatePath("/dashboard/gym/memberDetails");
+  return {
+    message: "Invoice Added",
+  };
+};
 
 // END //
 

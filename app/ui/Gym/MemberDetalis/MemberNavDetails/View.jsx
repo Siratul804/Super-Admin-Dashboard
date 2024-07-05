@@ -58,7 +58,8 @@ const View = ({ MemberSpecificData, packgaeData }) => {
                           {val.PackageID === id_num ? (
                             <>
                               <p>
-                                {val.Name} - {val.DurationUnit} -
+                                {val.Name} - {val.DurationUnit} -{" "}
+                                {val.DurationValue} -{" "}
                                 {parseFloat(val.Price).toFixed(0)} Taka
                               </p>
                             </>

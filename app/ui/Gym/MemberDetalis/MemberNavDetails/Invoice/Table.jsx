@@ -52,7 +52,7 @@ const Table = ({
                 Status
               </th>
 
-              {paginationInvoiceData
+              {/* {paginationInvoiceData
                 .filter((val) => val.m_id === memberId)
                 .reverse()
                 .map((val) => (
@@ -67,7 +67,11 @@ const Table = ({
                       </>
                     )}
                   </>
-                ))}
+                ))} */}
+
+              <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
+                Pay
+              </th>
 
               <th className="px-6 py-3 bg-slate-100 text-left text-md leading-4 font-medium text-gray-600 tracking-wider">
                 Details
@@ -155,7 +159,11 @@ const Table = ({
                           </td>
 
                           {val.invoice_due_amount === val.zero ? (
-                            <></>
+                            <>
+                              <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">
+                                <p className="text-left text-sm leading-4 font-medium text-black  tracking-wider"></p>
+                              </td>
+                            </>
                           ) : (
                             <>
                               <td className="px-5 py-4 whitespace-no-wrap border-b border-gray-200">

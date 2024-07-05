@@ -13,6 +13,8 @@ import Package from "./MemberNavDetails/Package";
 import { LiaFileInvoiceDollarSolid } from "react-icons/lia";
 import { LuPackagePlus } from "react-icons/lu";
 
+import { InvGenReq } from "@/app/lib/actions";
+
 const MemberDetalis = ({
   MemberSpecificData,
   id,
@@ -24,6 +26,8 @@ const MemberDetalis = ({
   GetGymData,
 }) => {
   const [selectedNav, setSelectedNav] = useState("view_member"); // State to track the selected navbar item
+
+  const nowDate = new Date().toISOString().split("T")[0];
 
   const renderNavContent = () => {
     switch (selectedNav) {
@@ -169,18 +173,49 @@ const MemberDetalis = ({
           {/* Add more navbar items with similar structure */}
           <div className="pl-4"></div>
           {/* Add more navbar items with similar structure */}
-          <div
-            className={`text-md flex  cursor-pointer font-bold ${
-              selectedNav === "member_invoice" &&
-              "font-bold border-b-2 border-black text-black  "
-            }`}
-            onClick={() => setSelectedNav("member_invoice")} // need to add route funtion to check date with renew date
-          >
-            <p className="py-1 ">
-              <LiaFileInvoiceDollarSolid />
-            </p>
-            <p className="pl-1">Invoice List</p>
-          </div>
+          {MemberSpecificData.map((val) => (
+            <>
+              {new Date(val.renew_date) >= new Date(nowDate) ? (
+                <>
+                  <div
+                    className={`text-md flex  cursor-pointer font-bold ${
+                      selectedNav === "member_invoice" &&
+                      "font-bold border-b-2 border-black text-black  "
+                    }`}
+                    onClick={() =>
+                      setSelectedNav("member_invoice") ||
+                      InvGenReq(
+                        val.gym_id,
+                        val.member_id,
+                        val.Id,
+                        val.package_id
+                      )
+                    } // need to add route funtion to check date with renew date
+                  >
+                    <p className="py-1 ">
+                      <LiaFileInvoiceDollarSolid />
+                    </p>
+                    <p className="pl-1">Invoice List</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div
+                    className={`text-md flex  cursor-pointer font-bold ${
+                      selectedNav === "member_invoice" &&
+                      "font-bold border-b-2 border-black text-black  "
+                    }`}
+                    onClick={() => setSelectedNav("member_invoice")} // need to add route funtion to check date with renew date
+                  >
+                    <p className="py-1 ">
+                      <LiaFileInvoiceDollarSolid />
+                    </p>
+                    <p className="pl-1">Invoice List</p>
+                  </div>
+                </>
+              )}
+            </>
+          ))}
 
           {/* Add more navbar items with similar structure */}
           <div className="pl-4"></div>
